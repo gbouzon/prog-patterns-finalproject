@@ -23,10 +23,43 @@
  */
 package limitedlibrarymanagementsystem;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 /**
- *
- * @author Chilka Castro
+ * A Database Connection class for the Library Database
+ * @author Chilka Castro and Giuliana Bouzon
  */
-public class DBConnection {
-    
+public class DBConnection {  //APPLY SINGLETON IN THIS CLASS
+
+    private static Connection connectionInstance;
+
+    /**
+     * A method that establishes a connection to database by obtaining          
+     * a Connection object
+     *
+     * @return a Connection (Database Connection)
+     * @throws Exception exception caught(SQL Exception)
+     */
+    private static Connection getConnection() throws Exception {                
+        Class.forName("org.sqlite.JDBC");                                       
+
+        String url = "jdbc:sqlite:C:\\SQlite\\databases\\library.db";           
+        Connection connection = DriverManager.getConnection(url);
+
+        return connection;
+    }
+
+    /**
+     * A method that creates a connectionInstance but if the connectionInstance
+     * already exists then just return that connectionInstance.
+     *
+     * @throws Exception exception caught(SQL Exception)
+     */
+    public static Connection getSingleInstance() throws Exception { 
+        if (connectionInstance == null) 
+            connectionInstance = getConnection();
+        
+        return connectionInstance;
+    }
 }
