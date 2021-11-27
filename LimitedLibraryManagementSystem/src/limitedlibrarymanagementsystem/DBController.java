@@ -23,10 +23,75 @@
  */
 package limitedlibrarymanagementsystem;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 /**
  *
  * @author Chilka Castro
  */
+
 public class DBController {
+    private ArrayList<Book> booksModel;
+    private Student studentModel;      
+    private View view;
+    private DBConnection connection;    
+
+    public DBController(ArrayList<Book> booksModel, Student studentModel, View view, DBConnection connection) {
+        this.booksModel = booksModel;
+        this.studentModel = studentModel;
+        this.view = view;
+        this.connection = connection;
+    }
     
+    // methods from Book class (Librarian access)
+    public void librarianAddBook(Book book) {
+        
+    }
+    
+    public Boolean librarianIssueBook(Book book, Student student) {
+        return false; // call book method
+    }
+    
+    public Boolean librarianReturnBook(Book book, Student student) {
+        return false;
+    }
+    
+    //shared access by librarian and student
+    public Map<String, String> viewCatalog() {
+    //    return null;  //call viewCatalog() of Book class
+          return IViewable.viewCatalog();
+    }
+    
+    // librarian access only
+    public static Map<String, String> viewIssuedBooks() {
+        return Book.viewIssuedBooks(); // static method
+    }
+    
+    // student 
+    
+    public <List>Book searchBookByTitle(String title) {
+        return null;
+    }
+    
+    public <List>Book searchBookByPublisher(String name) {
+        return null;
+    }
+    
+    public Boolean borrow(Book book) {
+        return false;
+    }
+    
+    public Boolean toReturn(Book book) {
+        return false;
+    }
+    
+    // there could be many view methods
+    public void updateViewIssuedTable(Map map) {
+       view.printIssuedBookTable(viewIssuedBooks());    //viewIssuedBooks() -> is a returned map
+    }
+    
+    public void updateViewCatalog(Map map) {
+        view.printBookCatalog(viewCatalog());           // viewCatalog() -> is a returned map    
+    }
 }

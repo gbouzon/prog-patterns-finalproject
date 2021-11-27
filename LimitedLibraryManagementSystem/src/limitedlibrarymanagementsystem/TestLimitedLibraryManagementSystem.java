@@ -24,16 +24,16 @@
 package limitedlibrarymanagementsystem;
 
 /**
- *
- * @author Chilka Castro
+ * A Driver class for the Limited Library Management System
+ * @author Chilka Castro and Giuliana Bouzon
  */
-public class LimitedLibraryManagementSystem {
+public class TestLimitedLibraryManagementSystem{
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       // IViewable.viewCatalog();
     }
     
 }

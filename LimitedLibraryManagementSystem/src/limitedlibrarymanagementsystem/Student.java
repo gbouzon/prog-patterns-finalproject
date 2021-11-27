@@ -30,7 +30,7 @@ import java.util.Map;
  *
  * @author Chilka Castro
  */
-public class Student {
+public class Student implements IViewable {
     private String studentID;
     private String name;
     private String contactNum;
@@ -94,7 +94,7 @@ public class Student {
      * @return 
      */
     public Map<String, String> viewCatalog() {
-        return null;
+        return IViewable.viewCatalog();
     }
     
     /**

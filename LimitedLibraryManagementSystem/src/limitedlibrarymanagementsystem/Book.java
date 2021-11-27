@@ -28,11 +28,12 @@ import java.util.Map;
 
 /**
  *
- * 
+ *
  * @author Chilka Castro and Giuliana Bouzon
  */
-public class Book {
-    private String bookSN; 
+public class Book implements IViewable {                                        // IViewable has static viewCatalog method
+
+    private String bookSN;
     private String title;
     private String author;
     private String publisher;
@@ -43,16 +44,17 @@ public class Book {
 
     /**
      * Constructor with all data members
+     *
      * @param bookSN the serial number of the book (primary key)
      * @param title the title of the book
      * @param author the author of the book
      * @param publisher the publisher of the book
      * @param price the price of the book
-     * @param bookQuantity the quantity of the book 
+     * @param bookQuantity the quantity of the book
      * @param issuedQuantity the issued quantity of the book
      * @param purchaseDate the date of purchase of the book
      */
-    public Book(String bookSN, String title, String author, String publisher, 
+    public Book(String bookSN, String title, String author, String publisher,
             double price, int bookQuantity, int issuedQuantity, Date purchaseDate) {
         this.bookSN = bookSN;
         this.title = title;
@@ -66,12 +68,13 @@ public class Book {
 
     /**
      * Generates a String that represents a book object
+     *
      * @return a String that represents a book object
      */
     @Override
     public String toString() {
         String str = "";
-        
+
         str += String.format("%-10s : %s\n", "SN", bookSN);
         str += String.format("%-10s : %s\n", "Title", title);
         str += String.format("%-10s : %s\n", "Author", author);
@@ -80,68 +83,71 @@ public class Book {
         str += String.format("%-10s : %d\n", "Quantity", bookQuantity);
         str += String.format("%-10s : %d\n", "Issued Quantity", issuedQuantity);
         str += String.format("%-10s : %s\n", "Date of Purchase", purchaseDate);
- 
+
         return str;
     }
 
     /**
-     * Creates a new entry in the books table, adds a new book to the catalog, 
+     * Creates a new entry in the books table, adds a new book to the catalog,
      * and sets "Issued" attribute to zero and adddedDate to the current date.
-     * 
-     * @param book 
+     *
+     * @param book
      */
     public void addBook(Book book) {
-        
+
     }
-    
+
     /**
      * Issues a book to a student(student information would be verified first)
+     *
      * @param book
      * @param student
-     * @return 
+     * @return
      */
     public boolean issueBook(Book book, Student student) {               // attached to borrow book of Student class
         return false;
     }
-    
-  
+
     /**
-     * 
-     * 	returnBook(b:Book, s:Student) and toReturn(b:Book): To return a book,      
-     * check first if an entry in the issuedBooks table about the book and the 
-     * student exists that will verify the studentID. The number of copies 
-     * “Quantity” will be increased by one and the number of copies issued 
-     * will be decreased by one. The corresponding record in IssuedBooks 
-     * table is deleted from the table. The two methods return true if the
-     * book was successfully returned.
+     *
+     * returnBook(b:Book, s:Student) and toReturn(b:Book): To return a book,
+     * check first if an entry in the issuedBooks table about the book and the
+     * student exists that will verify the studentID. The number of copies
+     * “Quantity” will be increased by one and the number of copies issued will
+     * be decreased by one. The corresponding record in IssuedBooks table is
+     * deleted from the table. The two methods return true if the book was
+     * successfully returned.
+     *
      * @param book
      * @param student
-     * @return 
+     * @return
      */
     public boolean returnBook(Book book, Student student) {                     // toReturn() method of Student associated with each other
         return false;
     }
-    
+
     /**
-     * 
-     * This method returns a map containing all data retrieved from  the Books table.
-     * The key in the map is “SN”. All books should be sorted by “SN”. 
+     *
+     * This method returns a map containing all data retrieved from the Books
+     * table. The key in the map is “SN”. All books should be sorted by “SN”.
      * Use the appropriate formatting for the date and currency.
-     * @return 
+     *
+     * @return
      */
     public static Map<String, String> viewCatalog() {
-       return null;
+       return IViewable.viewCatalog();
     }
-    
+
     /**
-     * Retrieves all data from IssuedBooks table and returns them as a Map.
-     * The map is sorted by “SN”.
-     * @return 
+     * Retrieves all data from IssuedBooks table and returns them as a Map. The
+     * map is sorted by “SN”.
+     *
+     * @return
      */
-    public static  Map<String, String> viewIssuedBooks() {
-        return null;
+    public static Map<String, String> viewIssuedBooks() {
+        return null; // view ISSUEDBOOKS or Library Data
     }
-    
+
     // getters and setters
     public String getBookSN() {
         return bookSN;
@@ -206,4 +212,5 @@ public class Book {
     public void setPurchaseDate(Date purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
+
 }
