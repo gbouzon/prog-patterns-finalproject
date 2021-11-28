@@ -25,15 +25,30 @@ package limitedlibrarymanagementsystem;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.regex.Pattern;
 
 /**
  *
  * @author Chilka Castro
  */
 public class Student {
+    
+    //properties
     private String studentID;
     private String name;
     private String contactNum;
+    
+    //for proofing input
+    static final String ID_REGEX = "[0-9]{7}"; //id must be 7 digits long
+    static final String CONTACT_REGEX = "[0-9]{10, 20}"; //number must be between 10 and 20 digits and comprise of ONLY digits
+    static final String NAME_REGEX = "^[A-Za-z-\s]{1, 50}$"; //only letters 1 - 50, allows whitespace and dashes 
+    //Pattern.matches(nameRegex, name) -> to use for pattern matchingS
+    
+    //default constructor
+    public Student() {
+	this("0000000", "noName", "5141234567"); //just for testing and debugging purposes
+    }
 
     /**
      * Constructor with all data members
@@ -42,9 +57,33 @@ public class Student {
      * @param contactNum the contact number of the student
      */
     public Student(String studentID, String name, String contactNum) {
-        this.studentID = studentID;
-        this.name = name;
-        this.contactNum = contactNum;
+        this.studentID = (Pattern.matches(ID_REGEX, studentID)) ? studentID : "0000000";
+        this.name = (Pattern.matches(NAME_REGEX, name)) ? name : "noName";
+        this.contactNum = (Pattern.matches(CONTACT_REGEX, contactNum)) ? contactNum : "5141234567";
+    }
+    
+    //copy constructor
+    public Student(Student student) {
+	this(student.studentID, student.name, student.contactNum);
+    }
+
+    
+    @Override
+    public int hashCode() {
+	return Objects.hash(contactNum, name, studentID);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Student other = (Student) obj;
+	return Objects.equals(contactNum, other.contactNum) && Objects.equals(name, other.name)
+		&& Objects.equals(studentID, other.studentID);
     }
 
     /**
@@ -131,12 +170,14 @@ public class Student {
    
     
     // getters and setters
+    
     public String getStudentID() {
         return studentID;
     }
 
     public void setStudentID(String studentID) {
-        this.studentID = studentID;
+	if (Pattern.matches(ID_REGEX, studentID))
+	    this.studentID = studentID;
     }
 
     public String getName() {
@@ -144,7 +185,8 @@ public class Student {
     }
 
     public void setName(String name) {
-        this.name = name;
+	if (Pattern.matches(NAME_REGEX, name))
+	    this.name = name;
     }
 
     public String getContactNum() {
@@ -152,6 +194,7 @@ public class Student {
     }
 
     public void setContactNum(String contactNum) {
-        this.contactNum = contactNum;
+	if (Pattern.matches(CONTACT_REGEX, contactNum))
+	    this.contactNum = contactNum;
     }   
 }
