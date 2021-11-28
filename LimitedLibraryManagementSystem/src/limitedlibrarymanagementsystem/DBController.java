@@ -59,8 +59,7 @@ public class DBController {
     
     //shared access by librarian and student
     public Map<String, String> viewCatalog() {
-    //    return null;  //call viewCatalog() of Book class
-          return IViewable.viewCatalog();
+        return Book.viewCatalog();
     }
     
     // librarian access only

@@ -23,6 +23,7 @@
  */
 package limitedlibrarymanagementsystem;
 
+import com.sun.jdi.connect.spi.Connection;
 import java.util.Date;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ import java.util.Map;
  *
  * @author Chilka Castro and Giuliana Bouzon
  */
-public class Book implements IViewable {                                        // IViewable has static viewCatalog method
+public class Book {                                        // IViewable has static viewCatalog method
 
     private String bookSN;
     private String title;
@@ -135,7 +136,8 @@ public class Book implements IViewable {                                        
      * @return
      */
     public static Map<String, String> viewCatalog() {
-       return IViewable.viewCatalog();
+    //   Connection connection = (Connection) DBConnection.getConnectionInstance();  UNCOMMENT THIS
+       return null;
     }
 
     /**
