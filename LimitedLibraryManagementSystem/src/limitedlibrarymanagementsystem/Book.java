@@ -24,16 +24,19 @@
 package limitedlibrarymanagementsystem;
 
 import com.sun.jdi.connect.spi.Connection;
-import java.util.Date;
+
+import java.time.LocalDate;
 import java.util.Map;
+import java.util.Objects;
 
 /**
- *
- *
+ * Defines Book objects according to project problem statement.
+ * Programming Patterns - Fall 2021 - Final Project.
  * @author Chilka Castro and Giuliana Bouzon
  */
 public class Book {                                        // IViewable has static viewCatalog method
 
+    //properties
     private String bookSN;
     private String title;
     private String author;
@@ -41,7 +44,15 @@ public class Book {                                        // IViewable has stat
     private double price;
     private int bookQuantity;
     private int issuedQuantity;
-    private Date purchaseDate;
+    private LocalDate purchaseDate;
+    
+    //the default we chose: no date can be before this
+    private static final LocalDate DEFAULT_DATE = LocalDate.of(2010, 1, 1);
+    
+    //default constructor
+    public Book() { //just for testing, not actually going to be called within the application
+    	this("noSN", "noTitle", "noAuthor", "noPublisher", 0.0, 0, 0, LocalDate.of(2010, 1, 1)); //default value set to jan 1st 2010
+    }
 
     /**
      * Constructor with all data members
@@ -56,15 +67,44 @@ public class Book {                                        // IViewable has stat
      * @param purchaseDate the date of purchase of the book
      */
     public Book(String bookSN, String title, String author, String publisher,
-            double price, int bookQuantity, int issuedQuantity, Date purchaseDate) {
-        this.bookSN = bookSN;
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
-        this.price = price;
-        this.bookQuantity = bookQuantity;
-        this.issuedQuantity = issuedQuantity;
-        this.purchaseDate = purchaseDate;
+            double price, int bookQuantity, int issuedQuantity, LocalDate purchaseDate) {
+        this.bookSN = (bookSN != null && !bookSN.isEmpty()) ? bookSN : "noSN";
+        this.title = (title != null && !title.isEmpty()) ? title : "noTitle";
+        this.author = (author != null && !author.isEmpty()) ? author : "noAuthor";
+        this.publisher = (publisher != null && !publisher.isEmpty()) ? publisher : "noPublisher";
+        this.price = (price > 0) ? price : 0;
+        this.bookQuantity = (bookQuantity > 0) ? bookQuantity : 0;
+        this.issuedQuantity = (issuedQuantity > 0) ? issuedQuantity : 0;
+        this.purchaseDate = (purchaseDate.isAfter(DEFAULT_DATE)) ? purchaseDate : DEFAULT_DATE;
+        
+    }
+    
+    //copy constructor
+    public Book(Book book) {
+	this(book.bookSN, book.title, book.author, book.publisher, book.price, book.bookQuantity, 
+		book.issuedQuantity, book.purchaseDate);
+    }
+    
+
+    @Override
+    public int hashCode() {
+	return Objects.hash(author, bookQuantity, bookSN, issuedQuantity, price, publisher, purchaseDate, title);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Book other = (Book) obj;
+	return Objects.equals(author, other.author) && bookQuantity == other.bookQuantity
+		&& Objects.equals(bookSN, other.bookSN) && issuedQuantity == other.issuedQuantity
+		&& Double.doubleToLongBits(price) == Double.doubleToLongBits(other.price)
+		&& Objects.equals(publisher, other.publisher) && Objects.equals(purchaseDate, other.purchaseDate)
+		&& Objects.equals(title, other.title);
     }
 
     /**
@@ -83,7 +123,7 @@ public class Book {                                        // IViewable has stat
         str += String.format("%-10s : %.2f\n", "Price", price);
         str += String.format("%-10s : %d\n", "Quantity", bookQuantity);
         str += String.format("%-10s : %d\n", "Issued Quantity", issuedQuantity);
-        str += String.format("%-10s : %s\n", "Date of Purchase", purchaseDate);
+        str += String.format("%-10s : %s\n", "Date of Purchase", purchaseDate.toString());
 
         return str;
     }
@@ -156,7 +196,8 @@ public class Book {                                        // IViewable has stat
     }
 
     public void setBookSN(String bookSN) {
-        this.bookSN = bookSN;
+	if (bookSN != null && !bookSN.isEmpty())
+	    this.bookSN = bookSN;
     }
 
     public String getTitle() {
@@ -164,7 +205,8 @@ public class Book {                                        // IViewable has stat
     }
 
     public void setTitle(String title) {
-        this.title = title;
+	if (title != null && !title.isEmpty())
+	    this.title = title;
     }
 
     public String getAuthor() {
@@ -172,7 +214,8 @@ public class Book {                                        // IViewable has stat
     }
 
     public void setAuthor(String author) {
-        this.author = author;
+	if (author != null && !author.isEmpty())
+	    this.author = author;
     }
 
     public String getPublisher() {
@@ -180,7 +223,8 @@ public class Book {                                        // IViewable has stat
     }
 
     public void setPublisher(String publisher) {
-        this.publisher = publisher;
+	if (publisher != null && !publisher.isEmpty())
+	    this.publisher = publisher;
     }
 
     public double getPrice() {
@@ -188,7 +232,8 @@ public class Book {                                        // IViewable has stat
     }
 
     public void setPrice(double price) {
-        this.price = price;
+	if (price > 0)
+	    this.price = price;
     }
 
     public int getBookQuantity() {
@@ -196,7 +241,8 @@ public class Book {                                        // IViewable has stat
     }
 
     public void setBookQuantity(int bookQuantity) {
-        this.bookQuantity = bookQuantity;
+	if (bookQuantity > 0)
+	    this.bookQuantity = bookQuantity;
     }
 
     public int getIssuedQuantity() {
@@ -204,15 +250,16 @@ public class Book {                                        // IViewable has stat
     }
 
     public void setIssuedQuantity(int issuedQuantity) {
-        this.issuedQuantity = issuedQuantity;
+	if (issuedQuantity > 0)
+	    this.issuedQuantity = issuedQuantity;
     }
 
-    public Date getPurchaseDate() {
+    public LocalDate getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(Date purchaseDate) {
-        this.purchaseDate = purchaseDate;
+    public void setPurchaseDate(LocalDate purchaseDate) {
+	if (this.purchaseDate.isAfter(DEFAULT_DATE))
+	    this.purchaseDate = purchaseDate;
     }
-
 }
