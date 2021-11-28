@@ -41,8 +41,8 @@ public class Student {
     
     //for proofing input
     static final String ID_REGEX = "[0-9]{7}"; //id must be 7 digits long
-    static final String CONTACT_REGEX = "[0-9]{10, 20}"; //number must be between 10 and 20 digits and comprise of ONLY digits
-    static final String NAME_REGEX = "^[A-Za-z-\s]{1, 50}$"; //only letters 1 - 50, allows whitespace and dashes 
+    static final String CONTACT_REGEX = "[0-9]{10,20}"; //number must be between 10 and 20 digits and comprise of ONLY digits
+    static final String NAME_REGEX = "^[A-Za-z-\\s]{1,50}$"; //only letters 1 - 50, allows whitespace and dashes 
     //Pattern.matches(nameRegex, name) -> to use for pattern matchingS
     
     //default constructor
@@ -102,35 +102,37 @@ public class Student {
     }
     
     /**
-     * 
-     * @param title
-     * @return 
+     * Search the book by its title
+     * @param title the title of the book
+     * @return a list of book
      */
     public List<Book> searchBookByTitle(String title) {
         return null;
     }
     
     /**
-     * 
-     * @param name
-     * @return 
+     * Search the book by its author's name
+     * @param name the name of the author 
+     * @return a list of book written by the author
      */
-    public List<Book> searchBookByName(String name) {
+    public List<Book> searchBookByAuthorName(String authorName) {
         return null;
     }
     
     /**
-     * 
-     * @param year
-     * @return 
+     * Search the book by its publisher
+     * @param publisher the publisher of the book
+     * @return a list of book
      */
-    public List<Book> searchBookByPublisher(String year) {
+    public List<Book> searchBookByPublisher(String publisher) {
         return null;
     }
    
     /**
-     * 
-     * @return 
+     * This method returns a map containing all data retrieved from the Books table. 
+     * The key in the map is “SN”. All books should be sorted by “SN”.
+     * Use the appropriate formatting for the date and currency.
+     * @return a map of book
      */
     public Map<String, String> viewCatalog() {
        Book.viewCatalog();
@@ -168,7 +170,6 @@ public class Student {
         return false;
     }
    
-    
     // getters and setters
     
     public String getStudentID() {

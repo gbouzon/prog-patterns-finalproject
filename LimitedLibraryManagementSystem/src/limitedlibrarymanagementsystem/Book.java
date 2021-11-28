@@ -24,6 +24,8 @@
 package limitedlibrarymanagementsystem;
 
 import com.sun.jdi.connect.spi.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -44,14 +46,14 @@ public class Book {
     private double price;
     private int bookQuantity;
     private int issuedQuantity;
-    private LocalDate purchaseDate;
+    private LocalDate addedDate;
     
     //the default we chose: no date can be before this
     private static final LocalDate DEFAULT_DATE = LocalDate.of(2010, 1, 1);
     
     //default constructor
     public Book() { //just for testing, not actually going to be called within the application
-    	this("noSN", "noTitle", "noAuthor", "noPublisher", 0.0, 0, 0, LocalDate.of(2010, 1, 1)); //default value set to jan 1st 2010
+    	this("noSN", "noTitle", "noAuthor", "noPublisher", 0, 0.0, LocalDate.of(2010, 1, 1)); //default value set to jan 1st 2010
     }
 
     /**
@@ -67,28 +69,28 @@ public class Book {
      * @param purchaseDate the date of purchase of the book
      */
     public Book(String bookSN, String title, String author, String publisher,
-            double price, int bookQuantity, int issuedQuantity, LocalDate purchaseDate) {
+            int bookQuantity, double price, LocalDate purchaseDate) {
         this.bookSN = (bookSN != null && !bookSN.isEmpty()) ? bookSN : "noSN";
         this.title = (title != null && !title.isEmpty()) ? title : "noTitle";
         this.author = (author != null && !author.isEmpty()) ? author : "noAuthor";
         this.publisher = (publisher != null && !publisher.isEmpty()) ? publisher : "noPublisher";
         this.price = (price > 0) ? price : 0;
         this.bookQuantity = (bookQuantity > 0) ? bookQuantity : 0;
-        this.issuedQuantity = (issuedQuantity > 0) ? issuedQuantity : 0;
-        this.purchaseDate = (purchaseDate.isAfter(DEFAULT_DATE)) ? purchaseDate : DEFAULT_DATE;
+        this.issuedQuantity = 0; //(issuedQuantity > 0) ? issuedQuantity : 0;
+        this.addedDate = (purchaseDate.isAfter(DEFAULT_DATE)) ? purchaseDate : DEFAULT_DATE;
         
     }
     
     //copy constructor
     public Book(Book book) {
-	this(book.bookSN, book.title, book.author, book.publisher, book.price, book.bookQuantity, 
-		book.issuedQuantity, book.purchaseDate);
+	this(book.bookSN, book.title, book.author, book.publisher,  
+                book.bookQuantity, book.price,book.addedDate);
     }
     
 
     @Override
     public int hashCode() {
-	return Objects.hash(author, bookQuantity, bookSN, issuedQuantity, price, publisher, purchaseDate, title);
+	return Objects.hash(author, bookQuantity, bookSN, issuedQuantity, price, publisher, addedDate, title);
     }
 
     @Override
@@ -103,7 +105,7 @@ public class Book {
 	return Objects.equals(author, other.author) && bookQuantity == other.bookQuantity
 		&& Objects.equals(bookSN, other.bookSN) && issuedQuantity == other.issuedQuantity
 		&& Double.doubleToLongBits(price) == Double.doubleToLongBits(other.price)
-		&& Objects.equals(publisher, other.publisher) && Objects.equals(purchaseDate, other.purchaseDate)
+		&& Objects.equals(publisher, other.publisher) && Objects.equals(addedDate, other.addedDate)
 		&& Objects.equals(title, other.title);
     }
 
@@ -123,7 +125,7 @@ public class Book {
         str += String.format("%-10s : %.2f\n", "Price", price);
         str += String.format("%-10s : %d\n", "Quantity", bookQuantity);
         str += String.format("%-10s : %d\n", "Issued Quantity", issuedQuantity);
-        str += String.format("%-10s : %s\n", "Date of Purchase", purchaseDate.toString());
+        str += String.format("%-10s : %s\n", "Date of Purchase", addedDate.toString());
 
         return str;
     }
@@ -134,8 +136,18 @@ public class Book {
      *
      * @param book
      */
-    public void addBook(Book book) {
+    public void addBook(Book book) throws Exception {
+        String query = "INSERT into BOOK(SN,Title,Author,Publisher,Quantity,"
+                + "Price,IssuedQuantity,AddedDate) VALUES(" + "'" + book.bookSN + "," 
+                + "'" + book.title + "'" + "," + "'" + book.author + "'" + "," + "'" 
+                + book.publisher + "'" + "," + book.bookQuantity + "," 
+                + book.price + "," + book.issuedQuantity + "," + "'" + book.addedDate + ")";
+                
+        DBConnection.getSingleInstance();
+        Statement statement = DBConnection.getConnectionInstance().createStatement();
+        statement.executeUpdate(query);
 
+        statement.close();   
     }
 
     /**
@@ -145,7 +157,17 @@ public class Book {
      * @param student
      * @return
      */
-    public boolean issueBook(Book book, Student student) {               // attached to borrow book of Student class
+    public boolean issueBook(Book book, Student student) throws Exception {               // attached to borrow book of Student class
+        String query = "SELECT StudentID from Student";
+        
+        Statement statement = DBConnection.getConnectionInstance().createStatement();
+        ResultSet rs = statement.executeQuery(query);
+        
+        while (rs.next()) {
+            if (student.getStudentID().equals(rs.getString("StudentID"))) {
+                
+            }
+        }
         return false;
     }
 
@@ -256,11 +278,11 @@ public class Book {
     }
 
     public LocalDate getPurchaseDate() {
-        return purchaseDate;
+        return addedDate;
     }
 
     public void setPurchaseDate(LocalDate purchaseDate) {
-	if (this.purchaseDate.isAfter(DEFAULT_DATE))
-	    this.purchaseDate = purchaseDate;
+	if (this.addedDate.isAfter(DEFAULT_DATE))
+	    this.addedDate = purchaseDate;
     }
 }

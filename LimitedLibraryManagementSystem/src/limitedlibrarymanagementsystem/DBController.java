@@ -23,34 +23,41 @@
  */
 package limitedlibrarymanagementsystem;
 
+import com.sun.jdi.connect.spi.Connection;
 import java.util.ArrayList;
 import java.util.Map;
 
 /**
- *
- * @author Chilka Castro
+ * A DB Controller class
+ * @author Chilka Castro and Giuliana Bouzon
  */
-
 public class DBController {
-    private ArrayList<Book> booksModel;
+    private Book bookModel;
     private Student studentModel;      
     private View view;
-    private DBConnection connection;    
+    private Connection connection;    
 
-    public DBController(ArrayList<Book> booksModel, Student studentModel, View view, DBConnection connection) {
-        this.booksModel = new ArrayList<Book>(booksModel); //deep copy
-        this.studentModel = new Student(studentModel); //deep copy
+    /**
+     * Constructor with 
+     * @param booksModel
+     * @param studentModel
+     * @param view
+     * @param connection 
+     */
+    public DBController(Book bookModel, Student studentModel, View view, DBConnection connection) {
+        this.bookModel = bookModel;
+        this.studentModel = studentModel;
         this.view = view;
-        this.connection = connection; //dk about this
+        this.connection = (Connection) DBConnection.getConnectionInstance();
     }
     
     // methods from Book class (Librarian access)
-    public void librarianAddBook(Book book) {
-        
+    public void librarianAddBook(Book book) throws Exception {
+        bookModel.addBook(book);
     }
     
-    public Boolean librarianIssueBook(Book book, Student student) {
-        return false; // call book method
+    public Boolean librarianIssueBook(Book book, Student student) throws Exception{
+       return bookModel.issueBook(book, student);
     }
     
     public Boolean librarianReturnBook(Book book, Student student) {

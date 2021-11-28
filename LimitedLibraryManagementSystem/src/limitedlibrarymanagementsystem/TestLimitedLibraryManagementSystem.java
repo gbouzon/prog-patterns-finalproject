@@ -24,6 +24,8 @@
 
 package limitedlibrarymanagementsystem;
 
+import java.time.LocalDate;
+
 /**
  * A Driver class for the Limited Library Management System
  * @author Chilka Castro and Giuliana Bouzon
@@ -33,8 +35,11 @@ public class TestLimitedLibraryManagementSystem{
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-       // IViewable.viewCatalog();
+    public static void main(String[] args) throws Exception {
+       
+        Book book = new Book("219831928319", "The Wind-Up Bird Chronicle", "Haruki Murakami", 
+                "Penguin", 8, 18.29, LocalDate.EPOCH);
+        book.addBook(book);
     }
     
 }
