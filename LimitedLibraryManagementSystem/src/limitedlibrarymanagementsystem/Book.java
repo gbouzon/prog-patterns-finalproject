@@ -263,8 +263,4 @@ public class Book {
 	if (this.purchaseDate.isAfter(DEFAULT_DATE))
 	    this.purchaseDate = purchaseDate;
     }
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes
