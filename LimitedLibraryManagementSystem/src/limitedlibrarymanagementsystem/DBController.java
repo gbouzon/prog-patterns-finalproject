@@ -38,10 +38,10 @@ public class DBController {
     private DBConnection connection;    
 
     public DBController(ArrayList<Book> booksModel, Student studentModel, View view, DBConnection connection) {
-        this.booksModel = booksModel;
-        this.studentModel = studentModel;
+        this.booksModel = new ArrayList<Book>(booksModel); //deep copy
+        this.studentModel = new Student(studentModel); //deep copy
         this.view = view;
-        this.connection = connection;
+        this.connection = connection; //dk about this
     }
     
     // methods from Book class (Librarian access)

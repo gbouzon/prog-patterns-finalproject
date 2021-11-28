@@ -43,11 +43,9 @@ public class DBConnection {  //APPLY SINGLETON IN THIS CLASS
      */
     private static Connection getConnection() throws Exception {                
         Class.forName("org.sqlite.JDBC");                                       
+        String url = "jdbc:sqlite:C:\\SQLite\\databases\\library.db";   
 
-        String url = "jdbc:sqlite:C:\\SQLite\\databases\\library.db";           
-        Connection connection = DriverManager.getConnection(url);
-
-        return connection;
+        return DriverManager.getConnection(url);
     }
 
     /**
@@ -66,5 +64,4 @@ public class DBConnection {  //APPLY SINGLETON IN THIS CLASS
     public static Connection getConnectionInstance() {
         return connectionInstance;
     }
-    
 }
