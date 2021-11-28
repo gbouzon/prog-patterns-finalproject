@@ -34,7 +34,7 @@ import java.util.Objects;
  * Programming Patterns - Fall 2021 - Final Project.
  * @author Chilka Castro and Giuliana Bouzon
  */
-public class Book {                                        // IViewable has static viewCatalog method
+public class Book {                                                 
 
     //properties
     private String bookSN;
@@ -263,4 +263,8 @@ public class Book {                                        // IViewable has stat
 	if (this.purchaseDate.isAfter(DEFAULT_DATE))
 	    this.purchaseDate = purchaseDate;
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes
