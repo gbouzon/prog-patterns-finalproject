@@ -23,20 +23,38 @@
  */
 package limitedlibrarymanagementsystem;
 
+import java.util.List;
 import java.util.Map;
 
 /**
  *
- * @author Chilka
+ * @author Chilka, Giuliana Bouzon
  */
 public class View {
 
-    public void printIssuedBookTable(Map map) {
-     
+    public void printIssuedBookTable(Map<String, String> map) {
+    
     }
     
-    public void printBookCatalog(Map map) {
-        
+    public void printBookCatalog(Map<String, BookData> map) {
+	System.out.println("Catalog of Books in the Library: \n");
+	String str = "";
+	
+	for (Map.Entry<String, BookData> entry : map.entrySet()) {
+	    str += String.format("%-20s : %s\n", "SN", entry.getKey());
+	    str += entry.getValue() + "\n";
+	}
+	
+	System.out.print(str);
     }
     
+    public void printBookList(List<Book> books) { //just to make it pretty
+	String str = "";
+	for (Book book : books) {
+	    str += book.toString();
+	    str += book.getBookData().toString() + "\n";
+	}
+	
+	System.out.print(str);
+    }
 }
