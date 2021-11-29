@@ -23,12 +23,6 @@
  */
 package limitedlibrarymanagementsystem;
 
-import com.sun.jdi.connect.spi.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
-import java.time.LocalDate;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -40,20 +34,11 @@ public class Book {
 
     //properties
     private String bookSN;
-    private String title;
-    private String author;
-    private String publisher;
-    private double price;
-    private int bookQuantity;
-    private int issuedQuantity;
-    private LocalDate addedDate;
-    
-    //the default we chose: no date can be before this
-    private static final LocalDate DEFAULT_DATE = LocalDate.of(2010, 1, 1);
+    private BookData data;
     
     //default constructor
     public Book() { //just for testing, not actually going to be called within the application
-    	this("noSN", "noTitle", "noAuthor", "noPublisher", 0, 0.0, LocalDate.of(2010, 1, 1)); //default value set to jan 1st 2010
+    	this("noSN", new BookData()); //default value set to jan 1st 2010
     }
 
     /**
@@ -68,29 +53,21 @@ public class Book {
      * @param issuedQuantity the issued quantity of the book
      * @param purchaseDate the date of purchase of the book
      */
-    public Book(String bookSN, String title, String author, String publisher,
-            int bookQuantity, double price, LocalDate purchaseDate) {
+    public Book(String bookSN, BookData data) {
+	
         this.bookSN = (bookSN != null && !bookSN.isEmpty()) ? bookSN : "noSN";
-        this.title = (title != null && !title.isEmpty()) ? title : "noTitle";
-        this.author = (author != null && !author.isEmpty()) ? author : "noAuthor";
-        this.publisher = (publisher != null && !publisher.isEmpty()) ? publisher : "noPublisher";
-        this.price = (price > 0) ? price : 0;
-        this.bookQuantity = (bookQuantity > 0) ? bookQuantity : 0;
-        this.issuedQuantity = 0; //(issuedQuantity > 0) ? issuedQuantity : 0;
-        this.addedDate = (purchaseDate.isAfter(DEFAULT_DATE)) ? purchaseDate : DEFAULT_DATE;
-        
+        this.data = new BookData(data);
     }
     
     //copy constructor
     public Book(Book book) {
-	this(book.bookSN, book.title, book.author, book.publisher,  
-                book.bookQuantity, book.price,book.addedDate);
+	this(book.bookSN, book.data);
     }
     
 
     @Override
     public int hashCode() {
-	return Objects.hash(author, bookQuantity, bookSN, issuedQuantity, price, publisher, addedDate, title);
+	return Objects.hash(bookSN, data.hashCode());
     }
 
     @Override
@@ -102,11 +79,7 @@ public class Book {
 	if (getClass() != obj.getClass())
 	    return false;
 	Book other = (Book) obj;
-	return Objects.equals(author, other.author) && bookQuantity == other.bookQuantity
-		&& Objects.equals(bookSN, other.bookSN) && issuedQuantity == other.issuedQuantity
-		&& Double.doubleToLongBits(price) == Double.doubleToLongBits(other.price)
-		&& Objects.equals(publisher, other.publisher) && Objects.equals(addedDate, other.addedDate)
-		&& Objects.equals(title, other.title);
+	return Objects.equals(data, other.data) && Objects.equals(bookSN, other.bookSN);
     }
 
     /**
@@ -116,100 +89,7 @@ public class Book {
      */
     @Override
     public String toString() {
-        String str = "";
-
-        str += String.format("%-10s : %s\n", "SN", bookSN);
-        str += String.format("%-10s : %s\n", "Title", title);
-        str += String.format("%-10s : %s\n", "Author", author);
-        str += String.format("%-10s : %s\n", "Publisher", publisher);
-        str += String.format("%-10s : %.2f\n", "Price", price);
-        str += String.format("%-10s : %d\n", "Quantity", bookQuantity);
-        str += String.format("%-10s : %d\n", "Issued Quantity", issuedQuantity);
-        str += String.format("%-10s : %s\n", "Date of Purchase", addedDate.toString());
-
-        return str;
-    }
-
-    /**
-     * Creates a new entry in the books table, adds a new book to the catalog,
-     * and sets "Issued" attribute to zero and adddedDate to the current date.
-     *
-     * @param book
-     */
-    public void addBook(Book book) throws Exception {
-        String query = "INSERT into BOOK(SN,Title,Author,Publisher,Quantity,"
-                + "Price,IssuedQuantity,AddedDate) VALUES(" + "'" + book.bookSN + "," 
-                + "'" + book.title + "'" + "," + "'" + book.author + "'" + "," + "'" 
-                + book.publisher + "'" + "," + book.bookQuantity + "," 
-                + book.price + "," + book.issuedQuantity + "," + "'" + book.addedDate + ")";
-                
-        DBConnection.getSingleInstance();
-        Statement statement = DBConnection.getConnectionInstance().createStatement();
-        statement.executeUpdate(query);
-
-        statement.close();   
-    }
-
-    /**
-     * Issues a book to a student(student information would be verified first)
-     *
-     * @param book
-     * @param student
-     * @return
-     */
-    public boolean issueBook(Book book, Student student) throws Exception {               // attached to borrow book of Student class
-        String query = "SELECT StudentID from Student";
-        
-        Statement statement = DBConnection.getConnectionInstance().createStatement();
-        ResultSet rs = statement.executeQuery(query);
-        
-        while (rs.next()) {
-            if (student.getStudentID().equals(rs.getString("StudentID"))) {
-                
-            }
-        }
-        return false;
-    }
-
-    /**
-     *
-     * returnBook(b:Book, s:Student) and toReturn(b:Book): To return a book,
-     * check first if an entry in the issuedBooks table about the book and the
-     * student exists that will verify the studentID. The number of copies
-     * “Quantity” will be increased by one and the number of copies issued will
-     * be decreased by one. The corresponding record in IssuedBooks table is
-     * deleted from the table. The two methods return true if the book was
-     * successfully returned.
-     *
-     * @param book
-     * @param student
-     * @return
-     */
-    public boolean returnBook(Book book, Student student) {                     // toReturn() method of Student associated with each other
-        return false;
-    }
-
-    /**
-     *
-     * This method returns a map containing all data retrieved from the Books
-     * table. The key in the map is “SN”. All books should be sorted by “SN”.
-     * Use the appropriate formatting for the date and currency.
-     *
-     * @return
-     */
-    public static Map<String, String> viewCatalog() {
-    //   Connection connection = (Connection) DBConnection.getConnectionInstance();  UNCOMMENT THIS
-       return null;
-    }
-
-    /**
-     * Retrieves all data from IssuedBooks table and returns them as a Map. The
-     * map is sorted by “SN”.
-     *
-     * @return
-     */
-    public static Map<String, String> viewIssuedBooks() {
-        return null; // view ISSUEDBOOKS or Library Data
+	return String.format("%-20s : %s\n", "SN", bookSN);
     }
 
     // getters and setters
@@ -223,66 +103,11 @@ public class Book {
 	    this.bookSN = bookSN;
     }
 
-    public String getTitle() {
-        return title;
+    public BookData getBookData() {
+	return new BookData(this.data);
     }
-
-    public void setTitle(String title) {
-	if (title != null && !title.isEmpty())
-	    this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-	if (author != null && !author.isEmpty())
-	    this.author = author;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-	if (publisher != null && !publisher.isEmpty())
-	    this.publisher = publisher;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-	if (price > 0)
-	    this.price = price;
-    }
-
-    public int getBookQuantity() {
-        return bookQuantity;
-    }
-
-    public void setBookQuantity(int bookQuantity) {
-	if (bookQuantity > 0)
-	    this.bookQuantity = bookQuantity;
-    }
-
-    public int getIssuedQuantity() {
-        return issuedQuantity;
-    }
-
-    public void setIssuedQuantity(int issuedQuantity) {
-	if (issuedQuantity > 0)
-	    this.issuedQuantity = issuedQuantity;
-    }
-
-    public LocalDate getPurchaseDate() {
-        return addedDate;
-    }
-
-    public void setPurchaseDate(LocalDate purchaseDate) {
-	if (this.addedDate.isAfter(DEFAULT_DATE))
-	    this.addedDate = purchaseDate;
+    
+    public void setBookData(BookData data) {
+	this.data = new BookData(data);
     }
 }
