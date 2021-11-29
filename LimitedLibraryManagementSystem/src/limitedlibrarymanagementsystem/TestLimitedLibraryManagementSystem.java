@@ -25,6 +25,7 @@
 package limitedlibrarymanagementsystem;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * A Driver class for the Limited Library Management System
@@ -36,10 +37,38 @@ public class TestLimitedLibraryManagementSystem{
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
+	//testing shit
+	View view = new View();
        
-        Book book = new Book("219831928319", "The Wind-Up Bird Chronicle", "Haruki Murakami", 
-                "Penguin", 8, 18.29, LocalDate.EPOCH);
-        book.addBook(book);
-    }
-    
+        Book book = new Book("219831928319", new BookData("The Wind-Up Bird Chronicle", "Haruki Murakami", 
+                "Penguin", 8, 18.29, -1, LocalDate.EPOCH)); 
+        //notice that issuedQuantity is still 0 (check BookData constructor)
+        //notice that date of purchase is set to today even though we do LocalDate.EPOCH(check BookData constructor)
+	
+	Student student = new Student("1940108", new StudentData("Giuliana Bouzon", "5148009876"));
+	
+	DBController controller = new DBController(book, student, view);
+	
+	//testing student controller
+	StudentController stController = new StudentController(new ArrayList<Book>(), view);
+	
+	//testing searching by title
+	//stController.updateViewBookList(stController.searchBookByTitle("Intro to Java Programming"));
+	
+	//testing with multiple finds with search by author name
+	//stController.updateViewBookList(stController.searchBookByAuthorName("Haruki Murakami"));
+	//testing with only one found
+	//stController.updateViewBookList(stController.searchBookByAuthorName("Lynne Cox"));
+	
+	//testing searching by publisher
+	//testing with multiple finds
+	stController.updateViewBookList(stController.searchBookByPublisher("Penguin Books"));
+	//testing with only one found
+	//stController.updateViewBookList(stController.searchBookByAuthorName("‎William Morrow"));
+	
+	//testing addbook and view catalog of dbcontroller(aka librarian perms)
+	//controller.updateViewCatalog(controller.viewCatalog());
+        //controller.addBook(book);
+        //controller.updateViewCatalog(DBController.viewCatalog());
+    }  
 }
