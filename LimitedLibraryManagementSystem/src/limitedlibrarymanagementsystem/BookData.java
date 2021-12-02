@@ -50,7 +50,6 @@ public class BookData {
     /**
      * Constructor with all data members
      *
-     * @param bookSN the serial number of the book (primary key)
      * @param title the title of the book
      * @param author the author of the book
      * @param publisher the publisher of the book

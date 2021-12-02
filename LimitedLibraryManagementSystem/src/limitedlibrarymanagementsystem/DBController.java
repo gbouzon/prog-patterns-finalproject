@@ -35,7 +35,7 @@ import java.util.Map;
  * A DB Controller class - represents librarian access
  * @author Chilka Castro and Giuliana Bouzon
  */
-public class DBController {
+public class DBController implements IViewable{
     //3 options: student obj, book obj OR list of books for student obj OR list of students and
     //list of books -> pick a design
     private Book bookModel; //should be arraylist I think bro
@@ -43,6 +43,9 @@ public class DBController {
     private View view;
     private Connection connection;    
 
+    public DBController() {
+    }
+    
     /**
      * Constructor with 
      * @param booksModel
@@ -82,7 +85,7 @@ public class DBController {
         System.out.println("Book successfully added to database");
     }
                                                                                                                                                                                                                                                                                                                                                                                          
-    /**
+    /** HAVENT TESTED
      * Issues a book to a student(student information would be verified first)
      * If the book is available, the number of copies(“Quantity”) will be decreased by one 
      * and the number of Copies issued (“Issued”) will be increased by one. 
@@ -93,19 +96,74 @@ public class DBController {
      * @return
      */
     public boolean issueBook(Book book, Student student) throws Exception {  // attached to borrow book of Student class -> not yet implemented
-        String query = "SELECT StudentID from Student";
+        // Step 1 : Check student if student is valid
+        String query = "SELECT * FROM STUDENT WHERE StudentID =" + "'" 
+                + student.getStudentID() + "';";
         
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(query);
         
+        String studentID = "";
+        String studentName = "";
+        String contact = "";
         while (rs.next()) {
-            if (student.getStudentID().equals(rs.getString("StudentID"))) {
-                
-            }
+            studentID = rs.getString("StudentID");  // key 
+            studentName = rs.getString("Name");
+            contact = rs.getString("Contact");
         }
-        return false;
-    }
+       
+        StudentData studentData = new StudentData(studentName, contact);   // value
+        Student studentResult = new Student(studentID, studentData);
+        
+        // Step 2:  book if library has it
+        query = "SELECT * FROM BOOK WHERE SN =" + "'" + book.getBookSN() + "';"; 
+        statement = connection.createStatement();
+        rs = statement.executeQuery(query);
+        
+        String sn = "";
+        String title = "";
+        String author = "";
+        String publisher = "";
+        double price = 0;
+        int quantity = 0;
+        int issuedQuantity = 0;
+        LocalDate date = null; 
+        while (rs.next()) {
+            sn = rs.getString("SN");  // key
+            
+	    //getting BookData  // value
+            title = rs.getString("Title");
+	    author = rs.getString("Author");
+	    publisher = rs.getString("Publisher");
+	    price = rs.getDouble("Price"); 
+	    quantity = rs.getInt("Quantity");
+	    issuedQuantity = rs.getInt("IssuedQuantity");
+	    date = LocalDate.parse(rs.getString("AddedDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+   	    
+        }
+        //creating BookData object
+        BookData data = new BookData(title, author, publisher, quantity, price, issuedQuantity, date);
 
+        //creating Book object
+	Book bookResult = new Book(sn, data);
+       
+        // Full Student Checking and Book Checkiing
+        if (studentResult.equals(student) && (bookResult.equals(book) && quantity > 0)) {
+            // Update available Quantity and the issuedQuantity 
+            query = "UPDATE BOOK SET Quantity = Quantity - 1, IssuedQuantiy = IssuedQuantity + 1"
+                    + "WHERE SN=" + "'" + book.getBookSN() + "';"; 
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
+            statement.close();
+            return true;
+        }
+        else {
+            statement.close();
+            return false;
+        }
+        
+    }
+    
     /**
      *
      * returnBook(b:Book, s:Student) and toReturn(b:Book): To return a book,
@@ -132,39 +190,8 @@ public class DBController {
      *
      * @return
      */
-    public static Map<String, BookData> viewCatalog() throws Exception { //WORKS YAYYYYYYYYY
-	Map<String, BookData> map = new HashMap<>();
-	
-	Connection connection = DBConnection.getSingleInstance();
-	
-	String query = "SELECT * FROM BOOK";
-	Statement statement = connection.createStatement();
-	ResultSet rs = statement.executeQuery(query);
-	
-	while(rs.next()) {
-	    //getting the key -> book sn
-	    String key = rs.getString("SN");
-	    
-	    //getting BookData
-	    String title = rs.getString("Title");
-	    String author = rs.getString("Author");
-	    String publisher = rs.getString("Publisher");
-	    double price = rs.getDouble("Price");
-	    int quantity = rs.getInt("Quantity");
-	    int issuedQuantity = rs.getInt("IssuedQuantity");
-	    LocalDate date = LocalDate.parse(rs.getString("AddedDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-   
-	    //creating object
-	    BookData value = new BookData(title, author, publisher, quantity, price, issuedQuantity, date);
-	   
-	    //debugging - will be deleted later
-	    //System.out.println(key);
-	    //System.out.println(value);
-	    
-	    //inserting into map
-	    map.put(key, value);
-	}
-	return map;
+    public Map<String, BookData> viewCatalog() throws Exception { //WORKS YAYYYYYYYYY
+        return IViewable.viewCatalog();
     }
     
 
@@ -202,11 +229,48 @@ public class DBController {
     }
     
     // there could be many view methods -> think later
-    public void updateViewIssuedTable(Map<String, String> map) throws Exception {
+    public void updateViewIssuedTable() throws Exception {
        view.printIssuedBookTable(viewIssuedBooks());    //viewIssuedBooks() -> is a returned map
     }
     
-    public void updateViewCatalog(Map<String, BookData> map) throws Exception {
-        view.printBookCatalog(viewCatalog());           // viewCatalog() -> is a returned map    
+    /**
+     *
+     * @throws Exception
+     */
+    @Override
+    public void updateViewCatalog() throws Exception {  // IViewable interface
+       view.printBookCatalog(viewCatalog());  // viewCatalog() returns a map
     }
+    
+//    public void updateViewCatalog(Map map) throws Exception {
+//        view.printBookCatalog(viewCatalog());           // viewCatalog() -> is a returned map    
+//    }
+
 }
+
+
+
+
+/**
+ * 
+ * 
+ * when returning a book 
+ * StudentController would call inside its toReturn(Book) method 
+ * the returnBook(Book,Student) of DBController 
+ * 
+ * DBController
+ * returnBook(Book, Student)
+ *      - would check the issuedBooks table to check the book and the student who 
+ *      borrowed it using the StudentID.
+ *      - do the opposite now by updating the Book table -> quantity of the specific book + 1
+ *      while issuedBook is -1. Then DELETE the record of that borrowing from
+ *      the ISSUEDBOOKS table.(sql query)  (DELETE COULD BE DONE EITHER ON DBController ot StudentController)
+ *      - if the returnBook is successful it will then return true to the toReturn method
+ *      of toReturn() of StudentController and if the return is not successful then
+ *      return false would be returned toReturn() method of StudentController and
+ *      then the toReturn method of the StudentController would return true/false depending 
+ *      on what it received from the returnBook() method of the DBController
+ * 
+ * 
+ * 
+ */

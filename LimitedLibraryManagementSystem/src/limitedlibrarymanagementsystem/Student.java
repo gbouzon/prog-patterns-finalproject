@@ -47,9 +47,8 @@ public class Student {
 
     /**
      * Constructor with all data members
-     * @param studentID the ID of the student(primary key)
-     * @param name the name of the Student
-     * @param contactNum the contact number of the student
+     * @param studentID the ID of the student(primary key) (key -> map implemented)
+     * @param data the data of the student(value -> map implemented)
      */
     public Student(String studentID, StudentData data) {
         this.studentID = (Pattern.matches(ID_REGEX, studentID)) ? studentID : "0000000";
@@ -61,12 +60,20 @@ public class Student {
 	this(student.studentID, student.data);
     }
 
-    
+    /**
+     * Generates an integer hash code associated with an equals method
+     * @return and integer hash code 
+     */
     @Override
     public int hashCode() {
 	return Objects.hash(data.hashCode(), studentID);
     }
 
+    /**
+     * Check if objects are the same or not
+     * @param obj the other object to be checked with for equality
+     * @return True if the objects are the same and False if not
+     */
     @Override
     public boolean equals(Object obj) {
 	if (this == obj)

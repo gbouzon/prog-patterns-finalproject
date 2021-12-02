@@ -45,16 +45,8 @@ public class Book {
      * Constructor with all data members
      *
      * @param bookSN the serial number of the book (primary key)
-     * @param title the title of the book
-     * @param author the author of the book
-     * @param publisher the publisher of the book
-     * @param price the price of the book
-     * @param bookQuantity the quantity of the book
-     * @param issuedQuantity the issued quantity of the book
-     * @param purchaseDate the date of purchase of the book
      */
     public Book(String bookSN, BookData data) {
-	
         this.bookSN = (bookSN != null && !bookSN.isEmpty()) ? bookSN : "noSN";
         this.data = new BookData(data);
     }

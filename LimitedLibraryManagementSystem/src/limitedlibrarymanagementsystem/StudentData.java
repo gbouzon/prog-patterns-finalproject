@@ -39,14 +39,15 @@ public class StudentData {
     static final String NAME_REGEX = "^[A-Za-z-\\s]{1,50}$"; //only letters 1 - 50, allows whitespace and dashes 
     //Pattern.matches(nameRegex, name) -> to use for pattern matchingS
     
-    //default constructor
+    /**
+     * Default constructor
+     */
     public StudentData() {
 	this("noName", "5141234567"); //just for testing and debugging purposes
     }
 
     /**
      * Constructor with all data members
-     * @param studentID the ID of the student(primary key)
      * @param name the name of the Student
      * @param contactNum the contact number of the student
      */
@@ -55,12 +56,14 @@ public class StudentData {
         this.contactNum = (Pattern.matches(CONTACT_REGEX, contactNum)) ? contactNum : "5141234567";
     }
     
-    //copy constructor
+    /**
+     * Copy constructor
+     * @param student the student data to copy
+     */
     public StudentData(StudentData student) {
 	this(student.name, student.contactNum);
     }
 
-    
     @Override
     public int hashCode() {
 	return Objects.hash(contactNum, name);
@@ -79,8 +82,8 @@ public class StudentData {
     }
 
     /**
-     * Generates a String that represents a student object
-     * @return a String that represents a student object
+     * Generates a String that represents a student data
+     * @return a String that represents a student data
      */
     @Override
     public String toString() {
@@ -93,7 +96,6 @@ public class StudentData {
     }
    
     // getters and setters
-
     public String getName() {
         return name;
     }

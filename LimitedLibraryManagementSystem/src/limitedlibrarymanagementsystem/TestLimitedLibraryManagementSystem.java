@@ -50,7 +50,7 @@ public class TestLimitedLibraryManagementSystem{
 	DBController controller = new DBController(book, student, view);
 	
 	//testing student controller
-	StudentController stController = new StudentController(new ArrayList<Book>(), view);
+	StudentController stController = new StudentController(new ArrayList<Book>(), student, view);  // CHILKA: modified this and added student
 	
 	//testing searching by title
 	//stController.updateViewBookList(stController.searchBookByTitle("Intro to Java Programming"));
