@@ -36,11 +36,11 @@ public class View {
     
     }
     
-    public void printBookCatalog(Map<String, BookData> map) {
+    public void printBookCatalog(Map<String, String> map) {
 	System.out.println("Catalog of Books in the Library: \n");
 	String str = "";
 	
-	for (Map.Entry<String, BookData> entry : map.entrySet()) {
+	for (Map.Entry<String, String> entry : map.entrySet()) {
 	    str += String.format("%-20s : %s\n", "SN", entry.getKey());
 	    str += entry.getValue() + "\n";
 	}

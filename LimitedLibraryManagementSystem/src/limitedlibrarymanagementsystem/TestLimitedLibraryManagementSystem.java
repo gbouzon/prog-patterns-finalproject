@@ -47,10 +47,10 @@ public class TestLimitedLibraryManagementSystem{
 	
 	Student student = new Student("1940108", new StudentData("Giuliana Bouzon", "5148009876"));
 	
-	DBController controller = new DBController(book, student, view);
+	//DBController controller = new DBController(book, student, view);
 	
 	//testing student controller
-	StudentController stController = new StudentController(new ArrayList<Book>(), student, view);  // CHILKA: modified this and added student
+//	StudentController stController = new StudentController(new ArrayList<Book>(), student, view);  // CHILKA: modified this and added student
 	
 	//testing searching by title
 	//stController.updateViewBookList(stController.searchBookByTitle("Intro to Java Programming"));
@@ -62,7 +62,7 @@ public class TestLimitedLibraryManagementSystem{
 	
 	//testing searching by publisher
 	//testing with multiple finds
-	stController.updateViewBookList(stController.searchBookByPublisher("Penguin Books"));
+//	stController.updateViewBookList(stController.searchBookByPublisher("Penguin Books"));
 	//testing with only one found
 	//stController.updateViewBookList(stController.searchBookByAuthorName("‎William Morrow"));
 	

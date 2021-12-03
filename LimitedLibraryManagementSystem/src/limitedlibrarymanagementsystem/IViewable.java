@@ -36,8 +36,8 @@ import java.util.Map;
  * @author Chilka Castro
  */
 public interface IViewable {
-    public static Map<String, BookData> viewCatalog() throws Exception {
-        Map<String, BookData> map = new HashMap<>();
+    public static Map<String, String> viewCatalog() throws Exception {
+        Map<String, String> map = new HashMap<>();
 	
 	Connection connection = DBConnection.getSingleInstance();
 
@@ -59,7 +59,8 @@ public interface IViewable {
 	    LocalDate date = LocalDate.parse(rs.getString("AddedDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
    
 	    //creating object
-	    BookData value = new BookData(title, author, publisher, quantity, price, issuedQuantity, date);
+	    //BookData value = new BookData(title, author, publisher, quantity, price, issuedQuantity, date);
+            String value = title + author + publisher + quantity + issuedQuantity + price + date + "";
 	   
 	    //debugging - will be deleted later
 	    //System.out.println(key);
