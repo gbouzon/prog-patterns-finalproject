@@ -34,10 +34,9 @@ import java.util.Map;
  */
 public class DBController implements IViewable {
 
-    //3 options: student obj, book obj OR list of books for student obj OR list of students and
-    //list of books -> pick a design
-    private static Book bookLibrarianModel = null; //should be arraylist I think bro
-    private Student studentModel;  //same here aaaaaaaaaaaaaaaa idk
+    //properties
+    private static Book bookLibrarianModel = null; 
+    private Student studentModel;  
     private View view;
 
     /**
@@ -128,8 +127,8 @@ public class DBController implements IViewable {
     }
 
     // there could be many view methods -> think later
-    public void updateViewIssuedTable() throws Exception {
-        view.printIssuedBookTable(viewIssuedBooks());    //viewIssuedBooks() -> is a returned map
+    public String updateViewIssuedTable() throws Exception {
+       return view.printIssuedBookTable(viewIssuedBooks());    //viewIssuedBooks() -> is a returned map
     }
 
     /**
@@ -137,20 +136,12 @@ public class DBController implements IViewable {
      * @throws Exception
      */
     @Override
-    public void updateViewCatalog() throws Exception {  // IViewable interface
-        view.printBookCatalog(viewCatalog());  // viewCatalog() returns a map
+    public String updateViewCatalog() throws Exception {  // IViewable interface
+        return view.printBookCatalog(viewCatalog());  // viewCatalog() returns a map
     }
-
-    //idea:
-    //if arraylist of books is comprised of all the books in the database
-    //search methods could just search arraylist instead of searching db
-    //all we gotta do is add a method to go through db and add all the books
-    //to book arraylist
-    //initialize it to that method in the constructor
+    
     //NOTE FOR SEARCH METHODS:
     //THINK OF TOKENIZING THE SEARCH KEY to avoid errors with whitespace
-    //ANOTHER NOTE: SORT RESULTS FOR ^^^
-    
     
     // STUDENT methods
     /**
@@ -160,7 +151,7 @@ public class DBController implements IViewable {
      * @return a list of book
      */
     public List<Book> searchBookByTitle(String title) throws Exception { //WORKS YAAAAAAAAAAY
-        return searchBookByTitle(title);
+        return studentModel.searchBookByTitle(title);
     }
 
     /**
@@ -170,7 +161,7 @@ public class DBController implements IViewable {
      * @return a list of book written by the author
      */
     public List<Book> searchBookByAuthorName(String authorName) throws Exception { //WORKS YAAAAAAY
-        return searchBookByAuthorName(authorName);
+        return studentModel.searchBookByAuthorName(authorName);
     }
 
     /**
@@ -203,15 +194,7 @@ public class DBController implements IViewable {
         return studentModel.toReturn(book);
     }
     
-    
-
-//    @Override
-//        public void updateViewCatalog() throws Exception { // IViewable interface
-//        view.printBookCatalog(viewCatalog());  // viewCatalog() returns a map
-//    }
-//    
-//    public void updateViewBookList(List<Book> books) throws Exception {
-//	view.printBookList(books); //prints book lists in a pretty and organized format ;)
-//    }
-
+    public String updateViewBookList(List<Book> books) throws Exception {
+	return view.printBookList(books); //prints book lists in a pretty and organized format ;)
+    }
 }
