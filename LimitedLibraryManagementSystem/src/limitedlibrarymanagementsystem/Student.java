@@ -335,10 +335,6 @@ public class Student {
         return false;
     }
     
-    
-    
-    
-
     // getters and setters
     public String getStudentID() {
         return studentID;

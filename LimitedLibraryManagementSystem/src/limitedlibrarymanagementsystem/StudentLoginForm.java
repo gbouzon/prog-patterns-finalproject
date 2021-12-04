@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 public class StudentLoginForm extends javax.swing.JFrame {
 
     private Connection connection;
+    private Student student;
 
     /**
      * Creates new form StudentForm
@@ -45,15 +46,16 @@ public class StudentLoginForm extends javax.swing.JFrame {
         loginLabel = new javax.swing.JLabel();
         studentIDTF = new javax.swing.JTextField();
         enterButton = new javax.swing.JButton();
-        messageTF = new javax.swing.JTextField();
+        messageLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("loginFrame"); // NOI18N
 
         studentIDLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         studentIDLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         studentIDLabel.setText("StudentID :");
 
-        loginLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        loginLabel.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         loginLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         loginLabel.setText("Login");
 
@@ -68,44 +70,45 @@ public class StudentLoginForm extends javax.swing.JFrame {
             }
         });
 
-        messageTF.setText("\n\n");
+        messageLabel.setForeground(new java.awt.Color(153, 153, 153));
+        messageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 28, Short.MAX_VALUE)
+                .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
             .addGroup(layout.createSequentialGroup()
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(loginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
                         .addComponent(studentIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(studentIDTF, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addComponent(messageTF, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(250, 250, 250)
-                        .addComponent(enterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(loginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                        .addComponent(studentIDTF, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(enterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(230, 230, 230))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addGap(16, 16, 16)
                 .addComponent(loginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(studentIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(studentIDTF, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
-                .addComponent(messageTF, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(enterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
+                .addComponent(enterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53))
         );
 
         pack();
@@ -137,23 +140,35 @@ public class StudentLoginForm extends javax.swing.JFrame {
             studentName = rs.getString("Name");
             contact = rs.getString("Contact");
         }
+        StudentData data = new StudentData(studentName, contact);
+        try {
+            Student student = new Student(studentID, data);
+        } catch (Exception ex) {
+            
+        }
         
         if (studentID.equalsIgnoreCase(studentIDInput)) {
-            messageTF.setForeground(Color.GREEN);
-            messageTF.setText("Login successful");
-            StudentMenuForm studentMenuForm = new StudentMenuForm();
+            messageLabel.setForeground(Color.GREEN);
+            messageLabel.setText("Login successful");
+            StudentMenuForm studentMenuForm = new StudentMenuForm(student);
         }
         else {
-            messageTF.setForeground(Color.RED);
-            messageTF.setText("StudentID invalid");
-            studentIDTF.removeAll();
+            messageLabel.setForeground(Color.RED);
+            messageLabel.setText("StudentID invalid");
+            studentIDTF.setText("");
          
         }  
     }
     
     public void loginStudent() throws SQLException {
-        String studentIDInput = studentIDTF.getText();
-        checkStudents(studentIDInput);
+        if (!studentIDTF.getText().isEmpty() && !studentIDTF.getText().isBlank()) {
+            String studentIDInput = studentIDTF.getText();
+            checkStudents(studentIDInput);
+        }
+        else {
+            messageLabel.setForeground(Color.RED);
+            messageLabel.setText("StudentID invalid"); 
+        }
     }
 
     /**
@@ -201,7 +216,7 @@ public class StudentLoginForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton enterButton;
     private javax.swing.JLabel loginLabel;
-    private javax.swing.JTextField messageTF;
+    private javax.swing.JLabel messageLabel;
     private javax.swing.JLabel studentIDLabel;
     private javax.swing.JTextField studentIDTF;
     // End of variables declaration//GEN-END:variables

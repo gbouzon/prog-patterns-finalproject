@@ -28,18 +28,10 @@ public class LibrarianForm extends javax.swing.JFrame {
     private void initComponents() {
 
         LibrarianTasksBG = new javax.swing.ButtonGroup();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        displayWindowTA = new javax.swing.JTextArea();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        addBookRB = new javax.swing.JRadioButton();
-        issueBookRB = new javax.swing.JRadioButton();
-        viewCatalogRB = new javax.swing.JRadioButton();
-        returnBookRB = new javax.swing.JRadioButton();
-        viewIssuedBooksRB = new javax.swing.JRadioButton();
-        jPanel3 = new javax.swing.JPanel();
-        bookSNLabel = new javax.swing.JLabel();
+        mainPanel = new javax.swing.JPanel();
+        addBookPanel = new javax.swing.JPanel();
         bookSNTF = new javax.swing.JTextField();
+        bookSNLabel = new javax.swing.JLabel();
         titleTF = new javax.swing.JTextField();
         priceLabel = new javax.swing.JLabel();
         titleLabel = new javax.swing.JLabel();
@@ -48,21 +40,191 @@ public class LibrarianForm extends javax.swing.JFrame {
         quantityLabel = new javax.swing.JLabel();
         quantitySpinner = new javax.swing.JSpinner();
         authorTF = new javax.swing.JTextField();
-        enterButton = new javax.swing.JButton();
         publisherTF = new javax.swing.JTextField();
         publisherLabel = new javax.swing.JLabel();
+        enterButton2 = new javax.swing.JButton();
+        issueReturnBookPanel = new javax.swing.JPanel();
+        bookSNTF1 = new javax.swing.JTextField();
+        bookSNLabel1 = new javax.swing.JLabel();
+        titleTF1 = new javax.swing.JTextField();
+        titleLabel1 = new javax.swing.JLabel();
+        enterButton1 = new javax.swing.JButton();
+        studentIDTF = new javax.swing.JTextField();
+        studentIDLabel = new javax.swing.JLabel();
+        librarianTaskPanel = new javax.swing.JPanel();
+        addBookRB = new javax.swing.JRadioButton();
+        issueBookRB = new javax.swing.JRadioButton();
+        viewCatalogRB = new javax.swing.JRadioButton();
+        returnBookRB = new javax.swing.JRadioButton();
+        viewIssuedBooksRB = new javax.swing.JRadioButton();
+        displayScrollPanel = new javax.swing.JScrollPane();
+        displayTextArea = new javax.swing.JTextArea();
+        taskLabel = new javax.swing.JLabel();
+        backToMainMenuButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        displayWindowTA.setColumns(20);
-        displayWindowTA.setRows(5);
-        jScrollPane1.setViewportView(displayWindowTA);
+        mainPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        mainPanel.setLayout(new java.awt.CardLayout());
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        addBookPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        bookSNLabel.setText("Book SN :");
+
+        priceLabel.setText("Price");
+
+        titleLabel.setText("Title :");
+
+        authorLabel.setText("Author");
+
+        quantityLabel.setText("Quantity");
+
+        publisherLabel.setText("Publisher");
+
+        enterButton2.setText("Add");
+
+        javax.swing.GroupLayout addBookPanelLayout = new javax.swing.GroupLayout(addBookPanel);
+        addBookPanel.setLayout(addBookPanelLayout);
+        addBookPanelLayout.setHorizontalGroup(
+            addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addBookPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addBookPanelLayout.createSequentialGroup()
+                        .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(authorLabel)
+                            .addComponent(publisherLabel)
+                            .addComponent(quantityLabel))
+                        .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(addBookPanelLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 287, Short.MAX_VALUE))
+                            .addGroup(addBookPanelLayout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(publisherTF, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(authorTF)))))
+                    .addGroup(addBookPanelLayout.createSequentialGroup()
+                        .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(priceLabel)
+                            .addComponent(titleLabel)
+                            .addComponent(bookSNLabel))
+                        .addGap(12, 12, 12)
+                        .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bookSNTF)
+                            .addComponent(titleTF)
+                            .addComponent(priceTF))))
+                .addContainerGap())
+            .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addBookPanelLayout.createSequentialGroup()
+                    .addContainerGap(172, Short.MAX_VALUE)
+                    .addComponent(enterButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(139, 139, 139)))
+        );
+        addBookPanelLayout.setVerticalGroup(
+            addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addBookPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bookSNLabel)
+                    .addComponent(bookSNTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titleLabel)
+                    .addComponent(titleTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(priceLabel)
+                    .addComponent(priceTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(authorLabel)
+                    .addComponent(authorTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(publisherTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(publisherLabel))
+                .addGap(13, 13, 13)
+                .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(quantityLabel)
+                    .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(100, 100, 100))
+            .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addBookPanelLayout.createSequentialGroup()
+                    .addContainerGap(274, Short.MAX_VALUE)
+                    .addComponent(enterButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(22, 22, 22)))
+        );
+
+        mainPanel.add(addBookPanel, "card2");
+
+        issueReturnBookPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        bookSNLabel1.setText("Book SN :");
+
+        titleLabel1.setText("Title :");
+
+        enterButton1.setText("ENTER");
+
+        studentIDLabel.setText("StudentID:");
+
+        javax.swing.GroupLayout issueReturnBookPanelLayout = new javax.swing.GroupLayout(issueReturnBookPanel);
+        issueReturnBookPanel.setLayout(issueReturnBookPanelLayout);
+        issueReturnBookPanelLayout.setHorizontalGroup(
+            issueReturnBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(issueReturnBookPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(issueReturnBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(issueReturnBookPanelLayout.createSequentialGroup()
+                        .addComponent(bookSNLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(bookSNTF1)
+                        .addGap(4, 4, 4))
+                    .addGroup(issueReturnBookPanelLayout.createSequentialGroup()
+                        .addGroup(issueReturnBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(issueReturnBookPanelLayout.createSequentialGroup()
+                                .addComponent(titleLabel1)
+                                .addGap(39, 39, 39))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, issueReturnBookPanelLayout.createSequentialGroup()
+                                .addComponent(studentIDLabel)
+                                .addGap(18, 18, 18)))
+                        .addGroup(issueReturnBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(studentIDTF, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(issueReturnBookPanelLayout.createSequentialGroup()
+                                .addComponent(titleTF1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                                .addContainerGap())))))
+            .addGroup(issueReturnBookPanelLayout.createSequentialGroup()
+                .addGap(155, 155, 155)
+                .addComponent(enterButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        issueReturnBookPanelLayout.setVerticalGroup(
+            issueReturnBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(issueReturnBookPanelLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(issueReturnBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bookSNLabel1)
+                    .addComponent(bookSNTF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(issueReturnBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titleLabel1)
+                    .addComponent(titleTF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(issueReturnBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(studentIDTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(studentIDLabel))
+                .addGap(18, 18, 18)
+                .addComponent(enterButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(127, Short.MAX_VALUE))
+        );
+
+        mainPanel.add(issueReturnBookPanel, "card2");
+
+        librarianTaskPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         LibrarianTasksBG.add(addBookRB);
+        addBookRB.setSelected(true);
         addBookRB.setText("Add Book");
         addBookRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,185 +242,167 @@ public class LibrarianForm extends javax.swing.JFrame {
 
         LibrarianTasksBG.add(viewCatalogRB);
         viewCatalogRB.setText("View Catalog");
+        viewCatalogRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewCatalogRBActionPerformed(evt);
+            }
+        });
 
         LibrarianTasksBG.add(returnBookRB);
         returnBookRB.setText("Return a Book");
+        returnBookRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnBookRBActionPerformed(evt);
+            }
+        });
 
         LibrarianTasksBG.add(viewIssuedBooksRB);
         viewIssuedBooksRB.setText("View Issued Books");
+        viewIssuedBooksRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewIssuedBooksRBActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout librarianTaskPanelLayout = new javax.swing.GroupLayout(librarianTaskPanel);
+        librarianTaskPanel.setLayout(librarianTaskPanelLayout);
+        librarianTaskPanelLayout.setHorizontalGroup(
+            librarianTaskPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(librarianTaskPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(librarianTaskPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(viewIssuedBooksRB)
-                    .addComponent(returnBookRB)
-                    .addComponent(viewCatalogRB)
+                    .addComponent(addBookRB)
                     .addComponent(issueBookRB)
-                    .addComponent(addBookRB))
-                .addContainerGap(59, Short.MAX_VALUE))
+                    .addComponent(viewCatalogRB)
+                    .addComponent(returnBookRB))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+        librarianTaskPanelLayout.setVerticalGroup(
+            librarianTaskPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(librarianTaskPanelLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addComponent(addBookRB)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(issueBookRB)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(viewCatalogRB)
                 .addGap(18, 18, 18)
                 .addComponent(returnBookRB)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(viewIssuedBooksRB)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        displayTextArea.setEditable(false);
+        displayTextArea.setColumns(20);
+        displayTextArea.setRows(5);
+        displayScrollPanel.setViewportView(displayTextArea);
 
-        bookSNLabel.setText("Book SN :");
+        taskLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        priceLabel.setText("Price");
-
-        titleLabel.setText("Title :");
-
-        authorLabel.setText("Author");
-
-        quantityLabel.setText("Quantity");
-
-        enterButton.setText("enterButton");
-
-        publisherLabel.setText("Publisher");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bookSNLabel)
-                            .addComponent(titleLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bookSNTF)
-                            .addComponent(titleTF)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(priceLabel)
-                        .addGap(37, 37, 37)
-                        .addComponent(priceTF))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(authorLabel)
-                            .addComponent(publisherLabel)
-                            .addComponent(quantityLabel))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(publisherTF, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(authorTF)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(208, 208, 208)
-                .addComponent(enterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(239, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bookSNLabel)
-                    .addComponent(bookSNTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(titleTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(titleLabel))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(priceLabel)
-                    .addComponent(priceTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(authorLabel)
-                    .addComponent(authorTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(publisherTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(publisherLabel))
-                .addGap(25, 25, 25)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(quantityLabel)
-                    .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                .addComponent(enterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(65, 65, 65))
-        );
+        backToMainMenuButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        backToMainMenuButton.setText("Back to Main Menu");
+        backToMainMenuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backToMainMenuButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addGap(24, 24, 24)
+                .addComponent(librarianTaskPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(displayScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(taskLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(backToMainMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addGap(0, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
+                    .addComponent(taskLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backToMainMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(librarianTaskPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(displayScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void addBookRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookRBActionPerformed
-        if (addBookRB.isSelected()) 
-            System.out.println("");
-            
+        changePanel();
+        taskLabel.setText("Add Book");
+
     }//GEN-LAST:event_addBookRBActionPerformed
 
     private void issueBookRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_issueBookRBActionPerformed
-        
+        changePanel();
+        taskLabel.setText("Issue Book");
+
     }//GEN-LAST:event_issueBookRBActionPerformed
+
+    private void viewCatalogRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCatalogRBActionPerformed
+        
+
+    }//GEN-LAST:event_viewCatalogRBActionPerformed
+
+    private void returnBookRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnBookRBActionPerformed
+        changePanel();
+        taskLabel.setText("Return Book");
+
+    }//GEN-LAST:event_returnBookRBActionPerformed
+
+    private void viewIssuedBooksRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewIssuedBooksRBActionPerformed
+        
+    }//GEN-LAST:event_viewIssuedBooksRBActionPerformed
+
+    private void backToMainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuButtonActionPerformed
+        MainMenuForm mainMenuForm = new MainMenuForm();
+        mainMenuForm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backToMainMenuButtonActionPerformed
+
+    private void changePanel() {
+        // removing panel
+        if (addBookRB.isSelected()) {
+            mainPanel.setSize(434, 327);
+            mainPanel.removeAll();
+            mainPanel.repaint();
+            mainPanel.revalidate();
+            // add panel
+            mainPanel.add(addBookPanel);
+        }
+
+        // removing panel
+        if (issueBookRB.isSelected() || returnBookRB.isSelected()) {
+            mainPanel.removeAll();
+            mainPanel.repaint();
+            mainPanel.revalidate();
+            // add panel 
+            mainPanel.add(issueReturnBookPanel);
+        }
+
+        mainPanel.repaint();
+        mainPanel.revalidate();
+    }
 
     /**
      * @param args the command line arguments
@@ -297,18 +441,23 @@ public class LibrarianForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup LibrarianTasksBG;
+    private javax.swing.JPanel addBookPanel;
     private javax.swing.JRadioButton addBookRB;
     private javax.swing.JLabel authorLabel;
     private javax.swing.JTextField authorTF;
+    private javax.swing.JButton backToMainMenuButton;
     private javax.swing.JLabel bookSNLabel;
+    private javax.swing.JLabel bookSNLabel1;
     private javax.swing.JTextField bookSNTF;
-    private javax.swing.JTextArea displayWindowTA;
-    private javax.swing.JButton enterButton;
+    private javax.swing.JTextField bookSNTF1;
+    private javax.swing.JScrollPane displayScrollPanel;
+    private javax.swing.JTextArea displayTextArea;
+    private javax.swing.JButton enterButton1;
+    private javax.swing.JButton enterButton2;
     private javax.swing.JRadioButton issueBookRB;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel issueReturnBookPanel;
+    private javax.swing.JPanel librarianTaskPanel;
+    private javax.swing.JPanel mainPanel;
     private javax.swing.JLabel priceLabel;
     private javax.swing.JTextField priceTF;
     private javax.swing.JLabel publisherLabel;
@@ -316,8 +465,13 @@ public class LibrarianForm extends javax.swing.JFrame {
     private javax.swing.JLabel quantityLabel;
     private javax.swing.JSpinner quantitySpinner;
     private javax.swing.JRadioButton returnBookRB;
+    private javax.swing.JLabel studentIDLabel;
+    private javax.swing.JTextField studentIDTF;
+    private javax.swing.JLabel taskLabel;
     private javax.swing.JLabel titleLabel;
+    private javax.swing.JLabel titleLabel1;
     private javax.swing.JTextField titleTF;
+    private javax.swing.JTextField titleTF1;
     private javax.swing.JRadioButton viewCatalogRB;
     private javax.swing.JRadioButton viewIssuedBooksRB;
     // End of variables declaration//GEN-END:variables

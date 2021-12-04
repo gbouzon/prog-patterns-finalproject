@@ -5,16 +5,19 @@
  */
 package limitedlibrarymanagementsystem;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Chilka
  */
-public class MenuForm extends javax.swing.JFrame {
+public class MainMenuForm extends javax.swing.JFrame {
 
     /**
      * Creates new form MenuForm
      */
-    public MenuForm() {
+    public MainMenuForm() {
         initComponents();
     }
 
@@ -33,6 +36,9 @@ public class MenuForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 102, 51));
 
+        librarianButton.setBackground(new java.awt.Color(0, 102, 51));
+        librarianButton.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        librarianButton.setForeground(new java.awt.Color(0, 0, 0));
         librarianButton.setText("Librarian");
         librarianButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -40,6 +46,9 @@ public class MenuForm extends javax.swing.JFrame {
             }
         });
 
+        studentButton.setBackground(new java.awt.Color(153, 0, 0));
+        studentButton.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        studentButton.setForeground(new java.awt.Color(0, 0, 0));
         studentButton.setText("Student");
         studentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,8 +72,8 @@ public class MenuForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(70, Short.MAX_VALUE)
                 .addComponent(studentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(librarianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(librarianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
         );
 
@@ -72,15 +81,22 @@ public class MenuForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void studentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentButtonActionPerformed
+      
         try {
             StudentLoginForm studentLoginForm = new StudentLoginForm();
+            studentLoginForm.setVisible(Boolean.TRUE);
+           
         } catch (Exception ex) {
           
         }
+        this.dispose();
+
     }//GEN-LAST:event_studentButtonActionPerformed
 
     private void librarianButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_librarianButtonActionPerformed
         LibrarianForm librarianForm = new LibrarianForm();
+        librarianForm.setVisible(Boolean.TRUE);
+        this.dispose();
     }//GEN-LAST:event_librarianButtonActionPerformed
 
     /**
@@ -100,20 +116,21 @@ public class MenuForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuForm().setVisible(true);
+                new MainMenuForm().setVisible(true);
             }
         });
     }

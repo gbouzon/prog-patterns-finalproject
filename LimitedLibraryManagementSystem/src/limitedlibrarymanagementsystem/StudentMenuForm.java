@@ -12,11 +12,30 @@ import java.sql.Connection;
  * @author Chilka
  */
 public class StudentMenuForm extends javax.swing.JFrame {
+    private Student student;
+    
+       /**
+     * Creates new form StudentLoginForm
+     */
+    
+    public StudentMenuForm() {
+        initComponents();
+        searchTitleTF.setEnabled(Boolean.TRUE);
+        searchPublisherTF.setEnabled(Boolean.FALSE);
+        searchAuthorTF.setEnabled(Boolean.FALSE);
+        this.student = student;
+    }
+   
     /**
      * Creates new form StudentLoginForm
      */
-    public StudentMenuForm() {
+    
+    public StudentMenuForm(Student student) {
         initComponents();
+        searchTitleTF.setEnabled(Boolean.TRUE);
+        searchPublisherTF.setEnabled(Boolean.FALSE);
+        searchAuthorTF.setEnabled(Boolean.FALSE);
+        this.student = student;
     }
 
     /**
@@ -28,27 +47,291 @@ public class StudentMenuForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        searchBG = new javax.swing.ButtonGroup();
+        displayScrollPanel = new javax.swing.JScrollPane();
+        displayTA = new javax.swing.JTextArea();
+        borrowReturnPanel = new javax.swing.JPanel();
+        studentIDLabel = new javax.swing.JLabel();
+        bookSNLabel = new javax.swing.JLabel();
+        borrowButton = new javax.swing.JButton();
+        returnButton = new javax.swing.JButton();
+        studentIDTF = new javax.swing.JTextField();
+        bookSNTF = new javax.swing.JTextField();
+        titleTF = new javax.swing.JTextField();
+        titleLabel = new javax.swing.JLabel();
+        searchPanel = new javax.swing.JPanel();
+        titleRB = new javax.swing.JRadioButton();
+        authorNameRB = new javax.swing.JRadioButton();
+        publisherRB = new javax.swing.JRadioButton();
+        searchTitleTF = new javax.swing.JTextField();
+        searchPublisherTF = new javax.swing.JTextField();
+        searchAuthorTF = new javax.swing.JTextField();
+        searchButton = new javax.swing.JButton();
+        viewCatalogButton = new javax.swing.JButton();
+        logOutButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        displayTA.setColumns(20);
+        displayTA.setRows(5);
+        displayScrollPanel.setViewportView(displayTA);
+
+        borrowReturnPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        studentIDLabel.setText("StudentID: ");
+
+        bookSNLabel.setText("BookSN  :");
+
+        borrowButton.setText("Borrow");
+
+        returnButton.setText("Return");
+
+        titleLabel.setText("Title :");
+
+        javax.swing.GroupLayout borrowReturnPanelLayout = new javax.swing.GroupLayout(borrowReturnPanel);
+        borrowReturnPanel.setLayout(borrowReturnPanelLayout);
+        borrowReturnPanelLayout.setHorizontalGroup(
+            borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(borrowReturnPanelLayout.createSequentialGroup()
+                .addGroup(borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(borrowReturnPanelLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(studentIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(borrowReturnPanelLayout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bookSNLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(borrowReturnPanelLayout.createSequentialGroup()
+                        .addGroup(borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bookSNTF, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(studentIDTF, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(titleTF, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(32, Short.MAX_VALUE))
+                    .addGroup(borrowReturnPanelLayout.createSequentialGroup()
+                        .addComponent(borrowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(86, 86, 86))))
+        );
+        borrowReturnPanelLayout.setVerticalGroup(
+            borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(borrowReturnPanelLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bookSNTF, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bookSNLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titleTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(studentIDTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(studentIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(borrowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
+        );
+
+        searchPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        searchBG.add(titleRB);
+        titleRB.setSelected(true);
+        titleRB.setText("Title:");
+        titleRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                titleRBActionPerformed(evt);
+            }
+        });
+
+        searchBG.add(authorNameRB);
+        authorNameRB.setText("Author");
+        authorNameRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                authorNameRBActionPerformed(evt);
+            }
+        });
+
+        searchBG.add(publisherRB);
+        publisherRB.setText("Publisher");
+        publisherRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                publisherRBActionPerformed(evt);
+            }
+        });
+
+        searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
+        searchPanel.setLayout(searchPanelLayout);
+        searchPanelLayout.setHorizontalGroup(
+            searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchPanelLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(publisherRB)
+                    .addComponent(authorNameRB)
+                    .addComponent(titleRB))
+                .addGap(39, 39, 39)
+                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(searchTitleTF)
+                    .addComponent(searchAuthorTF)
+                    .addComponent(searchPublisherTF))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(196, 196, 196))
+        );
+        searchPanelLayout.setVerticalGroup(
+            searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchPanelLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titleRB)
+                    .addComponent(searchTitleTF, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(authorNameRB)
+                    .addComponent(searchAuthorTF, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(publisherRB)
+                    .addComponent(searchPublisherTF, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        viewCatalogButton.setText("View Catalog");
+        viewCatalogButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewCatalogButtonActionPerformed(evt);
+            }
+        });
+
+        logOutButton.setText("Log Out");
+        logOutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(borrowReturnPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(36, 36, 36)
+                .addComponent(displayScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(viewCatalogButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(159, 159, 159))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(borrowReturnPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(displayScrollPanel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(viewCatalogButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        if (titleRB.isSelected()) {
+            // do something
+        }
+        
+        if (authorNameRB.isSelected()) {
+            // do something
+        }
+        
+        if (publisherRB.isSelected()) {
+            // do something
+        }
+        
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void authorNameRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorNameRBActionPerformed
+        changeSearch();
+    }//GEN-LAST:event_authorNameRBActionPerformed
+
+    private void titleRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titleRBActionPerformed
+        changeSearch();
+    }//GEN-LAST:event_titleRBActionPerformed
+
+    private void publisherRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publisherRBActionPerformed
+        changeSearch();
+    }//GEN-LAST:event_publisherRBActionPerformed
+
+    private void viewCatalogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCatalogButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewCatalogButtonActionPerformed
+
+    private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
+        MainMenuForm mainMenuForm = new MainMenuForm();
+        mainMenuForm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_logOutButtonActionPerformed
+
+    public void changeSearch() {
+         if (titleRB.isSelected()) {
+           searchTitleTF.setEnabled(Boolean.TRUE);
+           searchPublisherTF.setEnabled(Boolean.FALSE);
+           searchAuthorTF.setEnabled(Boolean.FALSE);
+        }
+        
+        if (publisherRB.isSelected()) {
+           searchTitleTF.setEnabled(Boolean.FALSE);
+           searchPublisherTF.setEnabled(Boolean.TRUE);
+           searchAuthorTF.setEnabled(Boolean.FALSE);
+        }
+        
+        if (authorNameRB.isSelected()) {
+           searchTitleTF.setEnabled(Boolean.FALSE);
+           searchPublisherTF.setEnabled(Boolean.FALSE);
+           searchAuthorTF.setEnabled(Boolean.TRUE);   
+        }   
+    }
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
+       
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -74,6 +357,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new StudentMenuForm().setVisible(true);
             }
@@ -81,5 +365,27 @@ public class StudentMenuForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton authorNameRB;
+    private javax.swing.JLabel bookSNLabel;
+    private javax.swing.JTextField bookSNTF;
+    private javax.swing.JButton borrowButton;
+    private javax.swing.JPanel borrowReturnPanel;
+    private javax.swing.JScrollPane displayScrollPanel;
+    private javax.swing.JTextArea displayTA;
+    private javax.swing.JButton logOutButton;
+    private javax.swing.JRadioButton publisherRB;
+    private javax.swing.JButton returnButton;
+    private javax.swing.JTextField searchAuthorTF;
+    private javax.swing.ButtonGroup searchBG;
+    private javax.swing.JButton searchButton;
+    private javax.swing.JPanel searchPanel;
+    private javax.swing.JTextField searchPublisherTF;
+    private javax.swing.JTextField searchTitleTF;
+    private javax.swing.JLabel studentIDLabel;
+    private javax.swing.JTextField studentIDTF;
+    private javax.swing.JLabel titleLabel;
+    private javax.swing.JRadioButton titleRB;
+    private javax.swing.JTextField titleTF;
+    private javax.swing.JButton viewCatalogButton;
     // End of variables declaration//GEN-END:variables
 }
