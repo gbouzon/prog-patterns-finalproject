@@ -36,6 +36,7 @@ import java.util.Map;
  * @author Chilka Castro
  */
 public interface IViewable {
+    
     public static Map<String, String> viewCatalog() throws Exception {
         Map<String, String> map = new HashMap<>();
 	
@@ -61,14 +62,11 @@ public interface IViewable {
 	    //creating object
 	    //BookData value = new BookData(title, author, publisher, quantity, price, issuedQuantity, date);
             String value = title + author + publisher + quantity + issuedQuantity + price + date + "";
-	   
-	    //debugging - will be deleted later
-	    //System.out.println(key);
-	    //System.out.println(value);
-	    
 	    //inserting into map
 	    map.put(key, value);
 	}
+        if (map.isEmpty())
+            throw new Exception("No books found");
 	return map;
     }
     
@@ -76,5 +74,5 @@ public interface IViewable {
      * Updates the view catalog
      * @throws Exception 
      */
-    public void updateViewCatalog() throws Exception;
+    public String updateViewCatalog() throws Exception;
 }
