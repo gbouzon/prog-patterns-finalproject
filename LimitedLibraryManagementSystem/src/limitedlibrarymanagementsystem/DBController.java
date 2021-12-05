@@ -35,7 +35,7 @@ import java.util.Map;
 public class DBController implements IViewable {
 
     //properties
-    private static Book bookLibrarianModel = null; 
+    private static Book bookLibrarianModel; 
     private Student studentModel;  
     private View view;
 
@@ -47,6 +47,11 @@ public class DBController implements IViewable {
      */
     public DBController(Student studentModel, View view) {
         this.studentModel = studentModel;
+        this.view = view;
+    }
+    
+    public DBController(View view) throws Exception { //for librarian use
+        bookLibrarianModel = new Book();
         this.view = view;
     }
 
