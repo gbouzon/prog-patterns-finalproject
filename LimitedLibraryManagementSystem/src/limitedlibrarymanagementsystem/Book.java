@@ -209,8 +209,8 @@ public class Book {
          // Step 1: Check first the book from IssuedBook table
         String query = "SELECT IssuedBookID, BookSN, StudentID "
                 + "FROM ISSUEDBOOK WHERE BookSN='" + book.getBookSN()
-                + "' AND 'StudentID= '" + student.getStudentID() + "';";
-
+                + "' AND StudentID= '" + student.getStudentID() + "';";
+        
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(query);
 
@@ -220,15 +220,17 @@ public class Book {
         while (rs.next()) {
             issuedBookID = rs.getInt("IssuedBookID");
             bookSN = rs.getString("BookSN");
-            stuID = rs.getString("stuID");
+            stuID = rs.getString("StudentID");
         }
+        if (!bookSN.equals(book.getBookSN()) || !stuID.equals(student.getStudentID()))
+            throw new Exception("You cannot return a book you have not borrowed");
 
         // Step 2 : Verify the bookSN and the stuID
-        if (bookSN.equals(book.getBookSN()) && stuID.equals(student.getStudentID())) {
+        else if (bookSN.equals(book.getBookSN()) && stuID.equals(student.getStudentID())) {
 
             //Step 3:  Update Book Table quantity of book and issued quantity of book
             query = "UPDATE BOOK SET Quantity = Quantity + 1, "
-                    + "IssuedQuantity = IssuedQuantiy - 1 WHERE SN ="
+                    + "IssuedQuantity = IssuedQuantity - 1 WHERE SN ="
                     + "'" + book.getBookSN() + "';";
             statement = connection.createStatement();
             statement.executeUpdate(query);
@@ -258,17 +260,15 @@ public class Book {
         Map<String, String> map = new HashMap<>();
         //SN is key
         //value is str comprised of: studentid, contact and issuedate
-
-        connection = DBConnection.getSingleInstance();
         String query = "SELECT * FROM ISSUEDBOOK";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(query);
 
         while (rs.next()) {
             //getting the key -> book sn
-            String key = rs.getString("SN");
+            String key = rs.getString("BookSN");
             String value = "Student ID: " + rs.getString("StudentID") + "\n" + "Student Name: " + rs.getString("StudentName") 
-                    + "\n" +  rs.getString("StudentContact") + rs.getString("IssuedDate");
+                    + "\n" + "Student Contact: " + rs.getString("StudentContact") + "\n" + "Issued Date: " + rs.getString("IssuedDate") + "\n";
 
             //inserting into map
             map.put(key, value);
