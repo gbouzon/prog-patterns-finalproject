@@ -45,9 +45,10 @@ public class DBController implements IViewable {
      * @param studentModel
      * @param view
      */
-    public DBController(Student studentModel, View view) {
+    public DBController(Student studentModel, View view) throws Exception {
         this.studentModel = studentModel;
         this.view = view;
+        bookLibrarianModel = new Book();
     }
     
     public DBController(View view) throws Exception { //for librarian use
@@ -60,7 +61,7 @@ public class DBController implements IViewable {
      *
      * @param dBController
      */
-    public DBController(DBController dBController) {
+    public DBController(DBController dBController) throws Exception {
         this(dBController.studentModel, dBController.view);
     }
 
