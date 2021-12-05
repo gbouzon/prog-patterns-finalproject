@@ -60,8 +60,8 @@ public interface IViewable {
 	    LocalDate date = LocalDate.parse(rs.getString("AddedDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
    
 	    //creating object
-	    //BookData value = new BookData(title, author, publisher, quantity, price, issuedQuantity, date);
-            String value = title + author + publisher + quantity + issuedQuantity + price + date + "";
+	    BookData bvalue = new BookData(title, author, publisher, quantity, price, issuedQuantity, date);
+            String value = bvalue.toString();
 	    //inserting into map
 	    map.put(key, value);
 	}
