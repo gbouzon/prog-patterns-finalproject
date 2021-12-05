@@ -35,7 +35,7 @@ public class View {
     public String printIssuedBookTable(Map<String, String> map) {
         String str = "";
         for (Map.Entry<String, String> entry : map.entrySet()) {
-            str += String.format("%-20s : %s\n", "SN", entry.getKey());
+            str += "SN: " + entry.getKey() + "\n";
 	    str += entry.getValue() + "\n";
         }
         return str;
