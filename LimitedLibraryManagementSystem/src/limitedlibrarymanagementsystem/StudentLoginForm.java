@@ -122,7 +122,7 @@ public class StudentLoginForm extends javax.swing.JFrame {
         try {
             loginStudent();
         } catch (Exception ex) {
-       
+            messageLabel.setText("Error!");
         }
     }//GEN-LAST:event_enterButtonActionPerformed
 
@@ -142,21 +142,27 @@ public class StudentLoginForm extends javax.swing.JFrame {
         }
         StudentData data = new StudentData(studentName, contact);
         try {
-            Student student = new Student(studentID, data);
+            this.student = new Student(studentID, data);
         } catch (Exception ex) {
-            
+            messageLabel.setText("Error!");
         }
         
         if (studentID.equalsIgnoreCase(studentIDInput)) {
             messageLabel.setForeground(Color.GREEN);
             messageLabel.setText("Login successful");
-            StudentMenuForm studentMenuForm = new StudentMenuForm(student);
+            try { 
+                StudentMenuForm studentMenuForm = new StudentMenuForm(student); 
+                studentMenuForm.setVisible(true);
+            }
+            catch (Exception exception) {
+                messageLabel.setText("Error!");
+            }
+            
         }
         else {
             messageLabel.setForeground(Color.RED);
             messageLabel.setText("StudentID invalid");
             studentIDTF.setText("");
-         
         }  
     }
     
