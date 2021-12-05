@@ -10,12 +10,21 @@ package limitedlibrarymanagementsystem;
  * @author Chilka
  */
 public class LibrarianForm extends javax.swing.JFrame {
+    
+    //properties
+    private DBController controller;
 
     /**
      * Creates new form LibrarianForm
      */
     public LibrarianForm() {
         initComponents();
+         try {
+            this.controller = new DBController(new View());
+        }
+        catch (Exception e) {
+            displayTextArea.setText("Error: " + e.getMessage());
+        }
     }
 
     /**
@@ -320,13 +329,13 @@ public class LibrarianForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(165, 165, 165)
                         .addComponent(displayScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(taskLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(backToMainMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,8 +369,8 @@ public class LibrarianForm extends javax.swing.JFrame {
     }//GEN-LAST:event_issueBookRBActionPerformed
 
     private void viewCatalogRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCatalogRBActionPerformed
-        
-
+        changePanel();
+        taskLabel.setText("View Catalog");
     }//GEN-LAST:event_viewCatalogRBActionPerformed
 
     private void returnBookRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnBookRBActionPerformed
@@ -371,7 +380,8 @@ public class LibrarianForm extends javax.swing.JFrame {
     }//GEN-LAST:event_returnBookRBActionPerformed
 
     private void viewIssuedBooksRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewIssuedBooksRBActionPerformed
-        
+        changePanel();
+        taskLabel.setText("View Issued Books");
     }//GEN-LAST:event_viewIssuedBooksRBActionPerformed
 
     private void backToMainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuButtonActionPerformed
@@ -398,6 +408,24 @@ public class LibrarianForm extends javax.swing.JFrame {
             mainPanel.revalidate();
             // add panel 
             mainPanel.add(issueReturnBookPanel);
+        }
+        
+        if (viewIssuedBooksRB.isSelected()) {
+            try {
+                displayTextArea.setText(this.controller.updateViewIssuedTable());
+            }
+            catch(Exception e) {
+                displayTextArea.setText("Error: " + e.getMessage()); 
+            }
+        }
+        
+        if (viewCatalogRB.isSelected()) {
+            try {
+                displayTextArea.setText(this.controller.updateViewCatalog());
+            }
+            catch(Exception e) {
+                displayTextArea.setText("Error: " + e.getMessage()); 
+            }
         }
 
         mainPanel.repaint();
