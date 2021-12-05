@@ -149,7 +149,9 @@ public class Student {
             books.add(book);
         }
 
-        st.close();     // close the statement
+        st.close(); 
+        if (books.isEmpty())
+            throw new Exception("Title not in database");// close the statement
         return books;
 
     }
@@ -192,6 +194,8 @@ public class Student {
             books.add(book);
         }
         st.close();  // close the statement
+        if (books.isEmpty())
+            throw new Exception("Author not in the database");
         return books;
     }
 
@@ -233,6 +237,8 @@ public class Student {
             books.add(book);
         }
         st.close(); // close the statement
+        if (books.isEmpty())
+            throw new Exception("Publisher not in the database");
         return books;
     }
 
