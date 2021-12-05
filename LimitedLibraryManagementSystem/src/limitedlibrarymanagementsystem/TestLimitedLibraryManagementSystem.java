@@ -45,9 +45,25 @@ public class TestLimitedLibraryManagementSystem{
         //notice that issuedQuantity is still 0 (check BookData constructor)
         //notice that date of purchase is set to today even though we do LocalDate.EPOCH(check BookData constructor)
 	
-	Student student = new Student("1940108", new StudentData("Giuliana Bouzon", "5148009876"));
+	Student student = new Student("1940108", new StudentData("Giuliana Bouzon", "1234567890"));
 	
-	//DBController controller = new DBController(book, student, view);
+        try {
+            DBController controller = new DBController(student, view);
+           // System.out.println(controller.updateViewIssuedTable());
+            //controller.issueBook(book, student);
+            //System.out.println(controller.updateViewIssuedTable());
+            //controller.borrow(book);
+            //System.out.println(controller.updateViewCatalog());
+            //controller.borrow(book);
+            //System.out.println(controller.updateViewIssuedTable());
+           //System.out.println(controller.updateViewCatalog());
+           //controller.returnBook(book, student);
+           controller.toReturn(book);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
 	
 	
 	//testing searching by title
