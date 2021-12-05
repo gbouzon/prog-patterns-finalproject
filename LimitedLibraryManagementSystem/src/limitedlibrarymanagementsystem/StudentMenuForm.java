@@ -12,7 +12,10 @@ import java.sql.Connection;
  * @author Chilka
  */
 public class StudentMenuForm extends javax.swing.JFrame {
+    
+    //properties
     private Student student;
+    private DBController controller;
     
        /**
      * Creates new form StudentLoginForm
@@ -23,7 +26,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
         searchTitleTF.setEnabled(Boolean.TRUE);
         searchPublisherTF.setEnabled(Boolean.FALSE);
         searchAuthorTF.setEnabled(Boolean.FALSE);
-        this.student = student;
+        //this.student = new Student();
     }
    
     /**
@@ -35,7 +38,13 @@ public class StudentMenuForm extends javax.swing.JFrame {
         searchTitleTF.setEnabled(Boolean.TRUE);
         searchPublisherTF.setEnabled(Boolean.FALSE);
         searchAuthorTF.setEnabled(Boolean.FALSE);
-        this.student = student;
+        try {
+            this.student = new Student(student);
+            this.controller = new DBController(this.student, new View());
+        }
+        catch (Exception e) {
+            displayTA.setText("Error: " + e.getMessage());
+        }
     }
 
     /**
@@ -72,6 +81,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        displayTA.setEditable(false);
         displayTA.setColumns(20);
         displayTA.setRows(5);
         displayScrollPanel.setViewportView(displayTA);
@@ -271,17 +281,34 @@ public class StudentMenuForm extends javax.swing.JFrame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         if (titleRB.isSelected()) {
-            // do something
+            try {
+                if (searchTitleTF.getText() != null && !searchTitleTF.getText().isEmpty())
+                    displayTA.setText(this.controller.updateViewBookList(this.controller.searchBookByTitle(searchTitleTF.getText())));
+            }
+            catch (Exception e) {
+                displayTA.setText("Error: " + e.getMessage());
+            } 
         }
         
         if (authorNameRB.isSelected()) {
-            // do something
+            try {
+                if (searchAuthorTF.getText() != null && !searchAuthorTF.getText().isEmpty())
+                    displayTA.setText(this.controller.updateViewBookList(this.controller.searchBookByAuthorName(searchAuthorTF.getText())));
+            }
+            catch (Exception e) { 
+                displayTA.setText("Error: " + e.getMessage());
+            }
         }
         
-        if (publisherRB.isSelected()) {
-            // do something
+        if (publisherRB.isSelected()) { 
+            try {
+                if (searchPublisherTF.getText() != null && !searchPublisherTF.getText().isEmpty())
+                    displayTA.setText(this.controller.updateViewBookList(this.controller.searchBookByPublisher(searchPublisherTF.getText())));
+            }
+            catch (Exception e) {
+                displayTA.setText("Error: " + e.getMessage());
+            }
         }
-        
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void authorNameRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorNameRBActionPerformed
@@ -297,7 +324,12 @@ public class StudentMenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_publisherRBActionPerformed
 
     private void viewCatalogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCatalogButtonActionPerformed
-        // TODO add your handling code here:
+        try {
+            displayTA.setText(this.controller.updateViewCatalog());
+        }
+        catch(Exception e) {
+           displayTA.setText("Error: " + e.getMessage()); 
+        }
     }//GEN-LAST:event_viewCatalogButtonActionPerformed
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
