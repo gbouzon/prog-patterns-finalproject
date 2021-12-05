@@ -265,34 +265,56 @@ public class Student {
         String query = "SELECT * FROM BOOK WHERE SN =" + "'" + book.getBookSN() + "';";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(query);
-
+   
         int quantity = 0;
+        int issuedQ = 0;
         while (rs.next()) {
             quantity = rs.getInt("Quantity");   // check how many are available
+            issuedQ = rs.getInt("IssuedQuantity");
         }
+        
+        if (quantity == 0) 
+            throw new Exception("Book is not available to be borrowed.");
+        
+        // check if book has already been borrowed by this student
+        query = "SELECT * FROM ISSUEDBOOK WHERE StudentID = " + "'" + studentID + "';";
+        statement = connection.createStatement();
+        rs = statement.executeQuery(query);
+        String sn = "";
+        
+        while (rs.next()){
+            sn = rs.getString("BookSN");
+        }
+        
+        if (sn.equals(book.getBookSN()))
+            throw new Exception("Student already borrowed this book!");
+        
+        else {  
+            if (quantity > 0 && issuedQ <= quantity) {
+                //Step 2:  Update Book Table quantity of book and issued quantity of book
+                query = "UPDATE BOOK SET Quantity = Quantity - 1, IssuedQuantity = IssuedQuantity + 1 WHERE SN ="
+                        + "'" + book.getBookSN() + "';";
+                statement = connection.createStatement();
+                statement.executeUpdate(query);
 
-        if (quantity > 0) {
-            //Step 2:  Update Book Table quantity of book and issued quantity of book
-            query = "UPDATE BOOK SET Quantity = Quantity - 1, IssuedQuantity = IssuedQuantiy + 1 WHERE SN ="
-                    + "'" + book.getBookSN() + "';";
-            statement = connection.createStatement();
-            statement.executeUpdate(query);
+                // Add a row to the IssuedBook table 
+                query = "INSERT into ISSUEDBOOK(BookSN, "
+                        + "StudentID, StudentName, StudentContact, IssuedDate) "
+                        + "VALUES(" + "'" + book.getBookSN() //bookSN(foreign key -> already updated when step 2 is done)
+                        + "'," + "'" + studentID + "'," + "'" + data.getName() + "',"
+                        + data.getContactNum() + ",'"
+                        + LocalDate.parse(LocalDate.now().toString(),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "');"; 
+            
+                System.out.println(query); // test
 
-            // Add a row to the IssuedBook table 
-            query = "INSERT * into ISSUEDBOOK(IssuedBookID, BookSN, "
-                    + "StudentID, StudentContact, IssuedDate) "
-                    + "VALUES(" + nextIssuedBookID++ + "," + "'" + book.getBookSN() //bookSN(foreign key -> already updated when step 2 is done)
-                    + "'," + "'" + studentID + "'," + "'"
-                    + data.getContactNum() + ",'" + "'"
-                    + LocalDate.now().toString() + "')";
-            System.out.println(query); // test
+                statement = connection.createStatement();
+                statement.executeUpdate(query);
 
-            statement = connection.createStatement();
-            statement.executeUpdate(query);
-
-            statement.close();
-            System.out.println("Book borrowed successfully");
-            return true;
+                statement.close();
+                System.out.println("Book borrowed successfully");
+                return true;
+            }
         }
         return false;
     }
@@ -307,7 +329,7 @@ public class Student {
         // Step 1: Check first the book from IssuedBook table
         String query = "SELECT IssuedBookID, BookSN, StudentID "
                 + "FROM ISSUEDBOOK WHERE BookSN='" + book.getBookSN()
-                + "' AND 'StudentID= '" + studentID + "';";
+                + "' AND StudentID= '" + studentID + "';";
 
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(query);
@@ -318,15 +340,18 @@ public class Student {
         while (rs.next()) {
             issuedBookID = rs.getInt("IssuedBookID");
             bookSN = rs.getString("BookSN");
-            stuID = rs.getString("stuID");
+            stuID = rs.getString("studentID");
         }
-
+        
+        if (!bookSN.equals(book.getBookSN()) || !stuID.equals(studentID))
+            throw new Exception("You cannot return a book you have not borrowed");
+        
         // Step 2 : Verify the bookSN and the stuID
         if (bookSN.equals(book.getBookSN()) && stuID.equals(studentID)) {
 
             //Step 3:  Update Book Table quantity of book and issued quantity of book
             query = "UPDATE BOOK SET Quantity = Quantity + 1, "
-                    + "IssuedQuantity = IssuedQuantiy - 1 WHERE SN ="
+                    + "IssuedQuantity = IssuedQuantity - 1 WHERE SN ="
                     + "'" + book.getBookSN() + "';";
             statement = connection.createStatement();
             statement.executeUpdate(query);
