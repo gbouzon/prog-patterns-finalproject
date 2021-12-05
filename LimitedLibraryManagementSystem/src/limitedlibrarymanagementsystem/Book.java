@@ -145,9 +145,8 @@ public class Book {
             studentName = rs.getString("Name");
             contact = rs.getString("Contact");
         }
-
-        StudentData studentData = new StudentData(studentName, contact);   // value
-        Student studentResult = new Student(studentID, studentData);
+        
+        Student studentResult = new Student(studentID, new StudentData(studentName, contact));
 
         // Step 2:  Check book if library has it
         query = "SELECT * FROM BOOK WHERE SN =" + "'" + book.getBookSN() + "';";
@@ -204,7 +203,6 @@ public class Book {
             statement.close();
             return false;
         }
-
     }
 
     public Boolean returnBook(Book book, Student student) throws Exception {
@@ -249,10 +247,8 @@ public class Book {
     public static Map<String, String> viewCatalog() throws Exception {
         return IViewable.viewCatalog();
     }
-
     
-        
-         /**
+    /**
      * Retrieves all data from IssuedBooks table and returns them as a Map. The
      * map is sorted by “SN”.
      *
@@ -271,16 +267,14 @@ public class Book {
         while (rs.next()) {
             //getting the key -> book sn
             String key = rs.getString("SN");
-            String value = rs.getString("StudentID") + rs.getString("StudentName") 
-                    + rs.getString("StudentContact") + rs.getString("IssuedDate");
-            
-            //debugging - will be deleted later
-            System.out.println(key);
-            //System.out.println(value);
+            String value = "Student ID: " + rs.getString("StudentID") + "\n" + "Student Name: " + rs.getString("StudentName") 
+                    + "\n" +  rs.getString("StudentContact") + rs.getString("IssuedDate");
 
             //inserting into map
             map.put(key, value);
         }
+        if (map.isEmpty())
+            throw new Exception("No books have been issued");
         return map;
     }
 
