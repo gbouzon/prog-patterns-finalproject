@@ -34,7 +34,7 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="mainPanel" min="-2" pref="438" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
                       <Component id="displayScrollPanel" min="-2" pref="460" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -43,7 +43,7 @@
                       <Component id="backToMainMenuButton" min="-2" pref="168" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="22" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
