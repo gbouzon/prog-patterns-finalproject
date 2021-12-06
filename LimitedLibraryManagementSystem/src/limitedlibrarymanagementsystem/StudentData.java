@@ -37,7 +37,7 @@ public class StudentData {
     private String contactNum;
     
     //for proofing input
-    static final String CONTACT_REGEX = "[0-9]{10,21}"; //number must be between 10 and 20 digits and comprise of ONLY digits
+    static final String CONTACT_REGEX = "[0-9-]{10,21}"; //number must be between 10 and 20 digits and comprise of ONLY digits
     static final String NAME_REGEX = "^[A-Za-z-\\s]{1,51}$"; //only letters 1 - 50, allows whitespace and dashes 
     //Pattern.matches(nameRegex, name) -> to use for pattern matchingS
     
