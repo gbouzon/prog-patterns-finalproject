@@ -32,8 +32,10 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- *
- * @author Chilka Castro
+ * Interface implements viewCatalog method
+ * MVC Pattern -> Strategy (interfaces)
+ * Final Project for Programming Patterns course - Fall 2021.
+ * @author Chilka Castro, Giuliana Bouzon
  */
 public interface IViewable {
     

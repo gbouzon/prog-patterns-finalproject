@@ -28,14 +28,13 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.Objects;
 import java.sql.Connection;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
- * Defines Book objects according to project problem statement. Programming
- * Patterns - Fall 2021 - Final Project.
- *
- * @author Chilka Castro and Giuliana Bouzon
+ * Class to define Book objects.
+ * As required per final project problem statement.
+ * Final Project for Programming Patterns course - Fall 2021.
+ * @author Chilka Castro, Giuliana Bouzon
  */
 public class Book {
 
@@ -43,11 +42,10 @@ public class Book {
     private String bookSN;
     private BookData data;
     private Connection connection;
-    private static int nextIssuedBookID = 1;
 
     //default constructor
-    public Book() throws Exception { //just for testing, not actually going to be called within the application
-        this("noSN", new BookData()); //default value set to jan 1st 2010
+    public Book() throws Exception { 
+        this("noSN", new BookData()); 
         this.connection = DBConnection.getSingleInstance();
     }
 
@@ -55,6 +53,8 @@ public class Book {
      * Constructor with all data members
      *
      * @param bookSN the serial number of the book (primary key)
+     * @param data the data of the book (author, publisher, etc)
+     * @throws Exception
      */
     public Book(String bookSN, BookData data) throws Exception {
         this.bookSN = (bookSN != null && !bookSN.isEmpty()) ? bookSN : "noSN";
@@ -99,8 +99,9 @@ public class Book {
     }
 
     /**
-     * 
-     * @param book
+     * Creates a new entry in the Books table to add a new book to the catalog. 
+     * Sets “Issued” attribute to zero and addedDate to the current date. 
+     * @param book the book to be added to the library catalog
      * @throws Exception 
      */
     public void addBook(Book book) throws Exception {
@@ -110,23 +111,20 @@ public class Book {
                 + "'" + "," + "'" + book.getBookData().getPublisher() + "'" + ","
                 + book.getBookData().getBookQuantity() + "," + book.getBookData().getPrice() + ","
                 + book.getBookData().getIssuedQuantity() + "," + "'" + LocalDate.now().toString() + "')";
-        //test
-        System.out.println(query);
-        //added date in db is NOT the same as purchased date in book(refers to the date a student
-        //purchases it whilst addeddate is when the book is added to the library catalog) -> be careful
 
         Statement statement = connection.createStatement();
         statement.executeUpdate(query);
 
         statement.close();
-        System.out.println("Book successfully added to database");
     }
 
     /**
-     * 
-     * @param book
-     * @param student
-     * @return
+     * If student information is valid and book is available to be borrowed, the number of copies(“Quantity”) will be decreased by one 
+     * and the number of Copies issued (“Issued”) will be increased by one. 
+     * A new entry in “IssuedBooks” table is added.
+     * @param book the book to be issued
+     * @param student the student who wants to borrow the book
+     * @return true if the book was successfully issued.
      * @throws Exception 
      */
     public Boolean issueBook(Book book, Student student) throws Exception {
@@ -148,12 +146,18 @@ public class Book {
         
         Student studentResult = new Student(studentID, new StudentData(studentName, contact));
         
-        if (studentResult.borrow(book))
-            return true;
-        
-        return false;
+        return studentResult.borrow(book);
     }
 
+    /**
+     * If the student information is valid and book information for that student is also valid, 
+     * the number of copies “Quantity” will be increased by one and the number of copies issued will be decreased by one. 
+     * The corresponding record in IssuedBooks table is deleted from the table. 
+     * @param book the book to be returned
+     * @param student the student who borrowed the book
+     * @return true if the book was successfully returned
+     * @throws Exception 
+     */
     public Boolean returnBook(Book book, Student student) throws Exception {
          // Step 1: Check first the book from IssuedBook table
         String query = "SELECT IssuedBookID, BookSN, StudentID "
@@ -164,18 +168,18 @@ public class Book {
         ResultSet rs = statement.executeQuery(query);
 
         int issuedBookID = 0;
-        String bookSN = "";
+        String SN = "";
         String stuID = "";
         while (rs.next()) {
             issuedBookID = rs.getInt("IssuedBookID");
-            bookSN = rs.getString("BookSN");
+            SN = rs.getString("BookSN");
             stuID = rs.getString("StudentID");
         }
-        if (!bookSN.equals(book.getBookSN()) || !stuID.equals(student.getStudentID()))
+        if (!SN.equals(book.getBookSN()) || !stuID.equals(student.getStudentID()))
             throw new Exception("Student cannot return a book they have not borrowed");
 
-        // Step 2 : Verify the bookSN and the stuID
-        else if (bookSN.equals(book.getBookSN()) && stuID.equals(student.getStudentID())) {
+        // Step 2 : Verify the SN and the stuID
+        else if (SN.equals(book.getBookSN()) && stuID.equals(student.getStudentID())) {
            
             //Step 3:  Update Book Table quantity of book and issued quantity of book
             query = "UPDATE BOOK SET Quantity = Quantity + 1, "
@@ -194,6 +198,11 @@ public class Book {
         return false;
     }
 
+    /**
+     * This method returns a map containing all data retrieved from the Books table.
+     * @return a map
+     * @throws Exception 
+     */
     public static Map<String, String> viewCatalog() throws Exception {
         return IViewable.viewCatalog();
     }
@@ -201,13 +210,10 @@ public class Book {
     /**
      * Retrieves all data from IssuedBooks table and returns them as a Map. The
      * map is sorted by “SN”.
-     *
-     * @return
+     * @return a map
      */
-    public Map<String, String> viewIssuedBooks() throws Exception { //not finished at allllllll - problem with table design smh ask teacher
-        Map<String, String> map = new HashMap<>();
-        //SN is key
-        //value is str comprised of: studentid, contact and issuedate
+    public Map<String, String> viewIssuedBooks() throws Exception { 
+        Map<String, String> map = new TreeMap<>( (String s1, String s2) -> (s1.compareTo(s2)));
         String query = "SELECT * FROM ISSUEDBOOK";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(query);
@@ -223,10 +229,12 @@ public class Book {
         }
         if (map.isEmpty())
             throw new Exception("No books have been issued");
+        
         return map;
     }
 
     // getters and setters
+    
     public String getBookSN() {
         return bookSN;
     }
@@ -242,6 +250,7 @@ public class Book {
     }
 
     public void setBookData(BookData data) {
-        this.data = new BookData(data);
+        if (data != null)
+            this.data = new BookData(data);
     }
 }

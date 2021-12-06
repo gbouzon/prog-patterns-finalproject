@@ -29,6 +29,7 @@ import java.util.Map;
 /**
  * MVC Pattern -> View class 
  * Meant to be used to get output for methods in controller
+ * Final Project for Programming Patterns course - Fall 2021.
  * @author Chilka, Giuliana Bouzon
  */
 public class View {

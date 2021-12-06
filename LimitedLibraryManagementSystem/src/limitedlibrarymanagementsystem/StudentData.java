@@ -1,4 +1,4 @@
-/** MIT License Copyright (c) 2021 Giuliana Bouzon
+/** MIT License Copyright (c) 2021 Giuliana Bouzon, Chilka Castro
 
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -25,9 +25,11 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 /**
-*
-* @author Giuliana Bouzon
-*/
+ * Contains Data for Student objects
+ * Design Pattern -> Strategy (composition)
+ * Final Project for Programming Patterns course - Fall 2021.
+ * @author Giuliana Bouzon, Chilka Castro
+ */
 public class StudentData {
     
     //properties
@@ -96,6 +98,7 @@ public class StudentData {
     }
    
     // getters and setters
+    
     public String getName() {
         return name;
     }

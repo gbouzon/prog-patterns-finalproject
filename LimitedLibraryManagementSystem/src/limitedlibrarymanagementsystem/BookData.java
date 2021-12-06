@@ -1,4 +1,4 @@
-/** MIT License Copyright (c) 2021 Giuliana Bouzon
+/** MIT License Copyright (c) 2021 Giuliana Bouzon, Chilka Castro
 
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -25,8 +25,10 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * Programming Patterns - Fall 2021 - Final Project.
- * @author Chilka Castro and Giuliana Bouzon
+ * Contains Data for Book objects
+ * Design Pattern -> Strategy (composition)
+ * Final Project for Programming Patterns course - Fall 2021.
+ * @author Giuliana Bouzon, Chilka Castro
  */
 public class BookData {                                                 
 
@@ -49,7 +51,6 @@ public class BookData {
 
     /**
      * Constructor with all data members
-     *
      * @param title the title of the book
      * @param author the author of the book
      * @param publisher the publisher of the book
@@ -99,7 +100,6 @@ public class BookData {
 
     /**
      * Generates a String that represents a book object
-     *
      * @return a String that represents a book object
      */
     @Override

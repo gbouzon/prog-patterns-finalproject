@@ -36,15 +36,16 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 /**
- *
- * @author Chilka Castro
+ * Class to define Student objects.
+ * As required per final project problem statement.
+ * Final Project for Programming Patterns course - Fall 2021.
+ * @author Chilka Castro, Giuliana Bouzon
  */
 public class Student {
 
     //properties
     private String studentID;
     private StudentData data;
-    private static int nextIssuedBookID = 1;
     private Connection connection;
 
     //for proofing input
@@ -59,7 +60,6 @@ public class Student {
 
     /**
      * Constructor with all data members
-     *
      * @param studentID the ID of the student(primary key) (key -> map
      * implemented)
      * @param data the data of the student(value -> map implemented)
@@ -78,7 +78,6 @@ public class Student {
 
     /**
      * Generates an integer hash code associated with an equals method
-     *
      * @return and integer hash code
      */
     @Override
@@ -88,7 +87,6 @@ public class Student {
 
     /**
      * Check if objects are the same or not
-     *
      * @param obj the other object to be checked with for equality
      * @return True if the objects are the same and False if not
      */
@@ -110,7 +108,6 @@ public class Student {
 
     /**
      * Generates a String that represents a student object
-     *
      * @return a String that represents a student object
      */
     @Override
@@ -118,6 +115,12 @@ public class Student {
         return String.format("%-10s : %s\n", "Student ID", studentID);
     }
 
+    /**
+     * Search the book by its title
+     * @param title the title of the book
+     * @return a list of books with the specified title, sorted by book SN
+     * @throws Exception
+     */
     public List<Book> searchBookByTitle(String title) throws Exception {
         ArrayList<Book> books = new ArrayList<>();
 
@@ -152,17 +155,20 @@ public class Student {
         st.close(); 
         if (books.isEmpty())
             throw new Exception("Title not in database");// close the statement
+        
+        //sorting by SN
+        books.sort((Book b1, Book b2) -> (b1.getBookSN().compareTo(b2.getBookSN())));
+        
         return books;
-
     }
 
     /**
      * Search the book by its author's name
-     *
      * @param authorName the name of the author
-     * @return a list of book written by the author
+     * @return a list of books written by the author, sorted by book SN
+     * @throws Exception
      */
-    public List<Book> searchBookByAuthorName(String authorName) throws Exception { //WORKS YAAAAAAY
+    public List<Book> searchBookByAuthorName(String authorName) throws Exception {
         ArrayList<Book> books = new ArrayList<>();
 
         String query = "SELECT * FROM BOOK WHERE UPPER(Author) = " + "'"
@@ -196,16 +202,19 @@ public class Student {
         st.close();  // close the statement
         if (books.isEmpty())
             throw new Exception("Author not in the database");
+        
+        books.sort((Book b1, Book b2) -> (b1.getBookSN().compareTo(b2.getBookSN())));
+        
         return books;
     }
 
     /**
      * Search the book by its publisher
-     *
      * @param publisher the publisher of the book
-     * @return a list of book
+     * @return a list of books, sorted by book SN
+     * @throws Exception
      */
-    public List<Book> searchBookByPublisher(String publisher) throws Exception { //WORKS YAAAAAAY
+    public List<Book> searchBookByPublisher(String publisher) throws Exception {
         ArrayList<Book> books = new ArrayList<>(); // a container for searched books
 
         String query = "SELECT * FROM BOOK WHERE UPPER(Publisher) = " + "'"
@@ -239,25 +248,28 @@ public class Student {
         st.close(); // close the statement
         if (books.isEmpty())
             throw new Exception("Publisher not in the database");
+        
+        books.sort((Book b1, Book b2) -> (b1.getBookSN().compareTo(b2.getBookSN())));
+        
         return books;
     }
 
     /**
-     *
      * This method returns a map containing all data retrieved from the Books
      * table. The key in the map is “SN”. All books should be sorted by “SN”.
-     * Use the appropriate formatting for the date and currency.
-     *
-     * @return
+     * @return map containing books
+     * @throws Exception
      */
-    public Map<String, String> viewCatalog() throws Exception { //WORKS YAYYYYYYYYY
+    public Map<String, String> viewCatalog() throws Exception {
         return IViewable.viewCatalog();
     }
 
     /**
-     * 
-     * @param book
-     * @return
+     * If the book is available to be borrowed, the number of copies(“Quantity”) will be decreased by one 
+     * and the number of Copies issued (“Issued”) will be increased by one. 
+     * A new entry in “IssuedBooks” table is added.
+     * @param book the book to be borrowed
+     * @return true if the book was successfully issued.
      * @throws Exception 
      */
     public Boolean borrow(Book book) throws Exception {
@@ -267,10 +279,8 @@ public class Student {
         ResultSet rs = statement.executeQuery(query);
    
         int quantity = 0;
-        int issuedQ = 0;
         while (rs.next()) {
             quantity = rs.getInt("Quantity");   // check how many are available
-            issuedQ = rs.getInt("IssuedQuantity");
         }
         
         if (quantity == 0) 
@@ -290,7 +300,7 @@ public class Student {
             throw new Exception("Student already borrowed this book!");
         
         else {  
-            if (quantity > 0 && issuedQ <= quantity) {
+            if (quantity > 0) {
                 //Step 2:  Update Book Table quantity of book and issued quantity of book
                 query = "UPDATE BOOK SET Quantity = Quantity - 1, IssuedQuantity = IssuedQuantity + 1 WHERE SN ="
                         + "'" + book.getBookSN() + "';";
@@ -306,13 +316,10 @@ public class Student {
                         + LocalDate.parse(LocalDate.now().toString(),
                         DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "');"; 
             
-                System.out.println(query); // test
-
                 statement = connection.createStatement();
                 statement.executeUpdate(query);
 
                 statement.close();
-                System.out.println("Book borrowed successfully");
                 return true;
             }
         }
@@ -320,9 +327,11 @@ public class Student {
     }
 
     /**
-     * 
-     * @param book
-     * @return
+     * If the book information for that student is valid, the number of copies “Quantity” will be increased by one
+     * and the number of copies issued will be decreased by one. 
+     * The corresponding record in IssuedBooks table is deleted from the table. 
+     * @param book the book to be returned
+     * @return true if the book was successfully returned
      * @throws Exception 
      */
     public Boolean toReturn(Book book) throws Exception {
@@ -347,7 +356,7 @@ public class Student {
             throw new Exception("You cannot return a book you have not borrowed");
         
         // Step 2 : Verify the bookSN and the stuID
-        if (bookSN.equals(book.getBookSN()) && stuID.equals(studentID)) {
+        else if (bookSN.equals(book.getBookSN()) && stuID.equals(studentID)) {
 
             //Step 3:  Update Book Table quantity of book and issued quantity of book
             query = "UPDATE BOOK SET Quantity = Quantity + 1, "
@@ -367,6 +376,7 @@ public class Student {
     }
     
     // getters and setters
+    
     public String getStudentID() {
         return studentID;
     }

@@ -29,7 +29,8 @@ import java.util.ArrayList;
 
 /**
  * A Driver class for the Limited Library Management System
- * @author Chilka Castro and Giuliana Bouzon
+ * Final Project for Programming Patterns course - Fall 2021.
+ * @author Chilka Castro, Giuliana Bouzon
  */
 public class TestLimitedLibraryManagementSystem{
 

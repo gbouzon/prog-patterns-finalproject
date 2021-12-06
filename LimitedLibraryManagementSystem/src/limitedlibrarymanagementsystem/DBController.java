@@ -23,13 +23,13 @@
  */
 package limitedlibrarymanagementsystem;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
 /**
- * A DB Controller class - represents librarian access
- *
+ * A DB Controller class
+ * MVC Pattern -> Controller for project
+ * Final Project for Programming Patterns course - Fall 2021.
  * @author Chilka Castro and Giuliana Bouzon
  */
 public class DBController implements IViewable {
@@ -51,7 +51,8 @@ public class DBController implements IViewable {
         bookLibrarianModel = new Book();
     }
     
-    public DBController(View view) throws Exception { //for librarian use
+    //constructor for librarian use (using book() default since we don't need the values)
+    public DBController(View view) throws Exception { 
         bookLibrarianModel = new Book();
         this.view = view;
     }
@@ -66,57 +67,47 @@ public class DBController implements IViewable {
     }
 
     // LIBRARIAN METHODS
+    
     /**
-     * Creates a new entry in the books table, adds a new book to the catalog,
-     * and sets "Issued" attribute to zero and adddedDate to the current date.
-     *
-     * @param book
+     * Creates a new entry in the Books table to add a new book to the catalog. 
+     * Sets “Issued” attribute to zero and addedDate to the current date. 
+     * @param book the book to be added to the library catalog
+     * @throws Exception 
      */
-    public void addBook(Book book) throws Exception { //WORKS YAYYYYYYYYYYY
+    public void addBook(Book book) throws Exception {
         bookLibrarianModel.addBook(book);
     }
 
     /**
-     * HAVENT TESTED Issues a book to a student(student information would be
-     * verified first) If the book is available, the number of
-     * copies(“Quantity”) will be decreased by one and the number of Copies
-     * issued (“Issued”) will be increased by one. A new entry in “IssuedBooks”
-     * table is added. The two methods return true if the book was successfully
-     * issued. table columns:
-     *
-     * @param book
-     * @param student
-     * @return
+     * If student information is valid and book is available to be borrowed, the number of copies(“Quantity”) will be decreased by one 
+     * and the number of Copies issued (“Issued”) will be increased by one. 
+     * A new entry in “IssuedBooks” table is added.
+     * @param book the book to be issued
+     * @param student the student who wants to borrow the book
+     * @return true if the book was successfully issued.
+     * @throws Exception 
      */
-    public boolean issueBook(Book book, Student student) throws Exception {  // attached to borrow book of Student class -> not yet implemented
+    public boolean issueBook(Book book, Student student) throws Exception {  // attached to borrow book of Student class
         return bookLibrarianModel.issueBook(book, student);
     }
 
     /**
-     *
-     * returnBook(b:Book, s:Student) and toReturn(b:Book): To return a book,
-     * check first if an entry in the issuedBooks table about the book and the
-     * student exists that will verify the studentID. The number of copies
-     * “Quantity” will be increased by one and the number of copies issued will
-     * be decreased by one. The corresponding record in IssuedBooks table is
-     * deleted from the table. The two methods return true if the book was
-     * successfully returned.
-     *
-     * @param book
-     * @param student
-     * @return
+     * If the student information is valid and book information for that student is also valid, 
+     * the number of copies “Quantity” will be increased by one and the number of copies issued will be decreased by one. 
+     * The corresponding record in IssuedBooks table is deleted from the table. 
+     * @param book the book to be returned
+     * @param student the student who borrowed the book
+     * @return true if the book was successfully returned
+     * @throws Exception 
      */
     public boolean returnBook(Book book, Student student) throws Exception {                     // toReturn() method of Student associated with each other
         return bookLibrarianModel.returnBook(book, student);
     }
 
     /**
-     *
-     * This method returns a map containing all data retrieved from the Books
-     * table. The key in the map is “SN”. All books should be sorted by “SN”.
-     * Use the appropriate formatting for the date and currency.
-     *
-     * @return
+     * This method returns a map containing all data retrieved from the Books table.
+     * @return a map
+     * @throws Exception 
      */
     public Map<String, String> viewCatalog() throws Exception { //WORKS YAYYYYYYYYY
         return Book.viewCatalog();  // static method in Book class
@@ -125,36 +116,38 @@ public class DBController implements IViewable {
     /**
      * Retrieves all data from IssuedBooks table and returns them as a Map. The
      * map is sorted by “SN”.
-     *
-     * @return
+     * @return a map
      */
     public static Map<String, String> viewIssuedBooks() throws Exception { //not finished at allllllll - problem with table design smh ask teacher
         return bookLibrarianModel.viewIssuedBooks();
     }
 
-    // there could be many view methods -> think later
+    /**
+     * Updates view (aka output) for the IssuedBook table
+     * @return a formatted string
+     * @throws Exception 
+     */
     public String updateViewIssuedTable() throws Exception {
        return view.printIssuedBookTable(viewIssuedBooks());    //viewIssuedBooks() -> is a returned map
     }
 
     /**
-     *
-     * @throws Exception
+     * Updates view (aka output) for the book table
+     * @return a formatted string
+     * @throws Exception 
      */
     @Override
     public String updateViewCatalog() throws Exception {  // IViewable interface
         return view.printBookCatalog(viewCatalog());  // viewCatalog() returns a map
     }
     
-    //NOTE FOR SEARCH METHODS:
-    //THINK OF TOKENIZING THE SEARCH KEY to avoid errors with whitespace
-    
     // STUDENT methods
+    
     /**
      * Search the book by its title
-     *
      * @param title the title of the book
-     * @return a list of book
+     * @return a list of books with the specified title, sorted by book SN
+     * @throws Exception
      */
     public List<Book> searchBookByTitle(String title) throws Exception { //WORKS YAAAAAAAAAAY
         return studentModel.searchBookByTitle(title);
@@ -162,9 +155,9 @@ public class DBController implements IViewable {
 
     /**
      * Search the book by its author's name
-     *
      * @param authorName the name of the author
-     * @return a list of book written by the author
+     * @return a list of books written by the author, sorted by book SN
+     * @throws Exception
      */
     public List<Book> searchBookByAuthorName(String authorName) throws Exception { //WORKS YAAAAAAY
         return studentModel.searchBookByAuthorName(authorName);
@@ -172,18 +165,20 @@ public class DBController implements IViewable {
 
     /**
      * Search the book by its publisher
-     *
      * @param publisher the publisher of the book
-     * @return a list of book
+     * @return a list of books, sorted by book SN
+     * @throws Exception
      */
     public List<Book> searchBookByPublisher(String publisher) throws Exception { //WORKS YAAAAAAY
         return studentModel.searchBookByPublisher(publisher);
     }
 
     /**
-     * 
-     * @param book
-     * @return
+     * If the book is available to be borrowed, the number of copies(“Quantity”) will be decreased by one 
+     * and the number of Copies issued (“Issued”) will be increased by one. 
+     * A new entry in “IssuedBooks” table is added.
+     * @param book the book to be borrowed
+     * @return true if the book was successfully issued.
      * @throws Exception 
      */
     public Boolean borrow(Book book) throws Exception {
@@ -191,15 +186,23 @@ public class DBController implements IViewable {
     }
     
     /**
-     * 
-     * @param book
-     * @return
+     * If the book information for that student is valid, the number of copies “Quantity” will be increased by one
+     * and the number of copies issued will be decreased by one. 
+     * The corresponding record in IssuedBooks table is deleted from the table. 
+     * @param book the book to be returned
+     * @return true if the book was successfully returned
      * @throws Exception 
      */
     public Boolean toReturn(Book book) throws Exception {
         return studentModel.toReturn(book);
     }
     
+    /**
+     * Updates view (aka output) for methods returning list of books (search methods)
+     * @param books the list of books
+     * @return a formatted string
+     * @throws Exception 
+     */
     public String updateViewBookList(List<Book> books) throws Exception {
 	return view.printBookList(books); //prints book lists in a pretty and organized format ;)
     }

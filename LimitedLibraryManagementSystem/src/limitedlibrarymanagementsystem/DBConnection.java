@@ -28,9 +28,11 @@ import java.sql.DriverManager;
 
 /**
  * A Database Connection class for the Library Database
+ * Design Pattern -> Singleton
+ * Final Project for Programming Patterns course - Fall 2021.
  * @author Chilka Castro and Giuliana Bouzon
  */
-public class DBConnection {  //APPLY SINGLETON IN THIS CLASS
+public class DBConnection {
 
     private static Connection connectionInstance;
 
