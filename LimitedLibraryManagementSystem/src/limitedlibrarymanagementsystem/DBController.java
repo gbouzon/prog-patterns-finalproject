@@ -137,7 +137,7 @@ public class DBController implements IViewable {
      * 
      */
     public String updateViewIssuedTable() throws Exception {
-       return view.printIssuedBookTable(viewIssuedBooks());    //viewIssuedBooks() -> is a returned map
+       return view.printIssuedBookTable(viewIssuedBooks());                     // viewIssuedBooks() -> is a returned map
     }
 
     /**
@@ -147,8 +147,8 @@ public class DBController implements IViewable {
      * @throws java.lang.Exception exception thrown
      */
     @Override
-    public String updateViewCatalog() throws Exception {  // IViewable interface
-        return view.printBookCatalog(viewCatalog());  // viewCatalog() returns a map
+    public String updateViewCatalog() throws Exception {                        // IViewable interface
+        return view.printBookCatalog(viewCatalog());                            // viewCatalog() returns a map
     }
     
     //--------------------------STUDENT methods-------------------------------\\
@@ -214,6 +214,6 @@ public class DBController implements IViewable {
      * @throws java.lang.Exception exception thrown
      */
     public String updateViewBookList(List<Book> books) throws Exception {
-	return view.printBookList(books);                                       //prints book lists in a pretty and organized format
+	return view.printBookList(books);                                       // prints book lists in a pretty and organized format
     }
 }

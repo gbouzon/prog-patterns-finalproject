@@ -52,7 +52,10 @@ public class Student {
     static final String ID_REGEX = "[0-9]{7}"; //id must be 7 digits long
     //Pattern.matches(nameRegex, name) -> to use for pattern matchingS
 
-    //default constructor
+    /**
+     * Default constructor
+     * @throws java.lang.Exception exception thrown
+     */
     public Student() throws Exception {
         this("0000000", new StudentData()); //just for testing and debugging purposes
         this.connection = DBConnection.getSingleInstance();
@@ -60,19 +63,23 @@ public class Student {
 
     /**
      * Constructor with all data members
-     * @param studentID the ID of the student(primary key) (key -> map
-     * implemented)
+     * @param studentID the ID of the student(primary key) 
+     * (key -> map implemented)
      * @param data the data of the student(value -> map implemented)
+     * @throws java.lang.Exception exception thrown
      */
     public Student(String studentID, StudentData data) throws Exception {
         this.connection = DBConnection.getSingleInstance();
-        this.studentID = (Pattern.matches(ID_REGEX, studentID)) ? studentID : "0000000";
-        this.data = new StudentData(data); //deep copy
+        setStudentData(data);
     }
 
-    //copy constructor
+    /**
+     * Copy constructor
+     * @param student the student object to copy
+     * @throws java.lang.Exception exception thrown
+     */
     public Student(Student student) throws Exception {
-        this(student.studentID, student.data);
+        this(student.studentID, new StudentData(student.data));
         this.connection = DBConnection.getSingleInstance();
     }
 
@@ -104,15 +111,6 @@ public class Student {
         Student other = (Student) obj;
         return Objects.equals(data, other.data) && 
                 Objects.equals(studentID, other.studentID);
-    }
-
-    /**
-     * Generates a String that represents a student object
-     * @return a String that represents a student object
-     */
-    @Override
-    public String toString() {
-        return String.format("%s : %s\n", "Student ID", studentID);
     }
 
     /**
@@ -256,9 +254,9 @@ public class Student {
 
     /**
      * This method returns a map containing all data retrieved from the Books
-     * table. The key in the map is “SN”. All books should be sorted by “SN”.
+     * table.The key in the map is “SN”. All books should be sorted by “SN”.
      * @return map containing books
-     * @throws Exception
+     * @throws java.lang.Exception exception thrown
      */
     public Map<String, String> viewCatalog() throws Exception {
         return IViewable.viewCatalog();
@@ -270,7 +268,7 @@ public class Student {
      * A new entry in “IssuedBooks” table is added.
      * @param book the book to be borrowed
      * @return true if the book was successfully issued.
-     * @throws Exception 
+     * @throws java.lang.Exception exception thrown
      */
     public Boolean borrow(Book book) throws Exception {
         // Step 1:  check book if library has it
@@ -292,9 +290,8 @@ public class Student {
         rs = statement.executeQuery(query);
         String sn = "";
         
-        while (rs.next()){
+        while (rs.next())
             sn = rs.getString("BookSN");
-        }
         
         if (sn.equals(book.getBookSN()))
             throw new Exception("Student already borrowed this book!");
@@ -302,16 +299,19 @@ public class Student {
         else {  
             if (quantity > 0) {
                 //Step 2:  Update Book Table quantity of book and issued quantity of book
-                query = "UPDATE BOOK SET Quantity = Quantity - 1, IssuedQuantity = IssuedQuantity + 1 WHERE SN ="
-                        + "'" + book.getBookSN() + "';";
+                query = "UPDATE BOOK SET Quantity = Quantity - 1, "
+                        + "IssuedQuantity = IssuedQuantity + 1 WHERE SN =" + "'" 
+                        + book.getBookSN() + "';";
                 statement = connection.createStatement();
                 statement.executeUpdate(query);
 
                 // Add a row to the IssuedBook table 
                 query = "INSERT into ISSUEDBOOK(BookSN, "
                         + "StudentID, StudentName, StudentContact, IssuedDate) "
-                        + "VALUES(" + "'" + book.getBookSN() //bookSN(foreign key -> already updated when step 2 is done)
-                        + "'," + "'" + studentID + "'," + "'" + data.getName() + "',"
+                        + "VALUES(" + "'" 
+                        + book.getBookSN() + "'," + "'"                         // bookSN(foreign key -> already updated when step 2 is done)
+                        + studentID + "'," + "'" 
+                        + data.getName() + "',"
                         + data.getContactNum() + ",'"
                         + LocalDate.parse(LocalDate.now().toString(),
                         DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "');"; 
@@ -332,7 +332,7 @@ public class Student {
      * The corresponding record in IssuedBooks table is deleted from the table. 
      * @param book the book to be returned
      * @return true if the book was successfully returned
-     * @throws Exception 
+     * @throws java.lang.Exception exception thrown
      */
     public Boolean toReturn(Book book) throws Exception {
         // Step 1: Check first the book from IssuedBook table
@@ -375,23 +375,48 @@ public class Student {
         return false;
     }
     
-    // getters and setters
+    /**
+     * Generates a String that represents a student object
+     * @return a String that represents a student object
+     */
+    @Override
+    public String toString() {
+        return String.format("%-10s : %s\n", "Student ID", studentID);
+    }
     
+    // getters and setters
+    /**
+     * Gets the studentID
+     * @return the studentID 
+     */
     public String getStudentID() {
         return studentID;
     }
 
+    /**
+     * Sets the studentID of the student
+     * @param studentID the studentID of the student
+     */
     public void setStudentID(String studentID) {
-        if (Pattern.matches(ID_REGEX, studentID)) {
+        if (Pattern.matches(ID_REGEX, studentID)) 
             this.studentID = studentID;
-        }
+        else 
+            this.studentID = "0000000";
     }
 
+    /**
+     * Gets the student data 
+     * @return the student data
+     */
     public StudentData getStudentData() {
-        return new StudentData(this.data);
+        return this.data;
     }
 
+    /**
+     * Sets the student data
+     * @param data the student data
+     */
     public void setStudentData(StudentData data) {
-        this.data = new StudentData(data);
+        this.data = data;
     }
 }

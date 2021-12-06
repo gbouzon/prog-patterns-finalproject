@@ -31,7 +31,6 @@ import java.util.Objects;
  * @author Giuliana Bouzon, Chilka Castro
  */
 public class BookData {                                                 
-
     //properties      
     private String title;
     private String author;
@@ -44,8 +43,11 @@ public class BookData {
     //the default we chose: no date can be before this
     private static final LocalDate DEFAULT_DATE = LocalDate.of(2010, 1, 1);
     
-    //default constructor
-    public BookData() throws Exception { //just for testing, not actually going to be called within the application
+    /**
+     * Default constructor
+     * @throws Exception exception thrown
+     */
+    public BookData() throws Exception {                                         //just for testing, not actually going to be called within the application
     	this("noTitle", "noAuthor", "noPublisher", 0, 0.0, 0, LocalDate.of(2021, 1, 1)); //default value set to jan 1st 2010
     }
 
@@ -58,7 +60,7 @@ public class BookData {
      * @param bookQuantity the quantity of the book
      * @param issuedQuantity the issued quantity of the book
      * @param purchaseDate the date of purchase of the book
-     * @throws Exception
+     * @throws Exception exception thrown
      */
     public BookData(String title, String author, String publisher,
             int bookQuantity, double price, int issuedQuantity, 
@@ -106,7 +108,8 @@ public class BookData {
 	if (getClass() != obj.getClass())
 	    return false;
 	BookData other = (BookData) obj;
-	return Objects.equals(author, other.author) && bookQuantity == other.bookQuantity
+	return Objects.equals(author, other.author) 
+                && bookQuantity == other.bookQuantity
 		&& issuedQuantity == other.issuedQuantity
 		&& Double.doubleToLongBits(price) == Double.doubleToLongBits(other.price)
 		&& Objects.equals(publisher, other.publisher) 
@@ -166,7 +169,7 @@ public class BookData {
     /**
      * Sets the name of the author of the book
      * @param author the name of the author of the book
-     * @throws Exception exception thrown
+     * @throws java.lang.Exception exception thrown
      */
     public void setAuthor(String author) throws Exception {
 	if (author != null && !author.isEmpty())

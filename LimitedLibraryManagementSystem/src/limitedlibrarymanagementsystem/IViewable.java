@@ -80,7 +80,7 @@ public interface IViewable {
     /**
      * Updates the view catalog
      * @return String, formatted string for output
-     * @throws Exception 
+     * @throws java.lang.Exception
      */
     public String updateViewCatalog() throws Exception;
 }

@@ -31,7 +31,6 @@ import java.util.regex.Pattern;
  * @author Giuliana Bouzon, Chilka Castro
  */
 public class StudentData {
-    
     //properties
     private String name;
     private String contactNum;
@@ -54,8 +53,8 @@ public class StudentData {
      * @param contactNum the contact number of the student
      */
     public StudentData(String name, String contactNum) {
-        this.name = (Pattern.matches(NAME_REGEX, name)) ? name : "noName";
-        this.contactNum = (Pattern.matches(CONTACT_REGEX, contactNum)) ? contactNum : "5141234567";
+        setName(name);
+        setContactNum(contactNum);
     }
     
     /**
@@ -98,22 +97,41 @@ public class StudentData {
     }
    
     // getters and setters
-    
+    /**
+     * Gets the name of the student
+     * @return the name of the student
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name of the student
+     * @param name 
+     */
     public void setName(String name) {
 	if (Pattern.matches(NAME_REGEX, name))
 	    this.name = name;
+        else 
+            this.name = "noName";
     }
 
+    /**
+     * Gets the contact number of the student
+     * @return the contact number of the student
+     */
     public String getContactNum() {
         return contactNum;
     }
 
+    /**
+     * Sets the contact number of the student
+     * @param contactNum the contact number of the student
+     */
     public void setContactNum(String contactNum) {
 	if (Pattern.matches(CONTACT_REGEX, contactNum))
 	    this.contactNum = contactNum;
+        else 
+            this.contactNum = "5141234567";
     } 
 }
