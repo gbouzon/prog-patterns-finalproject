@@ -40,7 +40,7 @@ public class View {
      * @return a String containing formatted information pulled from map
      */
     public String printIssuedBookTable(Map<String, String> map) {
-        String str = "Issued Books: \n";
+        String str = "Issued Books: \n\n";
         for (Map.Entry<String, String> entry : map.entrySet()) {
             str += "SN: " + entry.getKey() + "\n";
 	    str += entry.getValue() + "\n";
@@ -54,9 +54,9 @@ public class View {
      * @return a String containing formatted information pulled from map
      */
     public String printBookCatalog(Map<String, String> map) {
-	String str = "Catalog of Books in the Library: \n";
+	String str = "Catalog of Books in the Library: \n\n";
 	for (Map.Entry<String, String> entry : map.entrySet()) {
-	    str += String.format("%-20s : %s\n", "SN", entry.getKey());
+	    str += String.format("%s : %s\n", "SN", entry.getKey());
 	    str += entry.getValue() + "\n";
 	}
 	return str;
@@ -67,7 +67,7 @@ public class View {
      * @param books, the input list to be formatted (usually search method from Student)
      * @return a String containing formatted information pulled from list
      */
-    public String printBookList(List<Book> books) { 
+    public String printBookList(List<Book> books) throws Exception { 
         books.sort((Book b1, Book b2) -> (b1.getBookSN().compareTo(b2.getBookSN())));
 	String str = "";
 	for (Book book : books) {
