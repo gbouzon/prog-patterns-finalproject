@@ -112,7 +112,7 @@ public class Student {
      */
     @Override
     public String toString() {
-        return String.format("%-10s : %s\n", "Student ID", studentID);
+        return String.format("%s : %s\n", "Student ID", studentID);
     }
 
     /**
@@ -281,11 +281,11 @@ public class Student {
         int quantity = 0;
         while (rs.next()) {
             quantity = rs.getInt("Quantity");   // check how many are available
+            
+            if (quantity == 0) 
+                throw new Exception("Book is not available to be borrowed.");
         }
-        
-        if (quantity == 0) 
-            throw new Exception("Book is not available to be borrowed.");
-        
+
         // check if book has already been borrowed by this student
         query = "SELECT * FROM ISSUEDBOOK WHERE StudentID = " + "'" + studentID + "';";
         statement = connection.createStatement();
