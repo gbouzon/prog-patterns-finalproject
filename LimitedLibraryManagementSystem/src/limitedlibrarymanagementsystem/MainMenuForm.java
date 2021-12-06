@@ -24,6 +24,8 @@
 
 package limitedlibrarymanagementsystem;
 
+import java.awt.Color;
+
 /**
  * Form for Main Menu
  * As required per final project problem statement (GUI choice)
@@ -36,6 +38,7 @@ public class MainMenuForm extends javax.swing.JFrame {
      * Creates new form MenuForm
      */
     public MainMenuForm() {
+        
         initComponents();
     }
 
@@ -52,11 +55,10 @@ public class MainMenuForm extends javax.swing.JFrame {
         studentButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(0, 102, 51));
+        setBackground(new java.awt.Color(255, 255, 255));
 
         librarianButton.setBackground(new java.awt.Color(0, 102, 51));
         librarianButton.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        librarianButton.setForeground(new java.awt.Color(0, 0, 0));
         librarianButton.setText("Librarian");
         librarianButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,7 +68,6 @@ public class MainMenuForm extends javax.swing.JFrame {
 
         studentButton.setBackground(new java.awt.Color(153, 0, 0));
         studentButton.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        studentButton.setForeground(new java.awt.Color(0, 0, 0));
         studentButton.setText("Student");
         studentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
