@@ -37,8 +37,8 @@ public class StudentData {
     private String contactNum;
     
     //for proofing input
-    static final String CONTACT_REGEX = "[0-9]{10,20}"; //number must be between 10 and 20 digits and comprise of ONLY digits
-    static final String NAME_REGEX = "^[A-Za-z-\\s]{1,50}$"; //only letters 1 - 50, allows whitespace and dashes 
+    static final String CONTACT_REGEX = "[0-9]{10,21}"; //number must be between 10 and 20 digits and comprise of ONLY digits
+    static final String NAME_REGEX = "^[A-Za-z-\\s]{1,51}$"; //only letters 1 - 50, allows whitespace and dashes 
     //Pattern.matches(nameRegex, name) -> to use for pattern matchingS
     
     /**
@@ -91,8 +91,8 @@ public class StudentData {
     public String toString() {
         String str = "";
         
-        str += String.format("%-10s : %s\n", "Student name", name);
-        str += String.format("%-10s : %s\n", "Contact Number", contactNum);
+        str += String.format("%s : %s\n", "Student name", name);
+        str += String.format("%s : %s\n", "Contact Number", contactNum);
         
         return str;
     }
