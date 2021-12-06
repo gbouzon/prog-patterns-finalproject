@@ -129,6 +129,7 @@ public class Student {
 
         while (rs.next()) {
             String sn = rs.getString("SN");
+            System.out.println("test" + sn);
 
             //getting BookData
             String author = rs.getString("Author");

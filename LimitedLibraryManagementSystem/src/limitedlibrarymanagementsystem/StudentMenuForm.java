@@ -38,7 +38,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
     private Student student;
     private DBController controller;
     
-       /**
+    /**
      * Creates new form StudentLoginForm
      */
     
@@ -326,7 +326,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
         
         if (publisherRB.isSelected()) { 
             searchAuthorTF.setText("");
-            searchPublisherTF.setText("");
+            searchTitleTF.setText("");
             try {
                 if (searchPublisherTF.getText() != null && !searchPublisherTF.getText().isEmpty())
                     displayTA.setText(this.controller.updateViewBookList(this.controller.searchBookByPublisher(searchPublisherTF.getText())));

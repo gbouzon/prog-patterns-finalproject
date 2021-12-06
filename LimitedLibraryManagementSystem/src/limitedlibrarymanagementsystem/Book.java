@@ -29,7 +29,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.sql.Connection;
 import java.util.TreeMap;
-import java.util.regex.Pattern;
 
 /**
  * Class to define Book objects.
@@ -43,9 +42,6 @@ public class Book {
     private String bookSN;
     private BookData data;
     private Connection connection;
-    
-    static final String SN_REGEX = "[0-9-]{1,16}"; //must be between 1 and 15 digits long
-    //Pattern.matches(nameRegex, name) -> to use for pattern matchingS
 
     /**
      * Default constructor
@@ -289,7 +285,7 @@ public class Book {
      * @throws java.lang.Exception exception thrown
      */
     public void setBookSN(String bookSN) throws Exception {
-        if (Pattern.matches(SN_REGEX, bookSN)) 
+        if (bookSN != null && !bookSN.isEmpty()) 
             this.bookSN = bookSN;
         
         else 
