@@ -235,7 +235,7 @@ public class Book {
         }
         return false;
     }
-
+    
     /**
      * This method returns a map containing all data retrieved from the Books table.
      * @return a map of all the books in the library

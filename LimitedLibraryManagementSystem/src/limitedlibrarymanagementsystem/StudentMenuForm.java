@@ -301,6 +301,8 @@ public class StudentMenuForm extends javax.swing.JFrame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         if (titleRB.isSelected()) {
+            searchAuthorTF.setText("");
+            searchPublisherTF.setText("");
             try {
                 if (searchTitleTF.getText() != null && !searchTitleTF.getText().isEmpty())
                     displayTA.setText(this.controller.updateViewBookList(this.controller.searchBookByTitle(searchTitleTF.getText())));
@@ -311,6 +313,8 @@ public class StudentMenuForm extends javax.swing.JFrame {
         }
         
         if (authorNameRB.isSelected()) {
+            searchTitleTF.setText("");
+            searchPublisherTF.setText("");
             try {
                 if (searchAuthorTF.getText() != null && !searchAuthorTF.getText().isEmpty())
                     displayTA.setText(this.controller.updateViewBookList(this.controller.searchBookByAuthorName(searchAuthorTF.getText())));
@@ -321,6 +325,8 @@ public class StudentMenuForm extends javax.swing.JFrame {
         }
         
         if (publisherRB.isSelected()) { 
+            searchAuthorTF.setText("");
+            searchPublisherTF.setText("");
             try {
                 if (searchPublisherTF.getText() != null && !searchPublisherTF.getText().isEmpty())
                     displayTA.setText(this.controller.updateViewBookList(this.controller.searchBookByPublisher(searchPublisherTF.getText())));
@@ -384,18 +390,24 @@ public class StudentMenuForm extends javax.swing.JFrame {
 
     public void changeSearch() {
          if (titleRB.isSelected()) {
+           searchAuthorTF.setText("");
+           searchPublisherTF.setText("");
            searchTitleTF.setEnabled(Boolean.TRUE);
            searchPublisherTF.setEnabled(Boolean.FALSE);
            searchAuthorTF.setEnabled(Boolean.FALSE);
         }
         
         if (publisherRB.isSelected()) {
+           searchAuthorTF.setText("");
+           searchTitleTF.setText("");
            searchTitleTF.setEnabled(Boolean.FALSE);
            searchPublisherTF.setEnabled(Boolean.TRUE);
            searchAuthorTF.setEnabled(Boolean.FALSE);
         }
         
         if (authorNameRB.isSelected()) {
+           searchPublisherTF.setText("");
+           searchTitleTF.setText("");
            searchTitleTF.setEnabled(Boolean.FALSE);
            searchPublisherTF.setEnabled(Boolean.FALSE);
            searchAuthorTF.setEnabled(Boolean.TRUE);   

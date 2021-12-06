@@ -35,8 +35,8 @@ import java.util.Map;
 public class View {
 
     /**
-     * Formats output for issuedbooks table (method viewIssuedBookTable in controller)
-     * @param map the input map from ^^
+     * Formats output for issued books table (method viewIssuedBookTable in controller)
+     * @param map the input map to print
      * @return a String containing formatted information pulled from map
      */
     public String printIssuedBookTable(Map<String, String> map) {
@@ -50,7 +50,7 @@ public class View {
     
     /**
      * Formats output for books in library catalog
-     * @param map the input map from ^^
+     * @param map the input map to print
      * @return a String containing formatted information pulled from map
      */
     public String printBookCatalog(Map<String, String> map) {

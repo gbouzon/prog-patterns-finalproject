@@ -41,9 +41,9 @@ public interface IViewable {
     
     /**
      * This method returns a map containing all data retrieved from the Books
-     * table. The key in the map is “SN”. All books should be sorted by “SN”.
+     * table.The key in the map is “SN”. All books should be sorted by “SN”.
      * @return map containing books
-     * @throws Exception
+     * @throws java.lang.Exception exception thrown
      */
     public static Map<String, String> viewCatalog() throws Exception {
         Map<String, String> map = new TreeMap<>( (String s1, String s2) -> (s1.compareTo(s2)));	
@@ -76,11 +76,4 @@ public interface IViewable {
             throw new Exception("No books found");
 	return map;
     }
-    
-    /**
-     * Updates the view catalog
-     * @return String, formatted string for output
-     * @throws java.lang.Exception
-     */
-    public String updateViewCatalog() throws Exception;
 }

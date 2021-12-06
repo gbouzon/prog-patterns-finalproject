@@ -32,7 +32,7 @@ import java.util.Map;
  * Final Project for Programming Patterns course - Fall 2021.
  * @author Chilka Castro and Giuliana Bouzon
  */
-public class DBController implements IViewable {
+public class DBController {
     //properties
     private static Book bookLibrarianModel; 
     private Student studentModel;  
@@ -115,8 +115,8 @@ public class DBController implements IViewable {
      * @return a map
      * @throws java.lang.Exception exception thrown
      */
-    public Map<String, String> viewCatalog() throws Exception { 
-        return Book.viewCatalog();  // static method in Book class
+    public static Map<String, String> viewCatalog() throws Exception { 
+        return Book.viewCatalog();                                              // static method in Book class
     }
 
     /**
@@ -146,7 +146,6 @@ public class DBController implements IViewable {
      * @return a formatted string
      * @throws java.lang.Exception exception thrown
      */
-    @Override
     public String updateViewCatalog() throws Exception {                        // IViewable interface
         return view.printBookCatalog(viewCatalog());                            // viewCatalog() returns a map
     }
@@ -214,6 +213,6 @@ public class DBController implements IViewable {
      * @throws java.lang.Exception exception thrown
      */
     public String updateViewBookList(List<Book> books) throws Exception {
-	return view.printBookList(books);                                       // prints book lists in a pretty and organized format
+	return view.printBookList(books);                                       //prints book lists in a pretty and organized format
     }
 }

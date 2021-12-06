@@ -500,7 +500,7 @@ public class LibrarianForm extends javax.swing.JFrame {
                 displayTextArea.setText(this.controller.updateViewIssuedTable());
             }
             catch(Exception e) {
-                displayTextArea.setText("Error: " + e.getMessage()); 
+                displayTextArea.setText("Error: \n" + e.getMessage()); 
             }
         }
         
@@ -509,7 +509,7 @@ public class LibrarianForm extends javax.swing.JFrame {
                 displayTextArea.setText(this.controller.updateViewCatalog());
             }
             catch(Exception e) {
-                displayTextArea.setText("Error: " + e.getMessage()); 
+                displayTextArea.setText("Error: \n" + e.getMessage()); 
             }
         }
 
