@@ -68,6 +68,7 @@ public class View {
      * @return a String containing formatted information pulled from list
      */
     public String printBookList(List<Book> books) { 
+        books.sort((Book b1, Book b2) -> (b1.getBookSN().compareTo(b2.getBookSN())));
 	String str = "";
 	for (Book book : books) {
 	    str += book.toString();

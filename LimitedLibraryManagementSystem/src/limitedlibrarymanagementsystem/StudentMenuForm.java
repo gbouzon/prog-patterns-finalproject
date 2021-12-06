@@ -47,7 +47,13 @@ public class StudentMenuForm extends javax.swing.JFrame {
         searchTitleTF.setEnabled(Boolean.TRUE);
         searchPublisherTF.setEnabled(Boolean.FALSE);
         searchAuthorTF.setEnabled(Boolean.FALSE);
-        //this.student = new Student();
+        try {
+            this.student = new Student();
+            this.controller = new DBController(this.student, new View());
+        }
+        catch (Exception e) {
+            displayTA.setText("Error: " + e.getMessage());
+        }
     }
    
     /**
@@ -81,14 +87,10 @@ public class StudentMenuForm extends javax.swing.JFrame {
         displayScrollPanel = new javax.swing.JScrollPane();
         displayTA = new javax.swing.JTextArea();
         borrowReturnPanel = new javax.swing.JPanel();
-        studentIDLabel = new javax.swing.JLabel();
         bookSNLabel = new javax.swing.JLabel();
         borrowButton = new javax.swing.JButton();
         returnButton = new javax.swing.JButton();
-        studentIDTF = new javax.swing.JTextField();
         bookSNTF = new javax.swing.JTextField();
-        titleTF = new javax.swing.JTextField();
-        titleLabel = new javax.swing.JLabel();
         searchPanel = new javax.swing.JPanel();
         titleRB = new javax.swing.JRadioButton();
         authorNameRB = new javax.swing.JRadioButton();
@@ -109,64 +111,51 @@ public class StudentMenuForm extends javax.swing.JFrame {
 
         borrowReturnPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        studentIDLabel.setText("StudentID: ");
-
         bookSNLabel.setText("BookSN  :");
 
         borrowButton.setText("Borrow");
+        borrowButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrowButtonActionPerformed(evt);
+            }
+        });
 
         returnButton.setText("Return");
-
-        titleLabel.setText("Title :");
+        returnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout borrowReturnPanelLayout = new javax.swing.GroupLayout(borrowReturnPanel);
         borrowReturnPanel.setLayout(borrowReturnPanelLayout);
         borrowReturnPanelLayout.setHorizontalGroup(
             borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(borrowReturnPanelLayout.createSequentialGroup()
-                .addGroup(borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(borrowReturnPanelLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(studentIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(borrowReturnPanelLayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addGroup(borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bookSNLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(borrowReturnPanelLayout.createSequentialGroup()
-                        .addGroup(borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bookSNTF, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(studentIDTF, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(titleTF, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(32, Short.MAX_VALUE))
-                    .addGroup(borrowReturnPanelLayout.createSequentialGroup()
-                        .addComponent(borrowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(86, 86, 86))))
+                .addGap(43, 43, 43)
+                .addComponent(bookSNLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bookSNTF, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(62, Short.MAX_VALUE))
+            .addGroup(borrowReturnPanelLayout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addComponent(borrowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(85, 85, 85))
         );
         borrowReturnPanelLayout.setVerticalGroup(
             borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(borrowReturnPanelLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap(78, Short.MAX_VALUE)
                 .addGroup(borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bookSNTF, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bookSNLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(titleTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(studentIDTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(studentIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(54, 54, 54)
                 .addGroup(borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(borrowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
+                .addGap(30, 30, 30))
         );
 
         searchPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -269,7 +258,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
                     .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(36, 36, 36)
                 .addComponent(displayScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,7 +274,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(searchPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -358,6 +347,30 @@ public class StudentMenuForm extends javax.swing.JFrame {
         mainMenuForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_logOutButtonActionPerformed
+
+    private void borrowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrowButtonActionPerformed
+        String SN = bookSNTF.getText();
+        try {
+            Book book = new Book(SN, new BookData()); //bookdata can be empty because borrow method only checks book SN
+            this.student.borrow(book);
+            displayTA.setText("Book successfully borrowed!"); 
+        }
+        catch(Exception e){
+            displayTA.setText("Error: " + e.getMessage()); 
+        }
+    }//GEN-LAST:event_borrowButtonActionPerformed
+
+    private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
+        String SN = bookSNTF.getText();
+        try {
+            Book book = new Book(SN, new BookData()); //bookdata can be empty because borrow method only checks book SN
+            this.student.toReturn(book);
+            displayTA.setText("Book successfully returned!"); 
+        }
+        catch(Exception e){
+            displayTA.setText("Error: " + e.getMessage()); 
+        }
+    }//GEN-LAST:event_returnButtonActionPerformed
 
     public void changeSearch() {
          if (titleRB.isSelected()) {
@@ -434,11 +447,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
     private javax.swing.JPanel searchPanel;
     private javax.swing.JTextField searchPublisherTF;
     private javax.swing.JTextField searchTitleTF;
-    private javax.swing.JLabel studentIDLabel;
-    private javax.swing.JTextField studentIDTF;
-    private javax.swing.JLabel titleLabel;
     private javax.swing.JRadioButton titleRB;
-    private javax.swing.JTextField titleTF;
     private javax.swing.JButton viewCatalogButton;
     // End of variables declaration//GEN-END:variables
 }
