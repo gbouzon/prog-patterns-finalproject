@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.sql.Connection;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 /**
  * Class to define Book objects.
@@ -42,10 +43,13 @@ public class Book {
     private String bookSN;
     private BookData data;
     private Connection connection;
+    
+    static final String SN_REGEX = "[0-9-]{1,16}"; //must be between 1 and 15 digits long
+    //Pattern.matches(nameRegex, name) -> to use for pattern matchingS
 
     //default constructor
     public Book() throws Exception { 
-        this("noSN", new BookData()); 
+        this("0000000", new BookData()); 
         this.connection = DBConnection.getSingleInstance();
     }
 
@@ -57,7 +61,7 @@ public class Book {
      * @throws Exception
      */
     public Book(String bookSN, BookData data) throws Exception {
-        this.bookSN = (bookSN != null && !bookSN.isEmpty()) ? bookSN : "noSN";
+        setBookSN(bookSN);
         this.data = new BookData(data);
         this.connection = DBConnection.getSingleInstance();
     }
@@ -95,7 +99,7 @@ public class Book {
      */
     @Override
     public String toString() {
-        return String.format("%-20s : %s\n", "SN", bookSN);
+        return String.format("%s : %s\n", "SN", bookSN);
     }
 
     /**
@@ -105,17 +109,32 @@ public class Book {
      * @throws Exception 
      */
     public void addBook(Book book) throws Exception {
-        String query = "INSERT into BOOK(SN,Title,Author,Publisher,Quantity,"
-                + "Price,IssuedQuantity,AddedDate) VALUES(" + "'" + book.getBookSN() + "',"
-                + "'" + book.getBookData().getTitle() + "'" + "," + "'" + book.getBookData().getAuthor()
-                + "'" + "," + "'" + book.getBookData().getPublisher() + "'" + ","
-                + book.getBookData().getBookQuantity() + "," + book.getBookData().getPrice() + ","
-                + book.getBookData().getIssuedQuantity() + "," + "'" + LocalDate.now().toString() + "')";
-
+        //checking if book already exists in the database
+        String query = "SELECT * FROM BOOK WHERE SN =" + "'" + book.getBookSN() + "';";
         Statement statement = connection.createStatement();
-        statement.executeUpdate(query);
+        ResultSet rs = statement.executeQuery(query);
+        String sn = "";
+        
+        while (rs.next()) {
+            sn = rs.getString("SN");
+        }
+        
+        if (sn.equals(book.getBookSN()))
+            throw new Exception("SN already exists");
+        
+        else {
+            query = "INSERT into BOOK(SN,Title,Author,Publisher,Quantity,"
+                    + "Price,IssuedQuantity,AddedDate) VALUES(" + "'" + book.getBookSN() + "',"
+                    + "'" + book.getBookData().getTitle() + "'" + "," + "'" + book.getBookData().getAuthor()
+                    + "'" + "," + "'" + book.getBookData().getPublisher() + "'" + ","
+                    + book.getBookData().getBookQuantity() + "," + book.getBookData().getPrice() + ","
+                    + book.getBookData().getIssuedQuantity() + "," + "'" + LocalDate.now().toString() + "')";
 
-        statement.close();
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
+
+            statement.close();
+        }
     }
 
     /**
@@ -239,17 +258,18 @@ public class Book {
         return bookSN;
     }
 
-    public void setBookSN(String bookSN) {
-        if (bookSN != null && !bookSN.isEmpty()) {
+    public void setBookSN(String bookSN) throws Exception {
+        if (Pattern.matches(SN_REGEX, bookSN)) 
             this.bookSN = bookSN;
-        }
+        
+        else throw new Exception("SN is not valid");      
     }
 
-    public BookData getBookData() {
+    public BookData getBookData() throws Exception {
         return new BookData(this.data);
     }
 
-    public void setBookData(BookData data) {
+    public void setBookData(BookData data) throws Exception {
         if (data != null)
             this.data = new BookData(data);
     }
