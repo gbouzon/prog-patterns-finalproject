@@ -37,6 +37,12 @@ import java.util.TreeMap;
  */
 public interface IViewable {
     
+    /**
+     * This method returns a map containing all data retrieved from the Books
+     * table. The key in the map is “SN”. All books should be sorted by “SN”.
+     * @return map containing books
+     * @throws Exception
+     */
     public static Map<String, String> viewCatalog() throws Exception {
         Map<String, String> map = new TreeMap<>( (String s1, String s2) -> (s1.compareTo(s2)));	
 	Connection connection = DBConnection.getSingleInstance();
@@ -71,6 +77,7 @@ public interface IViewable {
     
     /**
      * Updates the view catalog
+     * @return String, formatted string for output
      * @throws Exception 
      */
     public String updateViewCatalog() throws Exception;
