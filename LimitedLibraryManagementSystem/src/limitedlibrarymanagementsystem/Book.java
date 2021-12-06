@@ -47,7 +47,10 @@ public class Book {
     static final String SN_REGEX = "[0-9-]{1,16}"; //must be between 1 and 15 digits long
     //Pattern.matches(nameRegex, name) -> to use for pattern matchingS
 
-    //default constructor
+    /**
+     * Default constructor
+     * @throws java.lang.Exception exception thrown
+     */
     public Book() throws Exception { 
         this("0000000", new BookData()); 
         this.connection = DBConnection.getSingleInstance();
@@ -58,38 +61,49 @@ public class Book {
      *
      * @param bookSN the serial number of the book (primary key)
      * @param data the data of the book (author, publisher, etc)
-     * @throws Exception
+     * @throws java.lang.Exception exception thrown
      */
     public Book(String bookSN, BookData data) throws Exception {
         setBookSN(bookSN);
-        this.data = new BookData(data);
-        this.connection = DBConnection.getSingleInstance();
+        this.data = data;
+        this.connection = DBConnection.getSingleInstance();                     // application of singeleton design pattern
     }
 
-    //copy constructor
+    /**
+     * Copy constructor 
+     * @param book the book to copy
+     * @throws java.lang.Exception exception thrown
+     */
     public Book(Book book) throws Exception {
-        this(book.bookSN, book.data);
+        this(book.bookSN, new BookData(book.data)); // deep copy
         this.connection = DBConnection.getSingleInstance();
     }
 
+    /**
+     * Generates a hash code that is based on the equals method
+     * @return an integer hash code
+     */
     @Override
     public int hashCode() {
         return Objects.hash(bookSN, data.hashCode());
     }
 
+    /**
+     * Checks if objects are equal or not
+     * @param obj the other object to be checked for equality
+     * @return True if both objects are the same and False if not
+     */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj) 
             return true;
-        }
-        if (obj == null) {
+        if (obj == null) 
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass()) 
             return false;
-        }
         Book other = (Book) obj;
-        return Objects.equals(data, other.data) && Objects.equals(bookSN, other.bookSN);
+        return Objects.equals(data, other.data) 
+                && Objects.equals(bookSN, other.bookSN);
     }
 
     /**
@@ -99,7 +113,7 @@ public class Book {
      */
     @Override
     public String toString() {
-        return String.format("%s : %s\n", "SN", bookSN);
+        return String.format("%-10s : %s\n", "SN", bookSN);
     }
 
     /**
@@ -115,21 +129,24 @@ public class Book {
         ResultSet rs = statement.executeQuery(query);
         String sn = "";
         
-        while (rs.next()) {
+        while (rs.next()) 
             sn = rs.getString("SN");
-        }
         
         if (sn.equals(book.getBookSN()))
             throw new Exception("SN already exists");
         
         else {
             query = "INSERT into BOOK(SN,Title,Author,Publisher,Quantity,"
-                    + "Price,IssuedQuantity,AddedDate) VALUES(" + "'" + book.getBookSN() + "',"
-                    + "'" + book.getBookData().getTitle() + "'" + "," + "'" + book.getBookData().getAuthor()
-                    + "'" + "," + "'" + book.getBookData().getPublisher() + "'" + ","
-                    + book.getBookData().getBookQuantity() + "," + book.getBookData().getPrice() + ","
-                    + book.getBookData().getIssuedQuantity() + "," + "'" + LocalDate.now().toString() + "')";
-
+                    + "Price,IssuedQuantity,AddedDate) VALUES(" + "'" 
+                    + book.getBookSN() + "'," + "'" 
+                    + book.getBookData().getTitle() + "'" + "," + "'" 
+                    + book.getBookData().getAuthor() + "'" + "," + "'" 
+                    + book.getBookData().getPublisher() + "'" + "," 
+                    + book.getBookData().getBookQuantity() + "," 
+                    + book.getBookData().getPrice() + ","
+                    + book.getBookData().getIssuedQuantity() + "," + "'" 
+                    + LocalDate.now().toString() + "')";
+           
             statement = connection.createStatement();
             statement.executeUpdate(query);
 
@@ -138,7 +155,8 @@ public class Book {
     }
 
     /**
-     * If student information is valid and book is available to be borrowed, the number of copies(“Quantity”) will be decreased by one 
+     * If student information is valid and book is available to be borrowed, 
+     * the number of copies(“Quantity”) will be decreased by one 
      * and the number of Copies issued (“Issued”) will be increased by one. 
      * A new entry in “IssuedBooks” table is added.
      * @param book the book to be issued
@@ -169,13 +187,14 @@ public class Book {
     }
 
     /**
-     * If the student information is valid and book information for that student is also valid, 
-     * the number of copies “Quantity” will be increased by one and the number of copies issued will be decreased by one. 
-     * The corresponding record in IssuedBooks table is deleted from the table. 
+     * If the student information is valid and book information for that student
+     * is also valid, the number of copies “Quantity” will be increased by one 
+     * and the number of copies issued will be decreased by one.The corresponding 
+     * record in IssuedBooks table is deleted from the table. 
      * @param book the book to be returned
      * @param student the student who borrowed the book
      * @return true if the book was successfully returned
-     * @throws Exception 
+     * @throws java.lang.Exception exception thrown
      */
     public Boolean returnBook(Book book, Student student) throws Exception {
          // Step 1: Check first the book from IssuedBook table
@@ -219,8 +238,8 @@ public class Book {
 
     /**
      * This method returns a map containing all data retrieved from the Books table.
-     * @return a map
-     * @throws Exception 
+     * @return a map of all the books in the library
+     * @throws java.lang.Exception exception thrown
      */
     public static Map<String, String> viewCatalog() throws Exception {
         return IViewable.viewCatalog();
@@ -229,10 +248,10 @@ public class Book {
     /**
      * Retrieves all data from IssuedBooks table and returns them as a Map. The
      * map is sorted by “SN”.
-     * @return a map
+     * @return a map of issued/borrowed books(sorted SN) in the library
      */
     public Map<String, String> viewIssuedBooks() throws Exception { 
-        Map<String, String> map = new TreeMap<>( (String s1, String s2) -> (s1.compareTo(s2)));
+        Map<String, String> map = new TreeMap<>((String s1, String s2) -> (s1.compareTo(s2)));
         String query = "SELECT * FROM ISSUEDBOOK";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(query);
@@ -240,8 +259,10 @@ public class Book {
         while (rs.next()) {
             //getting the key -> book sn
             String key = rs.getString("BookSN");
-            String value = "Student ID: " + rs.getString("StudentID") + "\n" + "Student Name: " + rs.getString("StudentName") 
-                    + "\n" + "Student Contact: " + rs.getString("StudentContact") + "\n" + "Issued Date: " + rs.getString("IssuedDate") + "\n";
+            String value = "Student ID: " + rs.getString("StudentID") + "\n" 
+                    + "Student Name: " + rs.getString("StudentName") 
+                    + "\n" + "Student Contact: " + rs.getString("StudentContact") 
+                    + "\n" + "Issued Date: " + rs.getString("IssuedDate") + "\n";
 
             //inserting into map
             map.put(key, value);
@@ -254,21 +275,41 @@ public class Book {
 
     // getters and setters
     
+    /**
+     * Gets the book's serial number
+     * @return the book's serial number
+     */
     public String getBookSN() {
         return bookSN;
     }
 
+    /**
+     * Sets the book's serial number
+     * @param bookSN the book's serial number
+     * @throws java.lang.Exception exception thrown
+     */
     public void setBookSN(String bookSN) throws Exception {
         if (Pattern.matches(SN_REGEX, bookSN)) 
             this.bookSN = bookSN;
         
-        else throw new Exception("SN is not valid");      
+        else 
+            throw new Exception("SN is not valid");      
     }
 
+    /**
+     * Gets the data/value of the book
+     * @return the data/value of the book
+     * @throws java.lang.Exception exception thrown
+     */
     public BookData getBookData() throws Exception {
         return new BookData(this.data);
     }
 
+    /**
+     * Sets the data/value of the book
+     * @param data the data/value of the book
+     * @throws java.lang.Exception exception thrown
+     */
     public void setBookData(BookData data) throws Exception {
         if (data != null)
             this.data = new BookData(data);
