@@ -27,13 +27,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * MVC Pattern -> View class 
+ * Meant to be used to get output for methods in controller
  * @author Chilka, Giuliana Bouzon
  */
 public class View {
 
+    /**
+     * Formats output for issuedbooks table (method viewIssuedBookTable in controller)
+     * @param map the input map from ^^
+     * @return a String containing formatted information pulled from map
+     */
     public String printIssuedBookTable(Map<String, String> map) {
-        String str = "";
+        String str = "Issued Books: \n";
         for (Map.Entry<String, String> entry : map.entrySet()) {
             str += "SN: " + entry.getKey() + "\n";
 	    str += entry.getValue() + "\n";
@@ -41,20 +47,26 @@ public class View {
         return str;
     }
     
+    /**
+     * Formats output for books in library catalog
+     * @param map the input map from ^^
+     * @return a String containing formatted information pulled from map
+     */
     public String printBookCatalog(Map<String, String> map) {
-        String str2 = "";
-        str2 += "Catalog of Books in the Library: \n";
-	//System.out.println("Catalog of Books in the Library: \n");
-	String str = "";
-	
+	String str = "Catalog of Books in the Library: \n";
 	for (Map.Entry<String, String> entry : map.entrySet()) {
 	    str += String.format("%-20s : %s\n", "SN", entry.getKey());
 	    str += entry.getValue() + "\n";
 	}
-	return str2 + str;
+	return str;
     }
     
-    public String printBookList(List<Book> books) { //just to make it pretty
+    /**
+     * Formats output for books in the list
+     * @param books, the input list to be formatted (usually search method from Student)
+     * @return a String containing formatted information pulled from list
+     */
+    public String printBookList(List<Book> books) { 
 	String str = "";
 	for (Book book : books) {
 	    str += book.toString();
