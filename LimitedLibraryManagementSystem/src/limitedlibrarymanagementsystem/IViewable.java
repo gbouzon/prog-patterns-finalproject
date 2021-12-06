@@ -28,8 +28,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
@@ -38,8 +38,7 @@ import java.util.Map;
 public interface IViewable {
     
     public static Map<String, String> viewCatalog() throws Exception {
-        Map<String, String> map = new HashMap<>();
-	
+        Map<String, String> map = new TreeMap<>( (String s1, String s2) -> (s1.compareTo(s2)));	
 	Connection connection = DBConnection.getSingleInstance();
 
 	String query = "SELECT * FROM BOOK";
