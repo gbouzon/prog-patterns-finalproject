@@ -80,11 +80,6 @@ public class MainMenuForm extends javax.swing.JFrame {
         });
 
         languageComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "English", "French" }));
-        languageComboBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                languageComboBoxItemStateChanged(evt);
-            }
-        });
         languageComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 languageComboBoxActionPerformed(evt);
@@ -152,16 +147,6 @@ public class MainMenuForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_languageComboBoxActionPerformed
 
-    private void languageComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_languageComboBoxItemStateChanged
-//          if (("FRENCH").equalsIgnoreCase((String)languageComboBox.getSelectedItem())) {
-////            String language = "fr";
-////            String country = "CA";
-////            Locale locale = new Locale(language, country);
-//            res = ResourceBundle.getBundle("source//Bundle", Locale.CANADA_FRENCH);    
-//            studentButton.setText(res.getString("MainMenuForm.studentButton.text"));
-////          
-    }//GEN-LAST:event_languageComboBoxItemStateChanged
-
     /**
      * @param args the command line arguments
      */
@@ -191,10 +176,8 @@ public class MainMenuForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainMenuForm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainMenuForm().setVisible(true);
         });
     }
 
