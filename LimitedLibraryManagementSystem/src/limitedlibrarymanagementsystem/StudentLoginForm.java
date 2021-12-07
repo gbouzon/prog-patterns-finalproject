@@ -74,17 +74,18 @@ public class StudentLoginForm extends javax.swing.JFrame {
 
         studentIDLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         studentIDLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        studentIDLabel.setText("StudentID :");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("limitedlibrarymanagementsystem/Bundle"); // NOI18N
+        studentIDLabel.setText(bundle.getString("StudentLoginForm.studentIDLabel.text")); // NOI18N
 
         loginLabel.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         loginLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        loginLabel.setText("Login");
+        loginLabel.setText(bundle.getString("StudentLoginForm.loginLabel.text")); // NOI18N
 
         studentIDTF.setForeground(new java.awt.Color(153, 153, 153));
         studentIDTF.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         enterButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        enterButton.setText("ENTER");
+        enterButton.setText(bundle.getString("StudentLoginForm.enterButton.text")); // NOI18N
         enterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enterButtonActionPerformed(evt);
@@ -234,7 +235,6 @@ public class StudentLoginForm extends javax.swing.JFrame {
                 try {
                     new StudentLoginForm().setVisible(true);
                 } catch (Exception ex) {
-                    Logger.getLogger(StudentLoginForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });

@@ -21,15 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package limitedlibrarymanagementsystem;
 
-import java.awt.Color;
+import java.util.Locale;
+import java.util.ResourceBundle;
+//import java.util.Locale;
+//import java.util.ResourceBundle;
 
 /**
- * Form for Main Menu
- * As required per final project problem statement (GUI choice)
- * Final Project for Programming Patterns course - Fall 2021.
+ * Form for Main Menu As required per final project problem statement (GUI
+ * choice) Final Project for Programming Patterns course - Fall 2021.
+ *
  * @author Chilka Castro, Giuliana Bouzon
  */
 public class MainMenuForm extends javax.swing.JFrame {
@@ -38,7 +40,7 @@ public class MainMenuForm extends javax.swing.JFrame {
      * Creates new form MenuForm
      */
     public MainMenuForm() {
-        
+
         initComponents();
     }
 
@@ -53,13 +55,15 @@ public class MainMenuForm extends javax.swing.JFrame {
 
         librarianButton = new javax.swing.JButton();
         studentButton = new javax.swing.JButton();
+        languageComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         librarianButton.setBackground(new java.awt.Color(0, 102, 51));
         librarianButton.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        librarianButton.setText("Librarian");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("source/Bundle"); // NOI18N
+        librarianButton.setText(bundle.getString("MainMenuForm.librarianButton.text")); // NOI18N
         librarianButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 librarianButtonActionPerformed(evt);
@@ -68,10 +72,22 @@ public class MainMenuForm extends javax.swing.JFrame {
 
         studentButton.setBackground(new java.awt.Color(153, 0, 0));
         studentButton.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        studentButton.setText("Student");
+        studentButton.setText(bundle.getString("MainMenuForm.studentButton.text")); // NOI18N
         studentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 studentButtonActionPerformed(evt);
+            }
+        });
+
+        languageComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "English", "French" }));
+        languageComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                languageComboBoxItemStateChanged(evt);
+            }
+        });
+        languageComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                languageComboBoxActionPerformed(evt);
             }
         });
 
@@ -79,17 +95,24 @@ public class MainMenuForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(132, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(librarianButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(studentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(128, 128, 128))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(librarianButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(studentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(128, 128, 128))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(languageComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(70, Short.MAX_VALUE)
+                .addGap(17, 17, 17)
+                .addComponent(languageComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(studentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addComponent(librarianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -100,13 +123,13 @@ public class MainMenuForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void studentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentButtonActionPerformed
-      
+
         try {
             StudentLoginForm studentLoginForm = new StudentLoginForm();
             studentLoginForm.setVisible(Boolean.TRUE);
-           
+
         } catch (Exception ex) {
-          
+
         }
         this.dispose();
 
@@ -117,6 +140,27 @@ public class MainMenuForm extends javax.swing.JFrame {
         librarianForm.setVisible(Boolean.TRUE);
         this.dispose();
     }//GEN-LAST:event_librarianButtonActionPerformed
+
+    private void languageComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageComboBoxActionPerformed
+        if (("FRENCH").equalsIgnoreCase((String) languageComboBox.getSelectedItem())) {
+//            String language = "fr";
+//            String country = "CA";
+//            Locale locale = new Locale(language, country);
+            ResourceBundle res = ResourceBundle.getBundle("source//Bundle", Locale.CANADA_FRENCH);    
+            studentButton.setText(res.getString("MainMenuForm.studentButton.text"));
+//          
+        }
+    }//GEN-LAST:event_languageComboBoxActionPerformed
+
+    private void languageComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_languageComboBoxItemStateChanged
+//          if (("FRENCH").equalsIgnoreCase((String)languageComboBox.getSelectedItem())) {
+////            String language = "fr";
+////            String country = "CA";
+////            Locale locale = new Locale(language, country);
+//            res = ResourceBundle.getBundle("source//Bundle", Locale.CANADA_FRENCH);    
+//            studentButton.setText(res.getString("MainMenuForm.studentButton.text"));
+////          
+    }//GEN-LAST:event_languageComboBoxItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -129,7 +173,7 @@ public class MainMenuForm extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if (java.util.ResourceBundle.getBundle("source/Bundle").getString("NIMBUS").equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -155,6 +199,7 @@ public class MainMenuForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> languageComboBox;
     private javax.swing.JButton librarianButton;
     private javax.swing.JButton studentButton;
     // End of variables declaration//GEN-END:variables

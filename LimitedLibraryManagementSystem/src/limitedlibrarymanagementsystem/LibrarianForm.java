@@ -104,32 +104,33 @@ public class LibrarianForm extends javax.swing.JFrame {
 
         issueReturnBookPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        bookSNLabel1.setText("Book SN :");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("limitedlibrarymanagementsystem/Bundle"); // NOI18N
+        bookSNLabel1.setText(bundle.getString("LibrarianForm.bookSNLabel1.text")); // NOI18N
 
-        enterButton1.setText("ENTER");
+        enterButton1.setText(bundle.getString("LibrarianForm.enterButton1.text")); // NOI18N
         enterButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enterButton1ActionPerformed(evt);
             }
         });
 
-        studentIDLabel.setText("StudentID:");
+        studentIDLabel.setText(bundle.getString("LibrarianForm.studentIDLabel.text")); // NOI18N
 
         addBookPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        bookSNLabel.setText("Book SN :");
+        bookSNLabel.setText(bundle.getString("LibrarianForm.bookSNLabel.text")); // NOI18N
 
-        priceLabel.setText("Price");
+        priceLabel.setText(bundle.getString("LibrarianForm.priceLabel.text")); // NOI18N
 
-        titleLabel.setText("Title :");
+        titleLabel.setText(bundle.getString("LibrarianForm.titleLabel.text")); // NOI18N
 
-        authorLabel.setText("Author");
+        authorLabel.setText(bundle.getString("LibrarianForm.authorLabel.text")); // NOI18N
 
-        quantityLabel.setText("Quantity");
+        quantityLabel.setText(bundle.getString("LibrarianForm.quantityLabel.text")); // NOI18N
 
-        publisherLabel.setText("Publisher");
+        publisherLabel.setText(bundle.getString("LibrarianForm.publisherLabel.text")); // NOI18N
 
-        enterButton2.setText("Add");
+        enterButton2.setText(bundle.getString("LibrarianForm.enterButton2.text")); // NOI18N
         enterButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enterButton2ActionPerformed(evt);
@@ -151,26 +152,24 @@ public class LibrarianForm extends javax.swing.JFrame {
                         .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(addBookPanelLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(publisherTF)
-                                    .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 289, Short.MAX_VALUE))
                             .addGroup(addBookPanelLayout.createSequentialGroup()
                                 .addGap(15, 15, 15)
-                                .addComponent(authorTF))))
+                                .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(publisherTF)
+                                    .addComponent(authorTF)))))
                     .addGroup(addBookPanelLayout.createSequentialGroup()
                         .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(priceLabel)
                             .addComponent(bookSNLabel))
+                        .addGap(12, 12, 12)
                         .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(addBookPanelLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(priceTF))
-                            .addGroup(addBookPanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bookSNTF))))
+                            .addComponent(priceTF)
+                            .addComponent(bookSNTF)))
                     .addGroup(addBookPanelLayout.createSequentialGroup()
                         .addComponent(titleLabel)
-                        .addGap(23, 23, 23)
+                        .addGap(35, 35, 35)
                         .addComponent(titleTF)))
                 .addContainerGap())
             .addGroup(addBookPanelLayout.createSequentialGroup()
@@ -238,7 +237,7 @@ public class LibrarianForm extends javax.swing.JFrame {
             issueReturnBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(issueReturnBookPanelLayout.createSequentialGroup()
                 .addComponent(addBookPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(issueReturnBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bookSNLabel1)
                     .addComponent(bookSNTF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -246,9 +245,9 @@ public class LibrarianForm extends javax.swing.JFrame {
                 .addGroup(issueReturnBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(studentIDLabel)
                     .addComponent(studentIDTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(enterButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
         );
 
         mainPanel.add(issueReturnBookPanel, "card2");
@@ -257,7 +256,7 @@ public class LibrarianForm extends javax.swing.JFrame {
 
         LibrarianTasksBG.add(addBookRB);
         addBookRB.setSelected(true);
-        addBookRB.setText("Add Book");
+        addBookRB.setText(bundle.getString("LibrarianForm.addBookRB.text")); // NOI18N
         addBookRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBookRBActionPerformed(evt);
@@ -265,7 +264,7 @@ public class LibrarianForm extends javax.swing.JFrame {
         });
 
         LibrarianTasksBG.add(issueBookRB);
-        issueBookRB.setText("Issue Book");
+        issueBookRB.setText(bundle.getString("LibrarianForm.issueBookRB.text")); // NOI18N
         issueBookRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 issueBookRBActionPerformed(evt);
@@ -273,7 +272,7 @@ public class LibrarianForm extends javax.swing.JFrame {
         });
 
         LibrarianTasksBG.add(viewCatalogRB);
-        viewCatalogRB.setText("View Catalog");
+        viewCatalogRB.setText(bundle.getString("LibrarianForm.viewCatalogRB.text")); // NOI18N
         viewCatalogRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewCatalogRBActionPerformed(evt);
@@ -281,7 +280,7 @@ public class LibrarianForm extends javax.swing.JFrame {
         });
 
         LibrarianTasksBG.add(returnBookRB);
-        returnBookRB.setText("Return a Book");
+        returnBookRB.setText(bundle.getString("LibrarianForm.returnBookRB.text")); // NOI18N
         returnBookRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 returnBookRBActionPerformed(evt);
@@ -289,7 +288,7 @@ public class LibrarianForm extends javax.swing.JFrame {
         });
 
         LibrarianTasksBG.add(viewIssuedBooksRB);
-        viewIssuedBooksRB.setText("View Issued Books");
+        viewIssuedBooksRB.setText(bundle.getString("LibrarianForm.viewIssuedBooksRB.text")); // NOI18N
         viewIssuedBooksRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewIssuedBooksRBActionPerformed(evt);
@@ -334,7 +333,7 @@ public class LibrarianForm extends javax.swing.JFrame {
         taskLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         backToMainMenuButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        backToMainMenuButton.setText("Back to Main Menu");
+        backToMainMenuButton.setText(bundle.getString("LibrarianForm.backToMainMenuButton.text")); // NOI18N
         backToMainMenuButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backToMainMenuButtonActionPerformed(evt);
@@ -342,7 +341,7 @@ public class LibrarianForm extends javax.swing.JFrame {
         });
 
         librarianLabel.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        librarianLabel.setText("LIBRARIAN");
+        librarianLabel.setText(bundle.getString("LibrarianForm.librarianLabel.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -553,38 +552,38 @@ public class LibrarianForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup LibrarianTasksBG;
-    private javax.swing.JPanel addBookPanel;
-    private javax.swing.JRadioButton addBookRB;
-    private javax.swing.JLabel authorLabel;
-    private javax.swing.JTextField authorTF;
-    private javax.swing.JButton backToMainMenuButton;
-    private javax.swing.JLabel bookSNLabel;
-    private javax.swing.JLabel bookSNLabel1;
-    private javax.swing.JTextField bookSNTF;
-    private javax.swing.JTextField bookSNTF1;
-    private javax.swing.JScrollPane displayScrollPanel;
-    private javax.swing.JTextArea displayTextArea;
-    private javax.swing.JButton enterButton1;
-    private javax.swing.JButton enterButton2;
-    private javax.swing.JRadioButton issueBookRB;
-    private javax.swing.JPanel issueReturnBookPanel;
-    private javax.swing.JLabel librarianLabel;
-    private javax.swing.JPanel librarianTaskPanel;
-    private javax.swing.JPanel mainPanel;
-    private javax.swing.JLabel priceLabel;
-    private javax.swing.JTextField priceTF;
-    private javax.swing.JLabel publisherLabel;
-    private javax.swing.JTextField publisherTF;
-    private javax.swing.JLabel quantityLabel;
-    private javax.swing.JSpinner quantitySpinner;
-    private javax.swing.JRadioButton returnBookRB;
-    private javax.swing.JLabel studentIDLabel;
-    private javax.swing.JTextField studentIDTF;
-    private javax.swing.JLabel taskLabel;
-    private javax.swing.JLabel titleLabel;
-    private javax.swing.JTextField titleTF;
-    private javax.swing.JRadioButton viewCatalogRB;
-    private javax.swing.JRadioButton viewIssuedBooksRB;
+    javax.swing.ButtonGroup LibrarianTasksBG;
+    javax.swing.JPanel addBookPanel;
+    javax.swing.JRadioButton addBookRB;
+    javax.swing.JLabel authorLabel;
+    javax.swing.JTextField authorTF;
+    javax.swing.JButton backToMainMenuButton;
+    javax.swing.JLabel bookSNLabel;
+    javax.swing.JLabel bookSNLabel1;
+    javax.swing.JTextField bookSNTF;
+    javax.swing.JTextField bookSNTF1;
+    javax.swing.JScrollPane displayScrollPanel;
+    javax.swing.JTextArea displayTextArea;
+    javax.swing.JButton enterButton1;
+    javax.swing.JButton enterButton2;
+    javax.swing.JRadioButton issueBookRB;
+    javax.swing.JPanel issueReturnBookPanel;
+    javax.swing.JLabel librarianLabel;
+    javax.swing.JPanel librarianTaskPanel;
+    javax.swing.JPanel mainPanel;
+    javax.swing.JLabel priceLabel;
+    javax.swing.JTextField priceTF;
+    javax.swing.JLabel publisherLabel;
+    javax.swing.JTextField publisherTF;
+    javax.swing.JLabel quantityLabel;
+    javax.swing.JSpinner quantitySpinner;
+    javax.swing.JRadioButton returnBookRB;
+    javax.swing.JLabel studentIDLabel;
+    javax.swing.JTextField studentIDTF;
+    javax.swing.JLabel taskLabel;
+    javax.swing.JLabel titleLabel;
+    javax.swing.JTextField titleTF;
+    javax.swing.JRadioButton viewCatalogRB;
+    javax.swing.JRadioButton viewIssuedBooksRB;
     // End of variables declaration//GEN-END:variables
 }

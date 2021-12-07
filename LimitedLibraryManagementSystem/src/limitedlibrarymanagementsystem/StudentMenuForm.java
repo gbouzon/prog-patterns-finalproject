@@ -112,16 +112,17 @@ public class StudentMenuForm extends javax.swing.JFrame {
 
         borrowReturnPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        bookSNLabel.setText("BookSN  :");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("limitedlibrarymanagementsystem/Bundle"); // NOI18N
+        bookSNLabel.setText(bundle.getString("StudentMenuForm.bookSNLabel.text")); // NOI18N
 
-        borrowButton.setText("Borrow");
+        borrowButton.setText(bundle.getString("StudentMenuForm.borrowButton.text")); // NOI18N
         borrowButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 borrowButtonActionPerformed(evt);
             }
         });
 
-        returnButton.setText("Return");
+        returnButton.setText(bundle.getString("StudentMenuForm.returnButton.text")); // NOI18N
         returnButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 returnButtonActionPerformed(evt);
@@ -163,7 +164,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
 
         searchBG.add(titleRB);
         titleRB.setSelected(true);
-        titleRB.setText("Title:");
+        titleRB.setText(bundle.getString("StudentMenuForm.titleRB.text")); // NOI18N
         titleRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 titleRBActionPerformed(evt);
@@ -171,7 +172,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
         });
 
         searchBG.add(authorNameRB);
-        authorNameRB.setText("Author");
+        authorNameRB.setText(bundle.getString("StudentMenuForm.authorNameRB.text")); // NOI18N
         authorNameRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 authorNameRBActionPerformed(evt);
@@ -179,14 +180,14 @@ public class StudentMenuForm extends javax.swing.JFrame {
         });
 
         searchBG.add(publisherRB);
-        publisherRB.setText("Publisher");
+        publisherRB.setText(bundle.getString("StudentMenuForm.publisherRB.text")); // NOI18N
         publisherRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 publisherRBActionPerformed(evt);
             }
         });
 
-        searchButton.setText("Search");
+        searchButton.setText(bundle.getString("StudentMenuForm.searchButton.text")); // NOI18N
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);
@@ -234,14 +235,14 @@ public class StudentMenuForm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        viewCatalogButton.setText("View Catalog");
+        viewCatalogButton.setText(bundle.getString("StudentMenuForm.viewCatalogButton.text")); // NOI18N
         viewCatalogButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewCatalogButtonActionPerformed(evt);
             }
         });
 
-        logOutButton.setText("Log Out");
+        logOutButton.setText(bundle.getString("StudentMenuForm.logOutButton.text")); // NOI18N
         logOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logOutButtonActionPerformed(evt);
@@ -249,7 +250,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
         });
 
         studentFormLabel.setFont(new java.awt.Font("Candara", 1, 36)); // NOI18N
-        studentFormLabel.setText("STUDENT");
+        studentFormLabel.setText(bundle.getString("StudentMenuForm.studentFormLabel.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
