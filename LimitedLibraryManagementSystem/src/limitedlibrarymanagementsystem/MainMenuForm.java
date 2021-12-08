@@ -143,7 +143,7 @@ public class MainMenuForm extends javax.swing.JFrame {
 //            Locale locale = new Locale(language, country);
             ResourceBundle res = ResourceBundle.getBundle("source//Bundle", Locale.CANADA_FRENCH);    
             studentButton.setText(res.getString("MainMenuForm.studentButton.text"));
-//          
+            librarianButton.setText(res.getString("MainMenuForm.librarianButton.text"));
         }
     }//GEN-LAST:event_languageComboBoxActionPerformed
 
