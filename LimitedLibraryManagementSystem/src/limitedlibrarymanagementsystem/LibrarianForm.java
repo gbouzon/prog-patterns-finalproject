@@ -25,7 +25,10 @@
 package limitedlibrarymanagementsystem;
 
 import java.time.LocalDate;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.SpinnerNumberModel;
+import static limitedlibrarymanagementsystem.MainMenuForm.language;
 
 /**
  * Form for Librarian Menu
@@ -37,6 +40,8 @@ public class LibrarianForm extends javax.swing.JFrame {
     
     //properties
     private DBController controller;
+    
+
 
     /**
      * Creates new form LibrarianForm
@@ -44,6 +49,7 @@ public class LibrarianForm extends javax.swing.JFrame {
     public LibrarianForm() {
         initComponents();
         changePanel();
+  
         SpinnerNumberModel model = new SpinnerNumberModel(0, 0, 300, 1);
         quantitySpinner.setModel(model); //allows for values to go up to 300
          try {
@@ -52,8 +58,18 @@ public class LibrarianForm extends javax.swing.JFrame {
         catch (Exception e) {
             displayTextArea.setText("Error: " + e.getMessage());
         }
+         
+        if (MainMenuForm.language.equalsIgnoreCase("English")) {
+            changeLanguageComponentsEnglish();
+            
+        }
+        if (MainMenuForm.language.equalsIgnoreCase("French")) {
+            changeLanguageComponentsFrench();
+            
+        }
+        
+       
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,33 +120,32 @@ public class LibrarianForm extends javax.swing.JFrame {
 
         issueReturnBookPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("limitedlibrarymanagementsystem/Bundle"); // NOI18N
-        bookSNLabel1.setText(bundle.getString("LibrarianForm.bookSNLabel1.text")); // NOI18N
+        bookSNLabel1.setText(null);
 
-        enterButton1.setText(bundle.getString("LibrarianForm.enterButton1.text")); // NOI18N
+        enterButton1.setText(null);
         enterButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enterButton1ActionPerformed(evt);
             }
         });
 
-        studentIDLabel.setText(bundle.getString("LibrarianForm.studentIDLabel.text")); // NOI18N
+        studentIDLabel.setText(null);
 
         addBookPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        bookSNLabel.setText(bundle.getString("LibrarianForm.bookSNLabel.text")); // NOI18N
+        bookSNLabel.setText(null);
 
-        priceLabel.setText(bundle.getString("LibrarianForm.priceLabel.text")); // NOI18N
+        priceLabel.setText(null);
 
-        titleLabel.setText(bundle.getString("LibrarianForm.titleLabel.text")); // NOI18N
+        titleLabel.setText(null);
 
-        authorLabel.setText(bundle.getString("LibrarianForm.authorLabel.text")); // NOI18N
+        authorLabel.setText(null);
 
-        quantityLabel.setText(bundle.getString("LibrarianForm.quantityLabel.text")); // NOI18N
+        quantityLabel.setText(null);
 
-        publisherLabel.setText(bundle.getString("LibrarianForm.publisherLabel.text")); // NOI18N
+        publisherLabel.setText(null);
 
-        enterButton2.setText(bundle.getString("LibrarianForm.enterButton2.text")); // NOI18N
+        enterButton2.setText(null);
         enterButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enterButton2ActionPerformed(evt);
@@ -256,7 +271,7 @@ public class LibrarianForm extends javax.swing.JFrame {
 
         LibrarianTasksBG.add(addBookRB);
         addBookRB.setSelected(true);
-        addBookRB.setText(bundle.getString("LibrarianForm.addBookRB.text")); // NOI18N
+        addBookRB.setText(null);
         addBookRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBookRBActionPerformed(evt);
@@ -264,7 +279,7 @@ public class LibrarianForm extends javax.swing.JFrame {
         });
 
         LibrarianTasksBG.add(issueBookRB);
-        issueBookRB.setText(bundle.getString("LibrarianForm.issueBookRB.text")); // NOI18N
+        issueBookRB.setText(null);
         issueBookRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 issueBookRBActionPerformed(evt);
@@ -272,7 +287,7 @@ public class LibrarianForm extends javax.swing.JFrame {
         });
 
         LibrarianTasksBG.add(viewCatalogRB);
-        viewCatalogRB.setText(bundle.getString("LibrarianForm.viewCatalogRB.text")); // NOI18N
+        viewCatalogRB.setText(null);
         viewCatalogRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewCatalogRBActionPerformed(evt);
@@ -280,7 +295,7 @@ public class LibrarianForm extends javax.swing.JFrame {
         });
 
         LibrarianTasksBG.add(returnBookRB);
-        returnBookRB.setText(bundle.getString("LibrarianForm.returnBookRB.text")); // NOI18N
+        returnBookRB.setText(null);
         returnBookRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 returnBookRBActionPerformed(evt);
@@ -288,7 +303,7 @@ public class LibrarianForm extends javax.swing.JFrame {
         });
 
         LibrarianTasksBG.add(viewIssuedBooksRB);
-        viewIssuedBooksRB.setText(bundle.getString("LibrarianForm.viewIssuedBooksRB.text")); // NOI18N
+        viewIssuedBooksRB.setText(null);
         viewIssuedBooksRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewIssuedBooksRBActionPerformed(evt);
@@ -333,7 +348,7 @@ public class LibrarianForm extends javax.swing.JFrame {
         taskLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         backToMainMenuButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        backToMainMenuButton.setText(bundle.getString("LibrarianForm.backToMainMenuButton.text")); // NOI18N
+        backToMainMenuButton.setText(null);
         backToMainMenuButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backToMainMenuButtonActionPerformed(evt);
@@ -341,26 +356,24 @@ public class LibrarianForm extends javax.swing.JFrame {
         });
 
         librarianLabel.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
-        librarianLabel.setText(bundle.getString("LibrarianForm.librarianLabel.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(librarianTaskPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(librarianLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(librarianTaskPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(displayScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(librarianLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(taskLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(230, 230, 230)
                         .addComponent(backToMainMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -389,6 +402,50 @@ public class LibrarianForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void changeLanguageComponentsEnglish() {
+        ResourceBundle res = ResourceBundle.getBundle("source//Bundle", Locale.CANADA);    
+        publisherLabel.setText(res.getString("LibrarianForm.publisherLabel.text"));
+        quantityLabel.setText(res.getString("LibrarianForm.quantity.text"));
+        enterButton1.setText(res.getString("LibrarianForm.enterButton1.text"));     
+        bookSNLabel.setText(res.getString("LibrarianForm.bookSNLabel1.text"));
+        authorLabel.setText(res.getString("LibrarianForm.authorLabel.text"));
+        librarianLabel.setText(res.getString("LibrarianForm.titleLabel.text"));
+        priceLabel.setText(res.getString("LibrarianForm.priceLabel.text"));
+        librarianLabel.setText(res.getString("LibrarianForm.librarianLabel.text"));
+        backToMainMenuButton.setText(res.getString("LibrarianForm.backToMainMenuButton.text"));
+        bookSNLabel.setText(res.getString("LibrarianForm.bookSNLabel.text"));
+        studentIDLabel.setText(res.getString("LibrarianForm.studentIDLabel.text"));
+        viewIssuedBooksRB.setText(res.getString("LibrarianForm.viewIssuedBooksRB.text"));
+        returnBookRB.setText(res.getString("LibrarianForm.returnBookRB.text"));
+        viewCatalogRB.setText(res.getString("LibrarianForm.viewCatalogRB.text"));
+        issueBookRB.setText(res.getString("LibrarianForm.issueBookRB.text"));
+        addBookRB.setText(res.getString("LibrarianForm.addBookRB.text"));
+        enterButton2.setText(res.getString("LibrarianForm.enterButton2.text"));     
+    
+    }
+
+    public void changeLanguageComponentsFrench() {
+        ResourceBundle res = ResourceBundle.getBundle("source//Bundle", Locale.CANADA_FRENCH);    
+        publisherLabel.setText(res.getString("LibrarianForm.publisherLabel.text"));
+        quantityLabel.setText(res.getString("LibrarianForm.quantity.text"));
+        enterButton1.setText(res.getString("LibrarianForm.enterButton1.text"));     
+        bookSNLabel.setText(res.getString("LibrarianForm.bookSNLabel1.text"));
+        authorLabel.setText(res.getString("LibrarianForm.authorLabel.text"));
+        librarianLabel.setText(res.getString("LibrarianForm.titleLabel.text"));
+        priceLabel.setText(res.getString("LibrarianForm.priceLabel.text"));
+        librarianLabel.setText(res.getString("LibrarianForm.librarianLabel.text"));
+        backToMainMenuButton.setText(res.getString("LibrarianForm.backToMainMenuButton.text"));
+        bookSNLabel.setText(res.getString("LibrarianForm.bookSNLabel.text"));
+        studentIDLabel.setText(res.getString("LibrarianForm.studentIDLabel.text"));
+        viewIssuedBooksRB.setText(res.getString("LibrarianForm.viewIssuedBooksRB.text"));
+        returnBookRB.setText(res.getString("LibrarianForm.returnBookRB.text"));
+        viewCatalogRB.setText(res.getString("LibrarianForm.viewCatalogRB.text"));
+        issueBookRB.setText(res.getString("LibrarianForm.issueBookRB.text"));
+        addBookRB.setText(res.getString("LibrarianForm.addBookRB.text"));
+        enterButton2.setText(res.getString("LibrarianForm.enterButton2.text"));     
+    } 
+   
 
     private void addBookRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookRBActionPerformed
         changePanel();

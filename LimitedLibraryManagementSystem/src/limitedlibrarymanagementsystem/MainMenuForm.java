@@ -25,8 +25,7 @@ package limitedlibrarymanagementsystem;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
-//import java.util.Locale;
-//import java.util.ResourceBundle;
+
 
 /**
  * Form for Main Menu As required per final project problem statement (GUI
@@ -35,6 +34,7 @@ import java.util.ResourceBundle;
  * @author Chilka Castro, Giuliana Bouzon
  */
 public class MainMenuForm extends javax.swing.JFrame {
+    protected static String language = "English";
 
     /**
      * Creates new form MenuForm
@@ -42,6 +42,7 @@ public class MainMenuForm extends javax.swing.JFrame {
     public MainMenuForm() {
 
         initComponents();
+//        language = "English";
     }
 
     /**
@@ -91,12 +92,12 @@ public class MainMenuForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(132, Short.MAX_VALUE)
+                .addGap(132, 132, 132)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(librarianButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(studentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(librarianButton, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                            .addComponent(studentButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(128, 128, 128))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(languageComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -107,7 +108,7 @@ public class MainMenuForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(languageComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(studentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addComponent(librarianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -124,8 +125,9 @@ public class MainMenuForm extends javax.swing.JFrame {
             studentLoginForm.setVisible(Boolean.TRUE);
 
         } catch (Exception ex) {
-
+         
         }
+        
         this.dispose();
 
     }//GEN-LAST:event_studentButtonActionPerformed
@@ -144,7 +146,20 @@ public class MainMenuForm extends javax.swing.JFrame {
             ResourceBundle res = ResourceBundle.getBundle("source//Bundle", Locale.CANADA_FRENCH);    
             studentButton.setText(res.getString("MainMenuForm.studentButton.text"));
             librarianButton.setText(res.getString("MainMenuForm.librarianButton.text"));
+            language = languageComboBox.getSelectedItem().toString();
+
         }
+        
+        if (("ENGLISH").equalsIgnoreCase((String) languageComboBox.getSelectedItem())) {
+            String language = "en";
+            String country = "CA";
+            Locale locale = new Locale(language, country);
+            ResourceBundle res = ResourceBundle.getBundle("source//Bundle", locale);    
+            studentButton.setText(res.getString("MainMenuForm.studentButton.text"));
+            librarianButton.setText(res.getString("MainMenuForm.librarianButton.text"));
+            language = languageComboBox.getSelectedItem().toString();
+        }
+
     }//GEN-LAST:event_languageComboBoxActionPerformed
 
     /**
