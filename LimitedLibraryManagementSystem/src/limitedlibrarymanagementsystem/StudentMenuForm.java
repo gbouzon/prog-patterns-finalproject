@@ -41,7 +41,9 @@ public class StudentMenuForm extends javax.swing.JFrame {
     private MainMenuForm mainMenuForm;
 
     /**
-     * Creates new form StudentLoginForm
+     * Constructor of StudentMenuForm with all data members
+     * @param student student 
+     * @param mainMenuForm main
      */
     public StudentMenuForm(Student student, MainMenuForm mainMenuForm) {
         initComponents();
@@ -380,25 +382,26 @@ public class StudentMenuForm extends javax.swing.JFrame {
                     displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
                 }
             }
+        }
 
-            if (publisherRB.isSelected()) {
-                searchAuthorTF.setText("");
-                searchTitleTF.setText("");
-                try {
-                    if (searchPublisherTF.getText() != null && !searchPublisherTF.getText().isEmpty()) {
-                        displayTA.setText(this.controller.updateViewBookList(this.controller.searchBookByPublisher(searchPublisherTF.getText())));
-                    }
-                } catch (Exception e) {
-                    if (MainMenuForm.language.equals("English")) {
-                        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA);
-                        displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
-                    }
-                    if (MainMenuForm.language.equals("French")) {
-                        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
-                        displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
-                    }
+        if (publisherRB.isSelected()) {
+            searchAuthorTF.setText("");
+            searchTitleTF.setText("");
+            try {
+                if (searchPublisherTF.getText() != null && !searchPublisherTF.getText().isEmpty()) {
+                    displayTA.setText(this.controller.updateViewBookList(this.controller.searchBookByPublisher(searchPublisherTF.getText())));
+                }
+            } catch (Exception e) {
+                if (MainMenuForm.language.equals("English")) {
+                    ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                    displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
+                }
+                if (MainMenuForm.language.equals("French")) {
+                    ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                    displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
                 }
             }
+        
         }
     }//GEN-LAST:event_searchButtonActionPerformed
 

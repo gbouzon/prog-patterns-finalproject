@@ -38,6 +38,10 @@ import static org.junit.Assert.*;
 public class DBControllerTest {
        private final Connection connection;
 
+    /**
+     * Constructor of the DBControllerTest 
+     * @throws Exception exception thrown
+     */
     public DBControllerTest() throws Exception {
         this.connection = DBConnection.getSingleInstance();
     }
@@ -82,7 +86,7 @@ public class DBControllerTest {
         Book book = new Book("219831928319", new BookData()); 
         Student student = new Student("1940108", new StudentData());
         DBController controller = new DBController(student, new View());
-        controller.returnBook(book, student); //throws exception because book has not been borrowed therefore cannot be returned
+        controller.returnBook(book, student);                                   //throws exception because book has not been borrowed therefore cannot be returned
     }
 
     /**

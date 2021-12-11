@@ -120,14 +120,12 @@ public class MainMenuForm extends javax.swing.JFrame {
      * @param evt the event
      */
     private void studentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentButtonActionPerformed
-        
         try {
             new StudentLoginForm(this).setVisible(Boolean.TRUE);
-
         } catch (Exception ex) {
-
         }
-       
+        this.setVisible(false);
+
     }//GEN-LAST:event_studentButtonActionPerformed
 
     /**
@@ -139,6 +137,10 @@ public class MainMenuForm extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_librarianButtonActionPerformed
 
+    /**
+     * Changes the language of the components of the main menu
+     * @param evt the event
+     */
     private void languageComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageComboBoxActionPerformed
         if (("English/Anglais").equals((String) languageComboBox.getSelectedItem())) {
             Locale locale = new Locale("en", "CA");

@@ -114,15 +114,16 @@ public class Book {
     @Override
     public String toString() {
         if (MainMenuForm.language.equals("English")) {
-           ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+           ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                   Locale.CANADA);
             return String.format("%-10s  %s\n", resourceBundle.getString("key5"), bookSN);
         }
 
         else {
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                    Locale.CANADA_FRENCH);
             return String.format("%-10s  %s\n", resourceBundle.getString("key5"), bookSN);
         }
- 
     }
 
     /**

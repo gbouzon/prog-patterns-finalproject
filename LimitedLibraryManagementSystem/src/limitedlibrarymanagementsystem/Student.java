@@ -44,7 +44,6 @@ import java.util.regex.Pattern;
  * @author Chilka Castro, Giuliana Bouzon
  */
 public class Student {
-
     //properties
     private String studentID;
     private StudentData data;
@@ -120,7 +119,7 @@ public class Student {
      * Search the book by its title
      * @param title the title of the book
      * @return a list of books with the specified title, sorted by book SN
-     * @throws Exception
+     * @throws java.lang.Exception Exception thrown
      */
     public List<Book> searchBookByTitle(String title) throws Exception {
         ArrayList<Book> books = new ArrayList<>();
@@ -175,7 +174,7 @@ public class Student {
      * Search the book by its author's name
      * @param authorName the name of the author
      * @return a list of books written by the author, sorted by book SN
-     * @throws Exception
+     * @throws java.lang.Exception Exception thrown
      */
     public List<Book> searchBookByAuthorName(String authorName) throws Exception {
         ArrayList<Book> books = new ArrayList<>();
@@ -228,7 +227,7 @@ public class Student {
      * Search the book by its publisher
      * @param publisher the publisher of the book
      * @return a list of books, sorted by book SN
-     * @throws Exception
+     * @throws java.lang.Exception Exception thrown
      */
     public List<Book> searchBookByPublisher(String publisher) throws Exception {
         ArrayList<Book> books = new ArrayList<>(); // a container for searched books
@@ -360,9 +359,10 @@ public class Student {
     }
 
     /**
-     * If the book information for that student is valid, the number of copies “Quantity” will be increased by one
-     * and the number of copies issued will be decreased by one. 
-     * The corresponding record in IssuedBooks table is deleted from the table. 
+     * If the book information for that student is valid, the number of copies 
+     * “Quantity” will be increased by one and the number of copies issued will 
+     * be decreased by one. The corresponding record in IssuedBooks table is 
+     * deleted from the table. 
      * @param book the book to be returned
      * @return true if the book was successfully returned
      * @throws java.lang.Exception exception thrown

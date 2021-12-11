@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2021 Chilka Castro.
+ * Copyright 2021 Chilka Castro, Giuliana Bouzon
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,6 @@ package limitedlibrarymanagementsystem;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -49,7 +48,7 @@ public interface IViewable {
      * @throws java.lang.Exception exception thrown
      */
     public static Map<String, String> viewCatalog() throws Exception {
-        Map<String, String> map = new TreeMap<>( (String s1, String s2) -> (s1.compareTo(s2)));	
+        Map<String, String> map = new TreeMap<>((String s1, String s2) -> (s1.compareTo(s2)));	
 	Connection connection = DBConnection.getSingleInstance();
 
 	String query = "SELECT * FROM BOOK";
@@ -67,10 +66,12 @@ public interface IViewable {
 	    double price = rs.getDouble("Price");
 	    int quantity = rs.getInt("Quantity");
 	    int issuedQuantity = rs.getInt("IssuedQuantity");
-	    LocalDate date = LocalDate.parse(rs.getString("AddedDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+	    LocalDate date = LocalDate.parse(rs.getString("AddedDate"), 
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd"));
    
 	    //creating object
-            BookData bvalue = new BookData(title, author, publisher, quantity, price, issuedQuantity, date);
+            BookData bvalue = new BookData(title, author, publisher, quantity, 
+                    price, issuedQuantity, date);
             
             String value = bvalue.toString();
 	    //inserting into map
@@ -88,5 +89,4 @@ public interface IViewable {
         }
 	return map;
     }
-
 }
