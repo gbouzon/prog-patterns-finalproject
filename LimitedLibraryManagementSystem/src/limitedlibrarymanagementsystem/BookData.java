@@ -125,18 +125,15 @@ public class BookData {
      */
     @Override
     public String toString() {
-        String str = "";
-        if (MainMenuForm.language.equals("French")) 
-            str = toStringFrench();
-        if (MainMenuForm.language.equals("English")) 
-            str = toStringEnglish();
-        return str;
+        if (MainMenuForm.language.equals("French"))
+            return toStringFrench();
+        else 
+            return toStringEnglish();
     }
     
     public String toStringFrench() {
-        ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
         String str = "";
-        res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+        ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
         str += String.format("%-10s  %s\n", res.getString("key7"), title);
         str += String.format("%-10s  %s\n", res.getString("key6"), author);
         str += String.format("%-10s  %s\n", res.getString("key18"), publisher);
