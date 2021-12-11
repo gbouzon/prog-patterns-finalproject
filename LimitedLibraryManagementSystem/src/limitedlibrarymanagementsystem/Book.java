@@ -174,7 +174,7 @@ public class Book {
      * @throws Exception 
      */
     public Boolean issueBook(Book book, Student student) throws Exception {
-         // Step 1 : Check student if student is valid
+        // Step 1 : Check student if student is valid
         String query = "SELECT * FROM STUDENT WHERE StudentID =" + "'"
                 + student.getStudentID() + "';";
 
@@ -260,7 +260,7 @@ public class Book {
      * @return a map of issued/borrowed books(sorted SN) in the library
      */
     public Map<String, String> viewIssuedBooks() throws Exception { 
-       Map<String, String> map = new TreeMap<>((String s1, String s2) -> (s1.compareTo(s2)));
+        Map<String, String> map = new TreeMap<>((String s1, String s2) -> (s1.compareTo(s2)));
         String query = "SELECT * FROM ISSUEDBOOK";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(query);
@@ -273,12 +273,11 @@ public class Book {
                     + "\n" + res.getString("key31") + rs.getString("StudentContact") 
                     + "\n" + res.getString("key32") + rs.getString("IssuedDate") + "\n";
             
-
             //inserting into map
             map.put(key, value);
         }
         if (map.isEmpty())
-            throw new Exception(res.getString("key32"));
+            throw new Exception(res.getString("key33"));
         
         return map;
     }
@@ -307,7 +306,7 @@ public class Book {
             map.put(key, value);
         }
         if (map.isEmpty())
-            throw new Exception(res.getString("key32"));
+            throw new Exception(res.getString("key33"));
         
         return map;
     }
@@ -330,9 +329,17 @@ public class Book {
     public void setBookSN(String bookSN) throws Exception {
         if (bookSN != null && !bookSN.isEmpty()) 
             this.bookSN = bookSN;
-        
-        else 
-            throw new Exception("SN is not valid");      
+
+        else  {
+             ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+            if (MainMenuForm.language.equals("English")) {
+                throw new Exception(res.getString("key38"));     
+            }
+            if (MainMenuForm.language.equals("French")) {
+                res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                throw new Exception(res.getString("key38"));     
+            }
+        }
     }
 
     /**

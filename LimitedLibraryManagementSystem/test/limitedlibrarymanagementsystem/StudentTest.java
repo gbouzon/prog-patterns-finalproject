@@ -61,7 +61,7 @@ public class StudentTest {
      * Test of hashCode method, of class Student.
      */
     @Test
-    public void testHashCode() {
+    public void testHashCode() throws Exception {
         System.out.println("hashCode");
         Student instance = new Student();
         int expResult = 0;
@@ -75,7 +75,7 @@ public class StudentTest {
      * Test of equals method, of class Student.
      */
     @Test
-    public void testEquals() {
+    public void testEquals() throws Exception {
         System.out.println("equals");
         Object obj = null;
         Student instance = new Student();
@@ -179,7 +179,7 @@ public class StudentTest {
      * Test of toString method, of class Student.
      */
     @Test
-    public void testToString() {
+    public void testToString() throws Exception {
         System.out.println("toString");
         Student instance = new Student();
         String expResult = "";
@@ -193,7 +193,7 @@ public class StudentTest {
      * Test of getStudentID method, of class Student.
      */
     @Test
-    public void testGetStudentID() {
+    public void testGetStudentID() throws Exception {
         System.out.println("getStudentID");
         Student instance = new Student();
         String expResult = "";
@@ -207,7 +207,7 @@ public class StudentTest {
      * Test of setStudentID method, of class Student.
      */
     @Test
-    public void testSetStudentID() {
+    public void testSetStudentID() throws Exception {
         System.out.println("setStudentID");
         String studentID = "";
         Student instance = new Student();
@@ -220,7 +220,7 @@ public class StudentTest {
      * Test of getStudentData method, of class Student.
      */
     @Test
-    public void testGetStudentData() {
+    public void testGetStudentData() throws Exception {
         System.out.println("getStudentData");
         Student instance = new Student();
         StudentData expResult = null;
@@ -234,7 +234,7 @@ public class StudentTest {
      * Test of setStudentData method, of class Student.
      */
     @Test
-    public void testSetStudentData() {
+    public void testSetStudentData() throws Exception {
         System.out.println("setStudentData");
         StudentData data = null;
         Student instance = new Student();

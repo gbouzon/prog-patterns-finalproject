@@ -65,11 +65,20 @@ public class StudentData {
 	this(student.name, student.contactNum);
     }
 
+    /**
+     * Generates a hash code based on the equals method
+     * @return an integer hash code
+     */
     @Override
     public int hashCode() {
 	return Objects.hash(contactNum, name);
     }
 
+    /**
+     * Checks if objects are the same or not
+     * @param obj the object to check equality with
+     * @return True if they are the same and false if not
+     */
     @Override
     public boolean equals(Object obj) {
 	if (this == obj)
@@ -107,7 +116,7 @@ public class StudentData {
 
     /**
      * Sets the name of the student
-     * @param name 
+     * @param name the name of the student
      */
     public void setName(String name) {
 	if (Pattern.matches(NAME_REGEX, name))

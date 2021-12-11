@@ -31,6 +31,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.TreeMap;
 
 /**
@@ -75,8 +76,16 @@ public interface IViewable {
 	    //inserting into map
 	    map.put(key, value);
 	}
-        if (map.isEmpty())
-            throw new Exception("No books found");
+        if (map.isEmpty()) {
+            ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+            if (MainMenuForm.language.equals("French")) {
+                throw new Exception(res.getString("key45"));
+            }
+            if (MainMenuForm.language.equals("English")) {
+                res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                throw new Exception(res.getString("key45"));
+            }
+        }
 	return map;
     }
 

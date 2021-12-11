@@ -31,8 +31,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 /**
@@ -70,6 +72,7 @@ public class Student {
      */
     public Student(String studentID, StudentData data) throws Exception {
         this.connection = DBConnection.getSingleInstance();
+        setStudentID(studentID);
         setStudentData(data);
     }
 
@@ -151,8 +154,16 @@ public class Student {
         }
 
         st.close(); 
-        if (books.isEmpty())
-            throw new Exception("Title not in database");// close the statement
+        if (books.isEmpty()) {
+            ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+            if (MainMenuForm.language.equals("English")) {
+                throw new Exception(res.getString("key46"));
+            }
+            if (MainMenuForm.language.equals("French")) {
+                res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                throw new Exception(res.getString("key46"));
+            }          
+        }
         
         //sorting by SN
         books.sort((Book b1, Book b2) -> (b1.getBookSN().compareTo(b2.getBookSN())));
@@ -198,9 +209,16 @@ public class Student {
             books.add(book);
         }
         st.close();  // close the statement
-        if (books.isEmpty())
-            throw new Exception("Author not in the database");
-        
+        if (books.isEmpty()) {
+            ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+            if (MainMenuForm.language.equals("English")) {
+                throw new Exception(res.getString("key47"));
+            }
+            if (MainMenuForm.language.equals("French")) {
+                res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                throw new Exception(res.getString("key47"));
+            }          
+        }
         books.sort((Book b1, Book b2) -> (b1.getBookSN().compareTo(b2.getBookSN())));
         
         return books;
@@ -244,9 +262,16 @@ public class Student {
             books.add(book);
         }
         st.close(); // close the statement
-        if (books.isEmpty())
-            throw new Exception("Publisher not in the database");
-        
+        if (books.isEmpty()) {
+            ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+            if (MainMenuForm.language.equals("English")) {
+                throw new Exception(res.getString("key48"));
+            }
+            if (MainMenuForm.language.equals("French")) {
+                res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                throw new Exception(res.getString("key48"));
+            }          
+        }
         books.sort((Book b1, Book b2) -> (b1.getBookSN().compareTo(b2.getBookSN())));
         
         return books;
@@ -280,8 +305,16 @@ public class Student {
         while (rs.next()) {
             quantity = rs.getInt("Quantity");   // check how many are available
             
-            if (quantity == 0) 
-                throw new Exception("Book is not available to be borrowed.");
+            if (quantity == 0) {
+                ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                if (MainMenuForm.language.equals("English")) {
+                    throw new Exception(res.getString("key49"));
+                }
+                if (MainMenuForm.language.equals("French")) {
+                    res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                    throw new Exception(res.getString("key49"));
+                }  
+            }    
         }
 
         // check if book has already been borrowed by this student
@@ -352,9 +385,17 @@ public class Student {
             stuID = rs.getString("studentID");
         }
         
-        if (!bookSN.equals(book.getBookSN()) || !stuID.equals(studentID))
-            throw new Exception("You cannot return a book you have not borrowed");
-        
+        if (!bookSN.equals(book.getBookSN()) || !stuID.equals(studentID)) {
+                ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                if (MainMenuForm.language.equals("English")) {
+                    throw new Exception(res.getString("key50"));
+                }
+                if (MainMenuForm.language.equals("French")) {
+                    res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                    throw new Exception(res.getString("key50"));
+                }  
+        }
+           
         // Step 2 : Verify the bookSN and the stuID
         else if (bookSN.equals(book.getBookSN()) && stuID.equals(studentID)) {
 

@@ -54,7 +54,7 @@ public class DBControllerTest {
      */
     @Test
     public void testAddBook() throws Exception {
-        Book book = new Book("123456789", new BookData("A Test Book", "Test Author", "Penguin", 8, 18.29, 0, LocalDate.now())); 
+        Book book = new Book("123456788", new BookData("A Test Book", "Test Author", "Penguin", 8, 18.29, 0, LocalDate.now())); 
         DBController controller = new DBController(new View());
         controller.addBook(book);
         
@@ -80,8 +80,7 @@ public class DBControllerTest {
         boolean expResult = false;
         boolean result = instance.issueBook(book, student);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**

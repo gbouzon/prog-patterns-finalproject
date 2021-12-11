@@ -49,17 +49,20 @@ public class StudentMenuForm extends javax.swing.JFrame {
         searchTitleTF.setEnabled(Boolean.TRUE);
         searchPublisherTF.setEnabled(Boolean.FALSE);
         searchAuthorTF.setEnabled(Boolean.FALSE);
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
+                Locale.CANADA);
         try {
             this.student = new Student(student);
             this.controller = new DBController(this.student, new View());
         } catch (Exception e) {
             if (MainMenuForm.language.equals("English")) {
-                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA);
-                displayTA.setText(resourceBundle.getString("key24") + e.getMessage()); 
+
+                displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
             }
             if (MainMenuForm.language.equals("French")) {
-                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
-                displayTA.setText(resourceBundle.getString("key24") + e.getMessage()); 
+                resourceBundle = ResourceBundle.getBundle("source/Source",
+                        Locale.CANADA_FRENCH);
+                displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
             }
         }
 
@@ -298,6 +301,9 @@ public class StudentMenuForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Change the components to English
+     */
     private void changeToEnglish() {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
                 Locale.CANADA);
@@ -314,6 +320,9 @@ public class StudentMenuForm extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Change the components to French
+     */
     private void changeToFrench() {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
                 Locale.CANADA_FRENCH);
@@ -330,6 +339,10 @@ public class StudentMenuForm extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Search button associated with the radio buttons
+     * @param evt the event
+     */
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         if (titleRB.isSelected()) {
             searchAuthorTF.setText("");
@@ -389,53 +402,122 @@ public class StudentMenuForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchButtonActionPerformed
 
+    /**
+     * Author name radio button for search
+     * @param evt the event
+     */
     private void authorNameRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorNameRBActionPerformed
         changeSearch();
     }//GEN-LAST:event_authorNameRBActionPerformed
 
+    /**
+     * Title radio button for search
+     * @param evt the event
+     */
     private void titleRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titleRBActionPerformed
         changeSearch();
     }//GEN-LAST:event_titleRBActionPerformed
 
+    /**
+     * Publisher radio button for search
+     * @param evt the event
+     */
     private void publisherRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publisherRBActionPerformed
         changeSearch();
     }//GEN-LAST:event_publisherRBActionPerformed
 
+    /**
+     * View Catalog button to display all the books in the library
+     * @param evt 
+     */
     private void viewCatalogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCatalogButtonActionPerformed
         try {
             displayTA.setText(this.controller.updateViewCatalog());
         } catch (Exception e) {
-            displayTA.setText("Error: " + e.getMessage());
+            if (MainMenuForm.language.equals("English")) {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
+            }
+            if (MainMenuForm.language.equals("French")) {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
+            }
         }
     }//GEN-LAST:event_viewCatalogButtonActionPerformed
 
+    /**
+     * Logout Button that goes back to the main menu
+     * @param evt the event
+     */
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
         mainMenuForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_logOutButtonActionPerformed
 
+    /**
+     * Borrow the book button
+     * @param evt the event
+     */
     private void borrowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrowButtonActionPerformed
         String SN = bookSNTF.getText();
+        ResourceBundle res = null;
         try {
             Book book = new Book(SN, new BookData()); //bookdata can be empty because borrow method only checks book SN
             this.student.borrow(book);
-            displayTA.setText("Book successfully borrowed!");
+            if (MainMenuForm.language.equals("English")) {
+                res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                displayTA.setText(res.getString("key55"));
+            }
+            if (MainMenuForm.language.equals("French")) {
+                res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                displayTA.setText(res.getString("key55"));
+            }
         } catch (Exception e) {
-            displayTA.setText("Error: " + e.getMessage());
+            if (MainMenuForm.language.equals("English")) {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
+            }
+            if (MainMenuForm.language.equals("French")) {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
+            }
         }
     }//GEN-LAST:event_borrowButtonActionPerformed
 
+    /**
+     * Returns the book
+     * @param evt the event
+     */
     private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
+        ResourceBundle res = null;
         String SN = bookSNTF.getText();
         try {
             Book book = new Book(SN, new BookData()); //bookdata can be empty because borrow method only checks book SN
             this.student.toReturn(book);
-            displayTA.setText("Book successfully returned!");
+             
+            if (MainMenuForm.language.equals("English")) {
+                res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                displayTA.setText(res.getString("key52"));
+            }
+            if (MainMenuForm.language.equals("French")) {
+                res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                displayTA.setText(res.getString("key52"));
+            }
         } catch (Exception e) {
-            displayTA.setText("Error: " + e.getMessage());
+            if (MainMenuForm.language.equals("English")) {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
+            }
+            if (MainMenuForm.language.equals("French")) {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
+            }
         }
     }//GEN-LAST:event_returnButtonActionPerformed
 
+    /**
+     * Search depending on the chosen radio button
+     */
     public void changeSearch() {
         if (titleRB.isSelected()) {
             searchAuthorTF.setText("");

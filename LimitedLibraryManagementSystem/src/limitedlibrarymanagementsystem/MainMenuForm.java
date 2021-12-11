@@ -39,7 +39,8 @@ public class MainMenuForm extends javax.swing.JFrame {
      */
     public MainMenuForm() {
         initComponents();
-        language = (String) languageComboBox.getSelectedItem();
+        languageComboBox.setSelectedItem("English/Anglais");
+        language = "English";
     }
 
     /**
@@ -114,6 +115,10 @@ public class MainMenuForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Student button for main menu form
+     * @param evt the event
+     */
     private void studentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentButtonActionPerformed
         
         try {
@@ -125,6 +130,10 @@ public class MainMenuForm extends javax.swing.JFrame {
        
     }//GEN-LAST:event_studentButtonActionPerformed
 
+    /**
+     * Librarian button for the menu
+     * @param evt the event
+     */
     private void librarianButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_librarianButtonActionPerformed
         new LibrarianForm(this).setVisible(true);
         this.setVisible(false);
@@ -141,9 +150,9 @@ public class MainMenuForm extends javax.swing.JFrame {
         
         if (("French/Français").equalsIgnoreCase((String) languageComboBox.getSelectedItem())) {
             Locale locale = new Locale("fr", "CA");
-            ResourceBundle resourceBundle4 = ResourceBundle.getBundle("source/Source", locale);
-            studentButton.setText(resourceBundle4.getString("key2"));
-            librarianButton.setText(resourceBundle4.getString("key1"));
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", locale);
+            studentButton.setText(resourceBundle.getString("key2"));
+            librarianButton.setText(resourceBundle.getString("key1"));
             language = "French";
         }
     }//GEN-LAST:event_languageComboBoxActionPerformed

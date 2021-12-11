@@ -60,7 +60,7 @@ public class BookTest {
      * Test of hashCode method, of class Book.
      */
     @Test
-    public void testHashCode() {
+    public void testHashCode() throws Exception {
         System.out.println("hashCode");
         Book instance = new Book();
         int expResult = 0;
@@ -74,7 +74,7 @@ public class BookTest {
      * Test of equals method, of class Book.
      */
     @Test
-    public void testEquals() {
+    public void testEquals() throws Exception {
         System.out.println("equals");
         Object obj = null;
         Book instance = new Book();
@@ -89,7 +89,7 @@ public class BookTest {
      * Test of toString method, of class Book.
      */
     @Test
-    public void testToString() {
+    public void testToString() throws Exception {
         System.out.println("toString");
         Book instance = new Book();
         String expResult = "";
@@ -189,7 +189,7 @@ public class BookTest {
      * Test of getBookSN method, of class Book.
      */
     @Test
-    public void testGetBookSN() {
+    public void testGetBookSN() throws Exception {
         System.out.println("getBookSN");
         Book instance = new Book();
         String expResult = "";

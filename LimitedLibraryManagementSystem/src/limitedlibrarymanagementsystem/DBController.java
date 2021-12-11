@@ -142,7 +142,7 @@ public class DBController {
      */
     public String updateViewIssuedTable() throws Exception {
         if (MainMenuForm.language.equals("French"))
-            return view.printIssuedBookTableFrench(viewIssuedBooks());                     // viewIssuedBooks() -> is a returned map
+            return view.printIssuedBookTableFrench(viewIssuedBooks());          // viewIssuedBooks() -> is a returned map
         else 
             return view.printIssuedBookTable(viewIssuedBooks());    
     }

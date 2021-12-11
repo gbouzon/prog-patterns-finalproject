@@ -60,7 +60,7 @@ public class BookDataTest {
      * Test of hashCode method, of class BookData.
      */
     @Test
-    public void testHashCode() {
+    public void testHashCode() throws Exception {
         System.out.println("hashCode");
         BookData instance = new BookData();
         int expResult = 0;
@@ -74,7 +74,7 @@ public class BookDataTest {
      * Test of equals method, of class BookData.
      */
     @Test
-    public void testEquals() {
+    public void testEquals() throws Exception {
         System.out.println("equals");
         Object obj = null;
         BookData instance = new BookData();
@@ -89,7 +89,7 @@ public class BookDataTest {
      * Test of toString method, of class BookData.
      */
     @Test
-    public void testToString() {
+    public void testToString() throws Exception {
         System.out.println("toString");
         BookData instance = new BookData();
         String expResult = "";
@@ -103,7 +103,7 @@ public class BookDataTest {
      * Test of toStringFrench method, of class BookData.
      */
     @Test
-    public void testToStringFrench() {
+    public void testToStringFrench() throws Exception {
         System.out.println("toStringFrench");
         BookData instance = new BookData();
         String expResult = "";
@@ -117,7 +117,7 @@ public class BookDataTest {
      * Test of toStringEnglish method, of class BookData.
      */
     @Test
-    public void testToStringEnglish() {
+    public void testToStringEnglish() throws Exception {
         System.out.println("toStringEnglish");
         BookData instance = new BookData();
         String expResult = "";
@@ -131,7 +131,7 @@ public class BookDataTest {
      * Test of getTitle method, of class BookData.
      */
     @Test
-    public void testGetTitle() {
+    public void testGetTitle() throws Exception {
         System.out.println("getTitle");
         BookData instance = new BookData();
         String expResult = "";
@@ -158,7 +158,7 @@ public class BookDataTest {
      * Test of getAuthor method, of class BookData.
      */
     @Test
-    public void testGetAuthor() {
+    public void testGetAuthor() throws Exception {
         System.out.println("getAuthor");
         BookData instance = new BookData();
         String expResult = "";
@@ -185,7 +185,7 @@ public class BookDataTest {
      * Test of getPublisher method, of class BookData.
      */
     @Test
-    public void testGetPublisher() {
+    public void testGetPublisher() throws Exception {
         System.out.println("getPublisher");
         BookData instance = new BookData();
         String expResult = "";
@@ -212,7 +212,7 @@ public class BookDataTest {
      * Test of getPrice method, of class BookData.
      */
     @Test
-    public void testGetPrice() {
+    public void testGetPrice() throws Exception {
         System.out.println("getPrice");
         BookData instance = new BookData();
         double expResult = 0.0;
@@ -239,7 +239,7 @@ public class BookDataTest {
      * Test of getBookQuantity method, of class BookData.
      */
     @Test
-    public void testGetBookQuantity() {
+    public void testGetBookQuantity() throws Exception {
         System.out.println("getBookQuantity");
         BookData instance = new BookData();
         int expResult = 0;
@@ -266,7 +266,7 @@ public class BookDataTest {
      * Test of getIssuedQuantity method, of class BookData.
      */
     @Test
-    public void testGetIssuedQuantity() {
+    public void testGetIssuedQuantity() throws Exception {
         System.out.println("getIssuedQuantity");
         BookData instance = new BookData();
         int expResult = 0;
@@ -293,7 +293,7 @@ public class BookDataTest {
      * Test of getPurchaseDate method, of class BookData.
      */
     @Test
-    public void testGetPurchaseDate() {
+    public void testGetPurchaseDate() throws Exception {
         System.out.println("getPurchaseDate");
         BookData instance = new BookData();
         LocalDate expResult = null;
@@ -307,7 +307,7 @@ public class BookDataTest {
      * Test of setPurchaseDate method, of class BookData.
      */
     @Test
-    public void testSetPurchaseDate() {
+    public void testSetPurchaseDate() throws Exception {
         System.out.println("setPurchaseDate");
         LocalDate purchaseDate = null;
         BookData instance = new BookData();

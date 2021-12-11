@@ -30,8 +30,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Form for Student Login Menu (prompts user to enter student ID) As required
@@ -56,11 +54,11 @@ public class StudentLoginForm extends javax.swing.JFrame {
         this.mainMenuForm = mainMenuForm;
         this.connection = DBConnection.getSingleInstance();
         studentIDTF.setFocusable(true);
-      
+
         if (MainMenuForm.language.equals("English")) {
             changeToEnglish();
         }
-        
+
         if (MainMenuForm.language.equals("French")) {
             changeToFrench();
         }
@@ -167,22 +165,42 @@ public class StudentLoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * Enter button when login in
      *
-     * @param evt
+     * @param evt the event
      */
     private void enterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterButtonActionPerformed
+        ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
         try {
             loginStudent();
         } catch (Exception ex) {
-            messageLabel.setText("Error!");
+            if (MainMenuForm.language.equals("English")) {
+                messageLabel.setText(res.getString("key24")
+                        + "\n" + ex.getMessage());
+            }
+            if (MainMenuForm.language.equals("French")) {
+                res = ResourceBundle.getBundle("source/Source",
+                        Locale.CANADA_FRENCH);
+                messageLabel.setText(res.getString("key24")
+                        + "\n" + ex.getMessage());
+            }
+
         }
     }//GEN-LAST:event_enterButtonActionPerformed
 
+    /**
+     * Back to main menu button
+     *
+     * @param evt the event
+     */
     private void backToMainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuButtonActionPerformed
         mainMenuForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backToMainMenuButtonActionPerformed
 
+    /**
+     * Change the components to English
+     */
     private void changeToEnglish() {
         Locale locale = new Locale("en", "CA");
         ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", locale);
@@ -190,10 +208,11 @@ public class StudentLoginForm extends javax.swing.JFrame {
         studentIDLabel.setText(resourceBundle.getString("key21"));
         enterButton.setText(resourceBundle.getString("key22"));
         backToMainMenuButton.setText(resourceBundle.getString("key10"));
-
-  
     }
 
+    /**
+     * Change the components to French
+     */
     private void changeToFrench() {
         Locale locale = new Locale("fr", "CA");
         ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", locale);
@@ -201,10 +220,17 @@ public class StudentLoginForm extends javax.swing.JFrame {
         studentIDLabel.setText(resourceBundle.getString("key21"));
         enterButton.setText(resourceBundle.getString("key22"));
         backToMainMenuButton.setText(resourceBundle.getString("key10"));
-        
 
     }
+
+    /**
+     * Checks if the student exists in the database
+     *
+     * @param studentIDInput the student id of the student
+     * @throws SQLException exception thrown
+     */
     public void checkStudents(String studentIDInput) throws SQLException {
+        ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
         String query = "SELECT * FROM STUDENT WHERE studentID=" + "'" + studentIDInput + "';";
 
         Statement statement = connection.createStatement();
@@ -222,33 +248,72 @@ public class StudentLoginForm extends javax.swing.JFrame {
         try {
             this.student = new Student(studentID, data);
         } catch (Exception ex) {
-            messageLabel.setText("Error!");
+            if (MainMenuForm.language.equals("English")) {
+                messageLabel.setText(res.getString("key24"));
+            }
+            if (MainMenuForm.language.equals("French")) {
+                res = ResourceBundle.getBundle("source/Source",
+                        Locale.CANADA_FRENCH);
+                messageLabel.setText(res.getString("key24"));
+            }
         }
 
         if (studentID.equalsIgnoreCase(studentIDInput)) {
             messageLabel.setForeground(Color.GREEN);
-            messageLabel.setText("Login successful");
+            if (MainMenuForm.language.equals("English")) {
+                messageLabel.setText(res.getString("key54"));
+            }
+            if (MainMenuForm.language.equals("French")) {
+                res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                messageLabel.setText(res.getString("key54"));
+            }
             try {
                 StudentMenuForm studentMenuForm = new StudentMenuForm(student, mainMenuForm);
                 studentMenuForm.setVisible(true);
             } catch (Exception exception) {
-                messageLabel.setText("Error!");
+                if (MainMenuForm.language.equals("English")) {
+                    messageLabel.setText(res.getString("key24"));
+                }
+                if (MainMenuForm.language.equals("French")) {
+                    res = ResourceBundle.getBundle("source/Source",
+                            Locale.CANADA_FRENCH);
+                    messageLabel.setText(res.getString("key24"));
+                }
             }
 
         } else {
             messageLabel.setForeground(Color.RED);
-            messageLabel.setText("StudentID invalid");
+            if (MainMenuForm.language.equals("English")) {
+                messageLabel.setText(res.getString("key53"));
+            }
+            if (MainMenuForm.language.equals("French")) {
+                res = ResourceBundle.getBundle("source/Source",
+                        Locale.CANADA_FRENCH);
+                messageLabel.setText(res.getString("key53"));
+            }
             studentIDTF.setText("");
         }
     }
 
+    /**
+     *
+     * @throws SQLException
+     */
     public void loginStudent() throws SQLException {
+        ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
         if (!studentIDTF.getText().isEmpty() && !studentIDTF.getText().isBlank()) {
             String studentIDInput = studentIDTF.getText();
             checkStudents(studentIDInput);
         } else {
             messageLabel.setForeground(Color.RED);
-            messageLabel.setText("StudentID invalid");
+            if (MainMenuForm.language.equals("English")) {
+                messageLabel.setText(res.getString("key53"));
+            }
+            if (MainMenuForm.language.equals("French")) {
+                res = ResourceBundle.getBundle("source/Source",
+                        Locale.CANADA_FRENCH);
+                messageLabel.setText(res.getString("key53"));
+            }
         }
     }
 //

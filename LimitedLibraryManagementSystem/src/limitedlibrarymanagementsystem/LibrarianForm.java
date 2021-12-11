@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package limitedlibrarymanagementsystem;
 
 import java.time.LocalDate;
@@ -30,17 +29,16 @@ import java.util.ResourceBundle;
 import javax.swing.SpinnerNumberModel;
 
 /**
- * Form for Librarian Menu
- * As required per final project problem statement (GUI choice)
- * Final Project for Programming Patterns course - Fall 2021.
+ * Form for Librarian Menu As required per final project problem statement (GUI
+ * choice) Final Project for Programming Patterns course - Fall 2021.
+ *
  * @author Chilka Castro, Giuliana Bouzon
  */
 public class LibrarianForm extends javax.swing.JFrame {
-    
+
     //properties
     private DBController controller;
     private MainMenuForm mainMenuForm;
-
 
     /**
      * Creates new form LibrarianForm
@@ -51,21 +49,28 @@ public class LibrarianForm extends javax.swing.JFrame {
         this.mainMenuForm = mainMenuForm;
         SpinnerNumberModel model = new SpinnerNumberModel(0, 0, 300, 1);
         quantitySpinner.setModel(model); //allows for values to go up to 300
-         try {
+        ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+        try {
             this.controller = new DBController(new View());
-        }
-        catch (Exception e) {
-            displayTextArea.setText("Error: " + e.getMessage());
-        }
-         
-        if (MainMenuForm.language.equals("English")) {
-            changeToEnglish();
+        } catch (Exception e) {
+            if (MainMenuForm.language.equals("English")) {               
+                    displayTextArea.setText(res.getString("key24") + "\n" 
+                            + e.getMessage());
+            }
+            if (MainMenuForm.language.equals("French")) {
+                res= ResourceBundle.getBundle("source/Source",
+                        Locale.CANADA_FRENCH);
+                displayTextArea.setText(res.getString("key24") + "\n" 
+                        + e.getMessage());
+            }
         }
         
-        if (MainMenuForm.language.equals("French")) {
+        if (MainMenuForm.language.equals("English")) 
+            changeToEnglish();
+        
+        if (MainMenuForm.language.equals("French")) 
             changeToFrench();
-        }
-         
+
     }
 
     /**
@@ -392,10 +397,12 @@ public class LibrarianForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
-    private void changeToEnglish() { 
+    /**
+     * Change the components to English
+     */
+    private void changeToEnglish() {
 //        Locale locale = new Locale("en", "CA");
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
                 Locale.CANADA);
         quantityLabel.setText(resourceBundle.getString("key3"));
         enterButton1.setText(resourceBundle.getString("key4"));
@@ -408,17 +415,21 @@ public class LibrarianForm extends javax.swing.JFrame {
         backToMainMenuButton.setText(resourceBundle.getString("key10"));
         viewCatalogRB.setText(resourceBundle.getString("key14"));
         addBookRB.setText(resourceBundle.getString("key16"));
-        enterButton2.setText(resourceBundle.getString("key17")); 
-        publisherLabel.setText(resourceBundle.getString("key18")); 
-        issueBookRB.setText(resourceBundle.getString("key15")); 
-        returnBookRB.setText(resourceBundle.getString("key19"));   
+        enterButton2.setText(resourceBundle.getString("key17"));
+        publisherLabel.setText(resourceBundle.getString("key18"));
+        issueBookRB.setText(resourceBundle.getString("key15"));
+        returnBookRB.setText(resourceBundle.getString("key19"));
         studentIDLabel.setText(resourceBundle.getString("key11"));
         viewIssuedBooksRB.setText(resourceBundle.getString("key12"));
-        
+
     }
+
+    /**
+     * Change the components to French
+     */
     private void changeToFrench() {
-//        Locale locale = new Locale("fr", "CA");
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+        // Locale locale = new Locale("fr", "CA");
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
                 Locale.CANADA_FRENCH);
         quantityLabel.setText(resourceBundle.getString("key3"));
         enterButton1.setText(resourceBundle.getString("key4"));
@@ -431,83 +442,103 @@ public class LibrarianForm extends javax.swing.JFrame {
         backToMainMenuButton.setText(resourceBundle.getString("key10"));
         viewCatalogRB.setText(resourceBundle.getString("key14"));
         addBookRB.setText(resourceBundle.getString("key16"));
-        enterButton2.setText(resourceBundle.getString("key17")); 
-        publisherLabel.setText(resourceBundle.getString("key18")); 
-        issueBookRB.setText(resourceBundle.getString("key15")); 
-        returnBookRB.setText(resourceBundle.getString("key19"));   
+        enterButton2.setText(resourceBundle.getString("key17"));
+        publisherLabel.setText(resourceBundle.getString("key18"));
+        issueBookRB.setText(resourceBundle.getString("key15"));
+        returnBookRB.setText(resourceBundle.getString("key19"));
         studentIDLabel.setText(resourceBundle.getString("key11"));
         viewIssuedBooksRB.setText(resourceBundle.getString("key12"));
 
     }
-    
+
+    /**
+     * Add Book Radio Button
+     * @param evt event
+     */
     private void addBookRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookRBActionPerformed
         changePanel();
         if (MainMenuForm.language.equals("English")) {
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
-                Locale.CANADA);
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
+                    Locale.CANADA);
             taskLabel.setText(resourceBundle.getString("key16"));
         }
-        
+
         if (MainMenuForm.language.equals("French")) {
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
-                Locale.CANADA_FRENCH);
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
+                    Locale.CANADA_FRENCH);
             taskLabel.setText(resourceBundle.getString("key16"));
         }
     }//GEN-LAST:event_addBookRBActionPerformed
 
+    /**
+     * Issue Book Radio button
+     * @param evt the event
+     */
     private void issueBookRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_issueBookRBActionPerformed
         changePanel();
         if (MainMenuForm.language.equals("English")) {
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
-                Locale.CANADA);
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
+                    Locale.CANADA);
             taskLabel.setText(resourceBundle.getString("key15"));
         }
-        
+
         if (MainMenuForm.language.equals("French")) {
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
-                Locale.CANADA_FRENCH);
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
+                    Locale.CANADA_FRENCH);
             taskLabel.setText(resourceBundle.getString("key15"));
         }
     }//GEN-LAST:event_issueBookRBActionPerformed
 
+    /**
+     * View Catalog Radio Button
+     * @param evt the event
+     */
     private void viewCatalogRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCatalogRBActionPerformed
         changePanel();
         if (MainMenuForm.language.equals("English")) {
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
-                Locale.CANADA);
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
+                    Locale.CANADA);
             taskLabel.setText(resourceBundle.getString("key14"));
         }
-        
+
         if (MainMenuForm.language.equals("French")) {
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
-                Locale.CANADA_FRENCH);
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
+                    Locale.CANADA_FRENCH);
             taskLabel.setText(resourceBundle.getString("key14"));
         }
     }//GEN-LAST:event_viewCatalogRBActionPerformed
 
+    /**
+     * Return Book Radio Button
+     * @param evt the event
+     */
     private void returnBookRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnBookRBActionPerformed
         changePanel();
         if (MainMenuForm.language.equals("English")) {
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
-                Locale.CANADA);
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
+                    Locale.CANADA);
             taskLabel.setText(resourceBundle.getString("key13"));
         }
-        
+
         if (MainMenuForm.language.equals("French")) {
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
-                Locale.CANADA_FRENCH);
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
+                    Locale.CANADA_FRENCH);
             taskLabel.setText(resourceBundle.getString("key13"));
         }
     }//GEN-LAST:event_returnBookRBActionPerformed
 
+    /**
+     * View Issued Book Radio Button
+     * @param evt the event
+     */
     private void viewIssuedBooksRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewIssuedBooksRBActionPerformed
         changePanel();
         if (MainMenuForm.language.equals("English")) {
-            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",  
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
                     Locale.CANADA);
             taskLabel.setText(resourceBundle.getString("key12"));
         }
-        
+
         if (MainMenuForm.language.equals("French")) {
             ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
                     Locale.CANADA_FRENCH);
@@ -515,13 +546,21 @@ public class LibrarianForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_viewIssuedBooksRBActionPerformed
 
+    /**
+     * Brings back to main menu
+     * @param evt the event
+     */
     private void backToMainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuButtonActionPerformed
         mainMenuForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backToMainMenuButtonActionPerformed
 
-    //enter button for everything else
+    /**
+     * Enter button associated with the radio buttons
+     * @param evt the event
+     */
     private void enterButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterButton1ActionPerformed
+        ResourceBundle res = null;
         if (issueBookRB.isSelected()) {
             String SN = bookSNTF1.getText();
             String studentID = studentIDTF.getText();
@@ -530,73 +569,109 @@ public class LibrarianForm extends javax.swing.JFrame {
                 Book book = new Book(SN, new BookData()); //bookdata can be empty because issuebook method only checks book SN
                 Student student = new Student(studentID, new StudentData()); //same with studentData
                 this.controller.issueBook(book, student);
-                displayTextArea.setText("Book successfully issued!"); 
-            }
-            catch(Exception e){
-                displayTextArea.setText("Error: " + e.getMessage()); 
+
+                if (MainMenuForm.language.equals("English")) {
+                    res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                    displayTextArea.setText(res.getString("key51"));
+                }
+                if (MainMenuForm.language.equals("French")) {
+                    res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                    displayTextArea.setText(res.getString("key51"));
+                }
+            } catch (Exception e) {
+                if (MainMenuForm.language.equals("English")) {
+                    res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                    displayTextArea.setText(res.getString("key24") + "\n" + e.getMessage());
+                }
+                if (MainMenuForm.language.equals("French")) {
+                    res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                    displayTextArea.setText(res.getString("key24") + "\n" + e.getMessage());
+                }
+
             }
         }
-        else if (returnBookRB.isSelected()) {
+        if (returnBookRB.isSelected()) {
             String SN = bookSNTF1.getText();
             String studentID = studentIDTF.getText();
-            
+
             try {
                 Book book = new Book(SN, new BookData()); //bookdata can be empty because issuebook method only checks book SN
                 Student student = new Student(studentID, new StudentData()); //same with studentData
                 this.controller.returnBook(book, student);
                 
-                displayTextArea.setText("Book successfully returned!"); 
-            }
-            catch(Exception e){
-                displayTextArea.setText("Error: " + e.getMessage()); 
+                if (MainMenuForm.language.equals("English")) {
+                    res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                    displayTextArea.setText(res.getString("key52"));
+                }
+                if (MainMenuForm.language.equals("French")) {
+                    res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                    displayTextArea.setText(res.getString("key52"));
+                }
+            } catch (Exception e) {
+                if (MainMenuForm.language.equals("English")) {
+                    res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                    displayTextArea.setText(res.getString("key24") + "\n" + e.getMessage());
+                }
+                if (MainMenuForm.language.equals("French")) {
+                    res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                    displayTextArea.setText(res.getString("key24") + "\n" + e.getMessage());
+                }
             }
         }
     }//GEN-LAST:event_enterButton1ActionPerformed
 
-    //button to add book
+    /**
+     * Button to add book
+     * @param evt the event
+     */
     private void enterButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterButton2ActionPerformed
         //initializing variables
         String SN = bookSNTF.getText();
         String title = titleTF.getText();
         String author = authorTF.getText();
         String publisher = publisherTF.getText();
-        int bookQuantity = (int)quantitySpinner.getValue();
+        int bookQuantity = (int) quantitySpinner.getValue();
         double price = Double.parseDouble(priceTF.getText());
-        
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
+                Locale.CANADA);
         try {
             Book book = new Book(SN, new BookData(title, author, publisher, bookQuantity,
-                                price, 0, LocalDate.now()));
+                    price, 0, LocalDate.now()));
             this.controller.addBook(book);
             if (MainMenuForm.language.equals("English")) {
-                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
-                Locale.CANADA);
-                displayTextArea.setText(resourceBundle.getString("key23")); 
+                resourceBundle = ResourceBundle.getBundle("source/Source",
+                        Locale.CANADA);
+                displayTextArea.setText(resourceBundle.getString("key23"));
             }
-        
+
             if (MainMenuForm.language.equals("French")) {
-                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
-                Locale.CANADA_FRENCH);
-                displayTextArea.setText(resourceBundle.getString("key23")); 
+                resourceBundle = ResourceBundle.getBundle("source/Source",
+                        Locale.CANADA_FRENCH);
+                displayTextArea.setText(resourceBundle.getString("key23"));
             }
-         
-        }
-        catch (Exception e) {
-            displayTextArea.setText("Error: " + e.getMessage()); 
-            if (MainMenuForm.language.equals("English")) {
-                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
-                Locale.CANADA);
-                displayTextArea.setText(resourceBundle.getString("key24")); 
+
+        } catch (Exception e) {
+            if (MainMenuForm.language.equals("English")) {               
+                displayTextArea.setText(resourceBundle.getString("key24") + 
+                        "\n" + e.getMessage());
             }
-        
+
             if (MainMenuForm.language.equals("French")) {
-                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
-                Locale.CANADA_FRENCH);
-               displayTextArea.setText(resourceBundle.getString("key24")); 
+                resourceBundle = ResourceBundle.getBundle("source/Source",
+                        Locale.CANADA_FRENCH);
+                displayTextArea.setText(resourceBundle.getString("key24") + 
+                        "\n" + e.getMessage());
             }
         }
     }//GEN-LAST:event_enterButton2ActionPerformed
 
+    /**
+     * Change the panels in the form depending on the radio button chosen
+     */
     private void changePanel() {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
+                Locale.CANADA);
+
         // removing panel
         if (addBookRB.isSelected()) {
             mainPanel.setSize(434, 327);
@@ -615,25 +690,44 @@ public class LibrarianForm extends javax.swing.JFrame {
             // add panel 
             mainPanel.add(issueReturnBookPanel);
         }
-        
+
         if (viewIssuedBooksRB.isSelected()) {
             try {
                 displayTextArea.setText(this.controller.updateViewIssuedTable());
-            }
-            catch(Exception e) {
-                displayTextArea.setText("Error: \n" + e.getMessage()); 
+            } 
+            catch (Exception e) {
+                if (MainMenuForm.language.equals("English")) {               
+                    displayTextArea.setText(resourceBundle.getString("key24") + 
+                            "\n" + e.getMessage());
+                }
+                if (MainMenuForm.language.equals("French")) {
+                    resourceBundle = ResourceBundle.getBundle("source/Source",
+                            Locale.CANADA_FRENCH);
+                    displayTextArea.setText(resourceBundle.getString("key24") + 
+                            "\n" + e.getMessage());
+                }
             }
         }
-        
+
         if (viewCatalogRB.isSelected()) {
             try {
-                if (MainMenuForm.language.equals("French"))
+                if (MainMenuForm.language.equals("French")) {
                     displayTextArea.setText(this.controller.updateViewCatalogFrench());
-                if (MainMenuForm.language.equals("English"))
+                }
+                if (MainMenuForm.language.equals("English")) {
                     displayTextArea.setText(this.controller.updateViewCatalog());
-            }
-            catch(Exception e) {
-                displayTextArea.setText("Error: \n" + e.getMessage()); 
+                }
+            } catch (Exception e) {
+                if (MainMenuForm.language.equals("English")) {               
+                    displayTextArea.setText(resourceBundle.getString("key24") + "\n" 
+                            + e.getMessage());
+                }
+                if (MainMenuForm.language.equals("French")) {
+                    resourceBundle = ResourceBundle.getBundle("source/Source",
+                            Locale.CANADA_FRENCH);
+                    displayTextArea.setText(resourceBundle.getString("key24") + "\n" 
+                            + e.getMessage());
+                }
             }
         }
 
@@ -712,5 +806,4 @@ public class LibrarianForm extends javax.swing.JFrame {
     private javax.swing.JRadioButton viewIssuedBooksRB;
     // End of variables declaration//GEN-END:variables
 
-   
 }
