@@ -112,7 +112,7 @@ public class DBController {
 
     /**
      * This method returns a map containing all data retrieved from the Books table.
-     * @return a map
+     * @return a map of the books in the library
      * @throws java.lang.Exception exception thrown
      */
     public static Map<String, String> viewCatalog() throws Exception { 
@@ -125,8 +125,12 @@ public class DBController {
      * @return a map of all the issued books
      * @throws java.lang.Exception exception thrown
      */
-    public static Map<String, String> viewIssuedBooks() throws Exception {      
-        return bookLibrarianModel.viewIssuedBooks();
+    public static Map<String, String> viewIssuedBooks() throws Exception {  
+        if (MainMenuForm.language.equals("French"))
+            return bookLibrarianModel.viewIssuedBooksFrench();
+
+        else 
+            return bookLibrarianModel.viewIssuedBooks();
     }
 
     /**
@@ -137,7 +141,10 @@ public class DBController {
      * 
      */
     public String updateViewIssuedTable() throws Exception {
-       return view.printIssuedBookTable(viewIssuedBooks());                     // viewIssuedBooks() -> is a returned map
+        if (MainMenuForm.language.equals("French"))
+            return view.printIssuedBookTableFrench(viewIssuedBooks());                     // viewIssuedBooks() -> is a returned map
+        else 
+            return view.printIssuedBookTable(viewIssuedBooks());    
     }
 
     /**
@@ -147,8 +154,24 @@ public class DBController {
      * @throws java.lang.Exception exception thrown
      */
     public String updateViewCatalog() throws Exception {                        // IViewable interface
-        return view.printBookCatalog(viewCatalog());                            // viewCatalog() returns a map
+        if (MainMenuForm.language.equals("French"))
+            return view.printBookCatalogFrench(viewCatalog());  
+        else 
+            return view.printBookCatalog(viewCatalog());                            // viewCatalog() returns a map
     }
+    
+    
+    /**
+     * Shared method by the Student and Book class
+     * Updates view/output for the book table
+     * @return a formatted string
+     * @throws java.lang.Exception exception thrown
+     */
+    public String updateViewCatalogFrench() throws Exception {                        // IViewable interface
+        return view.printBookCatalogFrench(viewCatalog());  
+       
+    }
+    
     
     //--------------------------STUDENT methods-------------------------------\\
     /**

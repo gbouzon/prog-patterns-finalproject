@@ -627,7 +627,10 @@ public class LibrarianForm extends javax.swing.JFrame {
         
         if (viewCatalogRB.isSelected()) {
             try {
-                displayTextArea.setText(this.controller.updateViewCatalog());
+                if (MainMenuForm.language.equals("French"))
+                    displayTextArea.setText(this.controller.updateViewCatalogFrench());
+                if (MainMenuForm.language.equals("English"))
+                    displayTextArea.setText(this.controller.updateViewCatalog());
             }
             catch(Exception e) {
                 displayTextArea.setText("Error: \n" + e.getMessage()); 

@@ -28,6 +28,8 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.Objects;
 import java.sql.Connection;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
@@ -111,7 +113,16 @@ public class Book {
      */
     @Override
     public String toString() {
-        return String.format("%-10s : %s\n", "SN", bookSN);
+        if (MainMenuForm.language.equals("English")) {
+           ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+            return String.format("%-10s : %s\n", resourceBundle.getString("key5"), bookSN);
+        }
+
+        else {
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+            return String.format("%-10s : %s\n", resourceBundle.getString("key5"), bookSN);
+        }
+ 
     }
 
     /**
@@ -249,24 +260,54 @@ public class Book {
      * @return a map of issued/borrowed books(sorted SN) in the library
      */
     public Map<String, String> viewIssuedBooks() throws Exception { 
-        Map<String, String> map = new TreeMap<>((String s1, String s2) -> (s1.compareTo(s2)));
+       Map<String, String> map = new TreeMap<>((String s1, String s2) -> (s1.compareTo(s2)));
         String query = "SELECT * FROM ISSUEDBOOK";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(query);
-
+        ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
         while (rs.next()) {
             //getting the key -> book sn
             String key = rs.getString("BookSN");
-            String value = "Student ID: " + rs.getString("StudentID") + "\n" 
-                    + "Student Name: " + rs.getString("StudentName") 
-                    + "\n" + "Student Contact: " + rs.getString("StudentContact") 
-                    + "\n" + "Issued Date: " + rs.getString("IssuedDate") + "\n";
+            String value = res.getString("key11") + rs.getString("StudentID") + "\n" 
+                    + res.getString("key30") + rs.getString("StudentName") 
+                    + "\n" + res.getString("key31") + rs.getString("StudentContact") 
+                    + "\n" + res.getString("key32") + rs.getString("IssuedDate") + "\n";
+            
 
             //inserting into map
             map.put(key, value);
         }
         if (map.isEmpty())
-            throw new Exception("No books have been issued");
+            throw new Exception(res.getString("key32"));
+        
+        return map;
+    }
+    
+    /**
+     * Retrieves all data from IssuedBooks table and returns them as a Map. The
+     * map is sorted by “SN”.
+     * @return a map of issued/borrowed books(sorted SN) in the library
+     */
+    public Map<String, String> viewIssuedBooksFrench() throws Exception { 
+        Map<String, String> map = new TreeMap<>((String s1, String s2) -> (s1.compareTo(s2)));
+        String query = "SELECT * FROM ISSUEDBOOK";
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(query);
+        ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+        while (rs.next()) {
+            //getting the key -> book sn
+            String key = rs.getString("BookSN");
+            String value = res.getString("key11") + rs.getString("StudentID") + "\n" 
+                    + res.getString("key30") + rs.getString("StudentName") 
+                    + "\n" + res.getString("key31") + rs.getString("StudentContact") 
+                    + "\n" + res.getString("key32") + rs.getString("IssuedDate") + "\n";
+            
+
+            //inserting into map
+            map.put(key, value);
+        }
+        if (map.isEmpty())
+            throw new Exception(res.getString("key32"));
         
         return map;
     }

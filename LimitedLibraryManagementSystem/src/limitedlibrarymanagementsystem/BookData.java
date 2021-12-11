@@ -22,7 +22,9 @@
 package limitedlibrarymanagementsystem;
 
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 /**
  * Contains Data for Book objects
@@ -124,18 +126,45 @@ public class BookData {
     @Override
     public String toString() {
         String str = "";
-
-        str += String.format("%-10s : %s\n", "Title", title);
-        str += String.format("%-10s : %s\n", "Author", author);
-        str += String.format("%-10s : %s\n", "Publisher", publisher);
-        str += String.format("%-10s : $%.2f\n", "Price", price);
-        str += String.format("%-10s : %d\n", "Quantity", bookQuantity);
-        str += String.format("%-10s : %d\n", "Issued Quantity", issuedQuantity);
-        str += String.format("%-10s : %s\n", "Date of Purchase", addedDate.toString());
+        if (MainMenuForm.language.equals("French")) 
+            str = toStringFrench();
+        if (MainMenuForm.language.equals("English")) 
+            str = toStringEnglish();
+        return str;
+    }
+    
+    public String toStringFrench() {
+        ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+        String str = "";
+        res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+        str += String.format("%-10s  %s\n", res.getString("key7"), title);
+        str += String.format("%-10s  %s\n", res.getString("key6"), author);
+        str += String.format("%-10s  %s\n", res.getString("key18"), publisher);
+        str += String.format("%-10s  $%.2f\n", res.getString("key8"), price);
+        str += String.format("%-10s  %d\n", res.getString("key3"), bookQuantity);
+        str += String.format("%-10s  %d\n", res.getString("key36"), issuedQuantity);
+        str += String.format("%-10s  %s\n", res.getString("key37"), addedDate.toString());
+        
 
         return str;
     }
 
+   
+    public String toStringEnglish() {
+        String str = "";
+        ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+
+        str += String.format("%-10s  %s\n", res.getString("key7"), title);
+        str += String.format("%-10s  %s\n", res.getString("key6"), author);
+        str += String.format("%-10s  %s\n", res.getString("key18"), publisher);
+        str += String.format("%-10s  $%.2f\n", res.getString("key8"), price);
+        str += String.format("%-10s  %d\n", res.getString("key3"), bookQuantity);
+        str += String.format("%-10s  %d\n", res.getString("key36"), issuedQuantity);
+        str += String.format("%-10s  %s\n", res.getString("key37"), addedDate.toString());
+        
+        return str;
+    }
+    
     // getters and setters
     /**
      * Getter of the book title

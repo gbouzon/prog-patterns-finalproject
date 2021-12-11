@@ -40,7 +40,7 @@
                   <Group type="102" attributes="0">
                       <Component id="librarianTaskPanel" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                      <Component id="mainPanel" pref="438" max="32767" attributes="0"/>
+                      <Component id="mainPanel" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
                       <Component id="displayScrollPanel" pref="449" max="32767" attributes="0"/>
                   </Group>
