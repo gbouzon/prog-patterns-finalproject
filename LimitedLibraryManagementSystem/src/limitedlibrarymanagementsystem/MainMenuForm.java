@@ -147,7 +147,6 @@ public class MainMenuForm extends javax.swing.JFrame {
             language = "French";
         }
     }//GEN-LAST:event_languageComboBoxActionPerformed
-    
 
     /**
      * @param args the command line arguments

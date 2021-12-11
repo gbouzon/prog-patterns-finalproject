@@ -21,6 +21,8 @@
 
 package limitedlibrarymanagementsystem;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Objects;
@@ -134,30 +136,31 @@ public class BookData {
     public String toStringFrench() {
         String str = "";
         ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
-        str += String.format("%-10s  %s\n", res.getString("key7"), title);
-        str += String.format("%-10s  %s\n", res.getString("key6"), author);
-        str += String.format("%-10s  %s\n", res.getString("key18"), publisher);
-        str += String.format("%-10s  $%.2f\n", res.getString("key8"), price);
-        str += String.format("%-10s  %d\n", res.getString("key3"), bookQuantity);
-        str += String.format("%-10s  %d\n", res.getString("key36"), issuedQuantity);
-        str += String.format("%-10s  %s\n", res.getString("key37"), addedDate.toString());
-        
+        NumberFormat currencyForm = NumberFormat.getCurrencyInstance(Locale.CANADA_FRENCH);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd MM yy hh:mm:ss", Locale.CANADA_FRENCH);
+        str += String.format("%-10s %s\n", res.getString("key7"), title);
+        str += String.format("%-10s %s\n", res.getString("key6"), author);
+        str += String.format("%-10s %s\n", res.getString("key18"), publisher);
+        str += String.format("%-10s %s\n", res.getString("key8"), currencyForm.format(price));
+        str += String.format("%-10s %d\n", res.getString("key3"), bookQuantity);
+        str += String.format("%-10s %d\n", res.getString("key36"), issuedQuantity);
+        str += String.format("%-10s %s\n", res.getString("key37"), sdf.format(addedDate));
 
         return str;
     }
 
-   
     public String toStringEnglish() {
         String str = "";
         ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
-
-        str += String.format("%-10s  %s\n", res.getString("key7"), title);
-        str += String.format("%-10s  %s\n", res.getString("key6"), author);
-        str += String.format("%-10s  %s\n", res.getString("key18"), publisher);
-        str += String.format("%-10s  $%.2f\n", res.getString("key8"), price);
-        str += String.format("%-10s  %d\n", res.getString("key3"), bookQuantity);
-        str += String.format("%-10s  %d\n", res.getString("key36"), issuedQuantity);
-        str += String.format("%-10s  %s\n", res.getString("key37"), addedDate.toString());
+        NumberFormat currencyForm = NumberFormat.getCurrencyInstance(Locale.CANADA);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd MM yy hh:mm:ss", Locale.CANADA);
+        str += String.format("%-10s %s\n", res.getString("key7"), title);
+        str += String.format("%-10s %s\n", res.getString("key6"), author);
+        str += String.format("%-10s %s\n", res.getString("key18"), publisher);
+        str += String.format("%-10s %s\n", res.getString("key8"), currencyForm.format(price));
+        str += String.format("%-10s %d\n", res.getString("key3"), bookQuantity);
+        str += String.format("%-10s %d\n", res.getString("key36"), issuedQuantity);
+        str += String.format("%-10s %s\n", res.getString("key37"), sdf.format(addedDate));
         
         return str;
     }

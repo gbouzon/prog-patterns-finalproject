@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2021 Chilka Castro, Giuliana Bouzon.
+ * Copyright 2021 Chilka Castro.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,38 +21,51 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package limitedlibrarymanagementsystem;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
-
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
- * JUnit Test class to test DBController class (MVC Controller)
- * As required per final project problem statement 
- * Final Project for Programming Patterns course - Fall 2021.
- * @author Chilka Castro, Giuliana Bouzon
+ *
+ * @author Chilka Castro
  */
 public class DBControllerTest {
-    
-    public DBControllerTest() {
+       private final Connection connection;
+
+    public DBControllerTest() throws Exception {
+        this.connection = DBConnection.getSingleInstance();
     }
     
-    
+
+
     /**
      * Test of addBook method, of class DBController.
      */
     @Test
     public void testAddBook() throws Exception {
-        System.out.println("addBook");
-        Book book = null;
-        DBController instance = null;
-        instance.addBook(book);
-        // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+        Book book = new Book("123456789", new BookData("A Test Book", "Test Author", "Penguin", 8, 18.29, 0, LocalDate.now())); 
+        DBController controller = new DBController(new View());
+        controller.addBook(book);
+        
+        String query = "SELECT * FROM BOOK WHERE SN =" + "'" + book.getBookSN() + "';";
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(query);
+        String sn = "";
+        
+        while (rs.next()) 
+            sn = rs.getString("SN");
+    
     }
 
     /**
@@ -68,7 +81,7 @@ public class DBControllerTest {
         boolean result = instance.issueBook(book, student);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-       // fail("The test case is a prototype.");
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -84,7 +97,7 @@ public class DBControllerTest {
         boolean result = instance.returnBook(book, student);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-     //   fail("The test case is a prototype.");
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -93,11 +106,11 @@ public class DBControllerTest {
     @Test
     public void testViewCatalog() throws Exception {
         System.out.println("viewCatalog");
-        DBController instance = null;
         Map<String, String> expResult = null;
-        Map<String, String> result = instance.viewCatalog();
+        Map<String, String> result = DBController.viewCatalog();
         assertEquals(expResult, result);
-  
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -109,7 +122,8 @@ public class DBControllerTest {
         Map<String, String> expResult = null;
         Map<String, String> result = DBController.viewIssuedBooks();
         assertEquals(expResult, result);
-
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -122,8 +136,8 @@ public class DBControllerTest {
         String expResult = "";
         String result = instance.updateViewIssuedTable();
         assertEquals(expResult, result);
- 
-   
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -136,7 +150,22 @@ public class DBControllerTest {
         String expResult = "";
         String result = instance.updateViewCatalog();
         assertEquals(expResult, result);
-   
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of updateViewCatalogFrench method, of class DBController.
+     */
+    @Test
+    public void testUpdateViewCatalogFrench() throws Exception {
+        System.out.println("updateViewCatalogFrench");
+        DBController instance = null;
+        String expResult = "";
+        String result = instance.updateViewCatalogFrench();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -150,7 +179,8 @@ public class DBControllerTest {
         List<Book> expResult = null;
         List<Book> result = instance.searchBookByTitle(title);
         assertEquals(expResult, result);
-    
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -164,7 +194,8 @@ public class DBControllerTest {
         List<Book> expResult = null;
         List<Book> result = instance.searchBookByAuthorName(authorName);
         assertEquals(expResult, result);
-      
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -178,7 +209,8 @@ public class DBControllerTest {
         List<Book> expResult = null;
         List<Book> result = instance.searchBookByPublisher(publisher);
         assertEquals(expResult, result);
- 
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -192,7 +224,8 @@ public class DBControllerTest {
         Boolean expResult = null;
         Boolean result = instance.borrow(book);
         assertEquals(expResult, result);
-
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -206,7 +239,8 @@ public class DBControllerTest {
         Boolean expResult = null;
         Boolean result = instance.toReturn(book);
         assertEquals(expResult, result);
-     
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
@@ -220,7 +254,8 @@ public class DBControllerTest {
         String expResult = "";
         String result = instance.updateViewBookList(books);
         assertEquals(expResult, result);
-    
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
     
 }

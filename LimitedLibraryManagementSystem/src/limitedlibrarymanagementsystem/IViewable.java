@@ -26,8 +26,10 @@ package limitedlibrarymanagementsystem;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -67,7 +69,8 @@ public interface IViewable {
 	    LocalDate date = LocalDate.parse(rs.getString("AddedDate"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
    
 	    //creating object
-	    BookData bvalue = new BookData(title, author, publisher, quantity, price, issuedQuantity, date);
+            BookData bvalue = new BookData(title, author, publisher, quantity, price, issuedQuantity, date);
+            
             String value = bvalue.toString();
 	    //inserting into map
 	    map.put(key, value);
@@ -76,4 +79,5 @@ public interface IViewable {
             throw new Exception("No books found");
 	return map;
     }
+
 }

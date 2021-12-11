@@ -77,7 +77,7 @@ public class View {
         ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA);
 	String str = res.getString("key35") + "\n\n";
 	for (Map.Entry<String, String> entry : map.entrySet()) {
-	    str += String.format("%s : %s\n", res.getString("key5"), entry.getKey());
+	    str += String.format("%s %s\n", res.getString("key5"), entry.getKey());
 	    str += entry.getValue() + "\n";
 	}
 	return str;
@@ -92,7 +92,7 @@ public class View {
         ResourceBundle res = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
 	String str = res.getString("key35") + "\n\n";
 	for (Map.Entry<String, String> entry : map.entrySet()) {
-	    str += String.format("%s : %s\n", res.getString("key5"), entry.getKey());
+	    str += String.format("%s %s\n", res.getString("key5"), entry.getKey());
 	    str += entry.getValue() + "\n";
 	}
 	return str;
