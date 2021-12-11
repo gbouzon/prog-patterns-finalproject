@@ -49,7 +49,7 @@ public class View {
             str += res.getString("key5") + entry.getKey() + "\n";
 	    str += entry.getValue() + "\n";
         }
-        return str +"test4";
+        return str;
     }
  
     /**
@@ -65,7 +65,7 @@ public class View {
             str += res.getString("key5") + entry.getKey() + "\n";
 	    str += entry.getValue() + "\n";
         }
-        return str + "test1";
+        return str;
     }
 
     /**
@@ -80,7 +80,7 @@ public class View {
 	    str += String.format("%s : %s\n", res.getString("key5"), entry.getKey());
 	    str += entry.getValue() + "\n";
 	}
-	return str + "test2";
+	return str;
     }
     
     /**
@@ -95,7 +95,7 @@ public class View {
 	    str += String.format("%s : %s\n", res.getString("key5"), entry.getKey());
 	    str += entry.getValue() + "\n";
 	}
-	return str + "test3";
+	return str;
     }
     
     /**
