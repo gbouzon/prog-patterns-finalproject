@@ -28,7 +28,6 @@ import java.time.LocalDate;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.SpinnerNumberModel;
-import static limitedlibrarymanagementsystem.MainMenuForm.language;
 
 /**
  * Form for Librarian Menu
@@ -40,16 +39,16 @@ public class LibrarianForm extends javax.swing.JFrame {
     
     //properties
     private DBController controller;
-    
+    private MainMenuForm mainMenuForm;
 
 
     /**
      * Creates new form LibrarianForm
      */
-    public LibrarianForm() {
+    public LibrarianForm(MainMenuForm mainMenuForm) {
         initComponents();
         changePanel();
-  
+        this.mainMenuForm = mainMenuForm;
         SpinnerNumberModel model = new SpinnerNumberModel(0, 0, 300, 1);
         quantitySpinner.setModel(model); //allows for values to go up to 300
          try {
@@ -59,17 +58,16 @@ public class LibrarianForm extends javax.swing.JFrame {
             displayTextArea.setText("Error: " + e.getMessage());
         }
          
-        if (MainMenuForm.language.equalsIgnoreCase("English")) {
-            changeLanguageComponentsEnglish();
-            
-        }
-        if (MainMenuForm.language.equalsIgnoreCase("French")) {
-            changeLanguageComponentsFrench();
-            
+        if (MainMenuForm.language.equals("English")) {
+            changeToEnglish();
         }
         
-       
+        if (MainMenuForm.language.equals("French")) {
+            changeToFrench();
+        }
+         
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -120,32 +118,32 @@ public class LibrarianForm extends javax.swing.JFrame {
 
         issueReturnBookPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        bookSNLabel1.setText(null);
+        bookSNLabel1.setText("Book SN :");
 
-        enterButton1.setText(null);
+        enterButton1.setText("ENTER");
         enterButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enterButton1ActionPerformed(evt);
             }
         });
 
-        studentIDLabel.setText(null);
+        studentIDLabel.setText("StudentID:");
 
         addBookPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        bookSNLabel.setText(null);
+        bookSNLabel.setText("Book SN :");
 
-        priceLabel.setText(null);
+        priceLabel.setText("Price");
 
-        titleLabel.setText(null);
+        titleLabel.setText("Title :");
 
-        authorLabel.setText(null);
+        authorLabel.setText("Author");
 
-        quantityLabel.setText(null);
+        quantityLabel.setText("Quantity");
 
-        publisherLabel.setText(null);
+        publisherLabel.setText("Publisher");
 
-        enterButton2.setText(null);
+        enterButton2.setText("Add");
         enterButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 enterButton2ActionPerformed(evt);
@@ -164,33 +162,28 @@ public class LibrarianForm extends javax.swing.JFrame {
                             .addComponent(authorLabel)
                             .addComponent(publisherLabel)
                             .addComponent(quantityLabel))
+                        .addGap(45, 45, 45)
                         .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(publisherTF, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(authorTF)
                             .addGroup(addBookPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
                                 .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 289, Short.MAX_VALUE))
-                            .addGroup(addBookPanelLayout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(publisherTF)
-                                    .addComponent(authorTF)))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(addBookPanelLayout.createSequentialGroup()
                         .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(priceLabel)
-                            .addComponent(bookSNLabel))
-                        .addGap(12, 12, 12)
-                        .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(priceTF)
-                            .addComponent(bookSNTF)))
-                    .addGroup(addBookPanelLayout.createSequentialGroup()
-                        .addComponent(titleLabel)
-                        .addGap(35, 35, 35)
-                        .addComponent(titleTF)))
+                            .addComponent(bookSNLabel)
+                            .addComponent(titleLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addGroup(addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(titleTF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                            .addComponent(bookSNTF, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(priceTF))))
                 .addContainerGap())
             .addGroup(addBookPanelLayout.createSequentialGroup()
                 .addGap(150, 150, 150)
-                .addComponent(enterButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addComponent(enterButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addGap(157, 157, 157))
         );
         addBookPanelLayout.setVerticalGroup(
             addBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,7 +245,7 @@ public class LibrarianForm extends javax.swing.JFrame {
             issueReturnBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(issueReturnBookPanelLayout.createSequentialGroup()
                 .addComponent(addBookPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(29, 29, 29)
                 .addGroup(issueReturnBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bookSNLabel1)
                     .addComponent(bookSNTF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -260,9 +253,9 @@ public class LibrarianForm extends javax.swing.JFrame {
                 .addGroup(issueReturnBookPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(studentIDLabel)
                     .addComponent(studentIDTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
                 .addComponent(enterButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         mainPanel.add(issueReturnBookPanel, "card2");
@@ -271,7 +264,7 @@ public class LibrarianForm extends javax.swing.JFrame {
 
         LibrarianTasksBG.add(addBookRB);
         addBookRB.setSelected(true);
-        addBookRB.setText(null);
+        addBookRB.setText("Add Book");
         addBookRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBookRBActionPerformed(evt);
@@ -279,7 +272,7 @@ public class LibrarianForm extends javax.swing.JFrame {
         });
 
         LibrarianTasksBG.add(issueBookRB);
-        issueBookRB.setText(null);
+        issueBookRB.setText("Issue Book");
         issueBookRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 issueBookRBActionPerformed(evt);
@@ -287,7 +280,7 @@ public class LibrarianForm extends javax.swing.JFrame {
         });
 
         LibrarianTasksBG.add(viewCatalogRB);
-        viewCatalogRB.setText(null);
+        viewCatalogRB.setText("View Catalog");
         viewCatalogRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewCatalogRBActionPerformed(evt);
@@ -295,7 +288,7 @@ public class LibrarianForm extends javax.swing.JFrame {
         });
 
         LibrarianTasksBG.add(returnBookRB);
-        returnBookRB.setText(null);
+        returnBookRB.setText("Return a Book");
         returnBookRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 returnBookRBActionPerformed(evt);
@@ -303,7 +296,7 @@ public class LibrarianForm extends javax.swing.JFrame {
         });
 
         LibrarianTasksBG.add(viewIssuedBooksRB);
-        viewIssuedBooksRB.setText(null);
+        viewIssuedBooksRB.setText("View Issued Books");
         viewIssuedBooksRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewIssuedBooksRBActionPerformed(evt);
@@ -322,7 +315,7 @@ public class LibrarianForm extends javax.swing.JFrame {
                     .addComponent(issueBookRB)
                     .addComponent(viewCatalogRB)
                     .addComponent(returnBookRB))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         librarianTaskPanelLayout.setVerticalGroup(
             librarianTaskPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,7 +341,7 @@ public class LibrarianForm extends javax.swing.JFrame {
         taskLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         backToMainMenuButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        backToMainMenuButton.setText(null);
+        backToMainMenuButton.setText("Back to Main Menu");
         backToMainMenuButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backToMainMenuButtonActionPerformed(evt);
@@ -356,124 +349,173 @@ public class LibrarianForm extends javax.swing.JFrame {
         });
 
         librarianLabel.setFont(new java.awt.Font("Candara", 1, 24)); // NOI18N
+        librarianLabel.setText("LIBRARIAN");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(librarianTaskPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(displayScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(librarianLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(195, 195, 195)
+                        .addComponent(taskLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                        .addGap(200, 200, 200)
+                        .addComponent(backToMainMenuButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(librarianLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(taskLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(230, 230, 230)
-                        .addComponent(backToMainMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addComponent(librarianTaskPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(49, 49, 49)
+                        .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                        .addGap(89, 89, 89)
+                        .addComponent(displayScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)))
+                .addGap(83, 83, 83))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(taskLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(backToMainMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(librarianLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(librarianLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(backToMainMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(taskLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(displayScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(librarianTaskPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35))
+                    .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(displayScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    public void changeLanguageComponentsEnglish() {
-        ResourceBundle res = ResourceBundle.getBundle("source//Bundle", Locale.CANADA);    
-        publisherLabel.setText(res.getString("LibrarianForm.publisherLabel.text"));
-        quantityLabel.setText(res.getString("LibrarianForm.quantity.text"));
-        enterButton1.setText(res.getString("LibrarianForm.enterButton1.text"));     
-        bookSNLabel.setText(res.getString("LibrarianForm.bookSNLabel1.text"));
-        authorLabel.setText(res.getString("LibrarianForm.authorLabel.text"));
-        librarianLabel.setText(res.getString("LibrarianForm.titleLabel.text"));
-        priceLabel.setText(res.getString("LibrarianForm.priceLabel.text"));
-        librarianLabel.setText(res.getString("LibrarianForm.librarianLabel.text"));
-        backToMainMenuButton.setText(res.getString("LibrarianForm.backToMainMenuButton.text"));
-        bookSNLabel.setText(res.getString("LibrarianForm.bookSNLabel.text"));
-        studentIDLabel.setText(res.getString("LibrarianForm.studentIDLabel.text"));
-        viewIssuedBooksRB.setText(res.getString("LibrarianForm.viewIssuedBooksRB.text"));
-        returnBookRB.setText(res.getString("LibrarianForm.returnBookRB.text"));
-        viewCatalogRB.setText(res.getString("LibrarianForm.viewCatalogRB.text"));
-        issueBookRB.setText(res.getString("LibrarianForm.issueBookRB.text"));
-        addBookRB.setText(res.getString("LibrarianForm.addBookRB.text"));
-        enterButton2.setText(res.getString("LibrarianForm.enterButton2.text"));     
-    
+
+    private void changeToEnglish() { 
+//        Locale locale = new Locale("en", "CA");
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                Locale.CANADA);
+        quantityLabel.setText(resourceBundle.getString("key3"));
+        enterButton1.setText(resourceBundle.getString("key4"));
+        bookSNLabel.setText(resourceBundle.getString("key5"));
+        bookSNLabel1.setText(resourceBundle.getString("key5"));
+        authorLabel.setText(resourceBundle.getString("key6"));
+        titleLabel.setText(resourceBundle.getString("key7"));
+        priceLabel.setText(resourceBundle.getString("key8"));
+        librarianLabel.setText(resourceBundle.getString("key9"));
+        backToMainMenuButton.setText(resourceBundle.getString("key10"));
+        viewCatalogRB.setText(resourceBundle.getString("key14"));
+        addBookRB.setText(resourceBundle.getString("key16"));
+        enterButton2.setText(resourceBundle.getString("key17")); 
+        publisherLabel.setText(resourceBundle.getString("key18")); 
+        issueBookRB.setText(resourceBundle.getString("key15")); 
+        returnBookRB.setText(resourceBundle.getString("key19"));   
+        studentIDLabel.setText(resourceBundle.getString("key11"));
+        viewIssuedBooksRB.setText(resourceBundle.getString("key12"));
+        
     }
+    private void changeToFrench() {
+//        Locale locale = new Locale("fr", "CA");
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                Locale.CANADA_FRENCH);
+        quantityLabel.setText(resourceBundle.getString("key3"));
+        enterButton1.setText(resourceBundle.getString("key4"));
+        bookSNLabel.setText(resourceBundle.getString("key5"));
+        bookSNLabel1.setText(resourceBundle.getString("key5"));
+        authorLabel.setText(resourceBundle.getString("key6"));
+        titleLabel.setText(resourceBundle.getString("key7"));
+        priceLabel.setText(resourceBundle.getString("key8"));
+        librarianLabel.setText(resourceBundle.getString("key9"));
+        backToMainMenuButton.setText(resourceBundle.getString("key10"));
+        viewCatalogRB.setText(resourceBundle.getString("key14"));
+        addBookRB.setText(resourceBundle.getString("key16"));
+        enterButton2.setText(resourceBundle.getString("key17")); 
+        publisherLabel.setText(resourceBundle.getString("key18")); 
+        issueBookRB.setText(resourceBundle.getString("key15")); 
+        returnBookRB.setText(resourceBundle.getString("key19"));   
+        studentIDLabel.setText(resourceBundle.getString("key11"));
+        viewIssuedBooksRB.setText(resourceBundle.getString("key12"));
 
-    public void changeLanguageComponentsFrench() {
-        ResourceBundle res = ResourceBundle.getBundle("source//Bundle", Locale.CANADA_FRENCH);    
-        publisherLabel.setText(res.getString("LibrarianForm.publisherLabel.text"));
-        quantityLabel.setText(res.getString("LibrarianForm.quantity.text"));
-        enterButton1.setText(res.getString("LibrarianForm.enterButton1.text"));     
-        bookSNLabel.setText(res.getString("LibrarianForm.bookSNLabel1.text"));
-        authorLabel.setText(res.getString("LibrarianForm.authorLabel.text"));
-        librarianLabel.setText(res.getString("LibrarianForm.titleLabel.text"));
-        priceLabel.setText(res.getString("LibrarianForm.priceLabel.text"));
-        librarianLabel.setText(res.getString("LibrarianForm.librarianLabel.text"));
-        backToMainMenuButton.setText(res.getString("LibrarianForm.backToMainMenuButton.text"));
-        bookSNLabel.setText(res.getString("LibrarianForm.bookSNLabel.text"));
-        studentIDLabel.setText(res.getString("LibrarianForm.studentIDLabel.text"));
-        viewIssuedBooksRB.setText(res.getString("LibrarianForm.viewIssuedBooksRB.text"));
-        returnBookRB.setText(res.getString("LibrarianForm.returnBookRB.text"));
-        viewCatalogRB.setText(res.getString("LibrarianForm.viewCatalogRB.text"));
-        issueBookRB.setText(res.getString("LibrarianForm.issueBookRB.text"));
-        addBookRB.setText(res.getString("LibrarianForm.addBookRB.text"));
-        enterButton2.setText(res.getString("LibrarianForm.enterButton2.text"));     
-    } 
-   
-
+    }
+    
     private void addBookRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookRBActionPerformed
         changePanel();
-        taskLabel.setText("Add Book");
+        if (MainMenuForm.language.equals("English")) {
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                Locale.CANADA);
+            taskLabel.setText(resourceBundle.getString("key16"));
+        }
+        
+        if (MainMenuForm.language.equals("French")) {
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                Locale.CANADA_FRENCH);
+            taskLabel.setText(resourceBundle.getString("key16"));
+        }
     }//GEN-LAST:event_addBookRBActionPerformed
 
     private void issueBookRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_issueBookRBActionPerformed
         changePanel();
-        taskLabel.setText("Issue Book");
+        if (MainMenuForm.language.equals("English")) {
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                Locale.CANADA);
+            taskLabel.setText(resourceBundle.getString("key15"));
+        }
+        
+        if (MainMenuForm.language.equals("French")) {
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                Locale.CANADA_FRENCH);
+            taskLabel.setText(resourceBundle.getString("key15"));
+        }
     }//GEN-LAST:event_issueBookRBActionPerformed
 
     private void viewCatalogRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCatalogRBActionPerformed
         changePanel();
-        taskLabel.setText("View Catalog");
+        if (MainMenuForm.language.equals("English")) {
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                Locale.CANADA);
+            taskLabel.setText(resourceBundle.getString("key14"));
+        }
+        
+        if (MainMenuForm.language.equals("French")) {
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                Locale.CANADA_FRENCH);
+            taskLabel.setText(resourceBundle.getString("key14"));
+        }
     }//GEN-LAST:event_viewCatalogRBActionPerformed
 
     private void returnBookRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnBookRBActionPerformed
         changePanel();
-        taskLabel.setText("Return Book");
+        if (MainMenuForm.language.equals("English")) {
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                Locale.CANADA);
+            taskLabel.setText(resourceBundle.getString("key13"));
+        }
+        
+        if (MainMenuForm.language.equals("French")) {
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                Locale.CANADA_FRENCH);
+            taskLabel.setText(resourceBundle.getString("key13"));
+        }
     }//GEN-LAST:event_returnBookRBActionPerformed
 
     private void viewIssuedBooksRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewIssuedBooksRBActionPerformed
         changePanel();
-        taskLabel.setText("View Issued Books");
+        if (MainMenuForm.language.equals("English")) {
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",  
+                    Locale.CANADA);
+            taskLabel.setText(resourceBundle.getString("key12"));
+        }
+        
+        if (MainMenuForm.language.equals("French")) {
+            ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
+                    Locale.CANADA_FRENCH);
+            taskLabel.setText(resourceBundle.getString("key12"));
+        }
     }//GEN-LAST:event_viewIssuedBooksRBActionPerformed
 
     private void backToMainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuButtonActionPerformed
-        MainMenuForm mainMenuForm = new MainMenuForm();
         mainMenuForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backToMainMenuButtonActionPerformed
@@ -502,6 +544,7 @@ public class LibrarianForm extends javax.swing.JFrame {
                 Book book = new Book(SN, new BookData()); //bookdata can be empty because issuebook method only checks book SN
                 Student student = new Student(studentID, new StudentData()); //same with studentData
                 this.controller.returnBook(book, student);
+                
                 displayTextArea.setText("Book successfully returned!"); 
             }
             catch(Exception e){
@@ -524,10 +567,32 @@ public class LibrarianForm extends javax.swing.JFrame {
             Book book = new Book(SN, new BookData(title, author, publisher, bookQuantity,
                                 price, 0, LocalDate.now()));
             this.controller.addBook(book);
-            displayTextArea.setText("Book successfully added!"); 
+            if (MainMenuForm.language.equals("English")) {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                Locale.CANADA);
+                displayTextArea.setText(resourceBundle.getString("key23")); 
+            }
+        
+            if (MainMenuForm.language.equals("French")) {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                Locale.CANADA_FRENCH);
+                displayTextArea.setText(resourceBundle.getString("key23")); 
+            }
+         
         }
         catch (Exception e) {
             displayTextArea.setText("Error: " + e.getMessage()); 
+            if (MainMenuForm.language.equals("English")) {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                Locale.CANADA);
+                displayTextArea.setText(resourceBundle.getString("key24")); 
+            }
+        
+            if (MainMenuForm.language.equals("French")) {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                Locale.CANADA_FRENCH);
+               displayTextArea.setText(resourceBundle.getString("key24")); 
+            }
         }
     }//GEN-LAST:event_enterButton2ActionPerformed
 
@@ -572,75 +637,77 @@ public class LibrarianForm extends javax.swing.JFrame {
         mainPanel.repaint();
         mainPanel.revalidate();
     }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LibrarianForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LibrarianForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LibrarianForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LibrarianForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LibrarianForm().setVisible(true);
-            }
-        });
-    }
+//
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(LibrarianForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(LibrarianForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(LibrarianForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(LibrarianForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new LibrarianForm().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    javax.swing.ButtonGroup LibrarianTasksBG;
-    javax.swing.JPanel addBookPanel;
-    javax.swing.JRadioButton addBookRB;
-    javax.swing.JLabel authorLabel;
-    javax.swing.JTextField authorTF;
-    javax.swing.JButton backToMainMenuButton;
-    javax.swing.JLabel bookSNLabel;
-    javax.swing.JLabel bookSNLabel1;
-    javax.swing.JTextField bookSNTF;
-    javax.swing.JTextField bookSNTF1;
-    javax.swing.JScrollPane displayScrollPanel;
-    javax.swing.JTextArea displayTextArea;
-    javax.swing.JButton enterButton1;
-    javax.swing.JButton enterButton2;
-    javax.swing.JRadioButton issueBookRB;
-    javax.swing.JPanel issueReturnBookPanel;
-    javax.swing.JLabel librarianLabel;
-    javax.swing.JPanel librarianTaskPanel;
-    javax.swing.JPanel mainPanel;
-    javax.swing.JLabel priceLabel;
-    javax.swing.JTextField priceTF;
-    javax.swing.JLabel publisherLabel;
-    javax.swing.JTextField publisherTF;
-    javax.swing.JLabel quantityLabel;
-    javax.swing.JSpinner quantitySpinner;
-    javax.swing.JRadioButton returnBookRB;
-    javax.swing.JLabel studentIDLabel;
-    javax.swing.JTextField studentIDTF;
-    javax.swing.JLabel taskLabel;
-    javax.swing.JLabel titleLabel;
-    javax.swing.JTextField titleTF;
-    javax.swing.JRadioButton viewCatalogRB;
-    javax.swing.JRadioButton viewIssuedBooksRB;
+    private javax.swing.ButtonGroup LibrarianTasksBG;
+    private javax.swing.JPanel addBookPanel;
+    private javax.swing.JRadioButton addBookRB;
+    private javax.swing.JLabel authorLabel;
+    private javax.swing.JTextField authorTF;
+    private javax.swing.JButton backToMainMenuButton;
+    private javax.swing.JLabel bookSNLabel;
+    private javax.swing.JLabel bookSNLabel1;
+    private javax.swing.JTextField bookSNTF;
+    private javax.swing.JTextField bookSNTF1;
+    private javax.swing.JScrollPane displayScrollPanel;
+    private javax.swing.JTextArea displayTextArea;
+    private javax.swing.JButton enterButton1;
+    private javax.swing.JButton enterButton2;
+    private javax.swing.JRadioButton issueBookRB;
+    private javax.swing.JPanel issueReturnBookPanel;
+    private javax.swing.JLabel librarianLabel;
+    private javax.swing.JPanel librarianTaskPanel;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JLabel priceLabel;
+    private javax.swing.JTextField priceTF;
+    private javax.swing.JLabel publisherLabel;
+    private javax.swing.JTextField publisherTF;
+    private javax.swing.JLabel quantityLabel;
+    private javax.swing.JSpinner quantitySpinner;
+    private javax.swing.JRadioButton returnBookRB;
+    private javax.swing.JLabel studentIDLabel;
+    private javax.swing.JTextField studentIDTF;
+    private javax.swing.JLabel taskLabel;
+    private javax.swing.JLabel titleLabel;
+    private javax.swing.JTextField titleTF;
+    private javax.swing.JRadioButton viewCatalogRB;
+    private javax.swing.JRadioButton viewIssuedBooksRB;
     // End of variables declaration//GEN-END:variables
+
+   
 }

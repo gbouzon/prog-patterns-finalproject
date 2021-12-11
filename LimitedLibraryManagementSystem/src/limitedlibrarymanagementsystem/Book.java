@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.sql.Connection;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 /**
  * Class to define Book objects.
@@ -42,6 +43,7 @@ public class Book {
     private String bookSN;
     private BookData data;
     private Connection connection;
+   
 
     /**
      * Default constructor

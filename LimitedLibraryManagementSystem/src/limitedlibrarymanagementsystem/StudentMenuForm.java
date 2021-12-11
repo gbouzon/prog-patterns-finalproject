@@ -25,6 +25,8 @@
 package limitedlibrarymanagementsystem;
 
 import java.sql.Connection;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * Form for Student Menu 
@@ -37,31 +39,34 @@ public class StudentMenuForm extends javax.swing.JFrame {
     //properties
     private Student student;
     private DBController controller;
+    private MainMenuForm mainMenuForm;
     
-    /**
-     * Creates new form StudentLoginForm
-     */
-    
-    public StudentMenuForm() {
-        initComponents();
-        searchTitleTF.setEnabled(Boolean.TRUE);
-        searchPublisherTF.setEnabled(Boolean.FALSE);
-        searchAuthorTF.setEnabled(Boolean.FALSE);
-        try {
-            this.student = new Student();
-            this.controller = new DBController(this.student, new View());
-        }
-        catch (Exception e) {
-            displayTA.setText("Error: " + e.getMessage());
-        }
-    }
+//    /**
+//     * Creates new form StudentLoginForm
+//     */
+//    
+//    public StudentMenuForm() {
+//        initComponents();
+//        this.mainMenuForm = mainMenuForm;
+//        searchTitleTF.setEnabled(Boolean.TRUE);
+//        searchPublisherTF.setEnabled(Boolean.FALSE);
+//        searchAuthorTF.setEnabled(Boolean.FALSE);
+//        try {
+//            this.student = new Student();
+//            this.controller = new DBController(this.student, new View());
+//        }
+//        catch (Exception e) {
+//            displayTA.setText("Error: " + e.getMessage());
+//        }
+//    }
    
     /**
      * Creates new form StudentLoginForm
      */
     
-    public StudentMenuForm(Student student) {
+    public StudentMenuForm(Student student, MainMenuForm mainMenuForm) {
         initComponents();
+        this.mainMenuForm = mainMenuForm;
         searchTitleTF.setEnabled(Boolean.TRUE);
         searchPublisherTF.setEnabled(Boolean.FALSE);
         searchAuthorTF.setEnabled(Boolean.FALSE);
@@ -71,6 +76,14 @@ public class StudentMenuForm extends javax.swing.JFrame {
         }
         catch (Exception e) {
             displayTA.setText("Error: " + e.getMessage());
+        }
+        
+        if (MainMenuForm.language.equals("English")) {
+            changeToEnglish();
+        }
+        
+        if (MainMenuForm.language.equals("French")) {
+            changeToFrench();
         }
     }
 
@@ -112,17 +125,16 @@ public class StudentMenuForm extends javax.swing.JFrame {
 
         borrowReturnPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("limitedlibrarymanagementsystem/Bundle"); // NOI18N
-        bookSNLabel.setText(bundle.getString("StudentMenuForm.bookSNLabel.text")); // NOI18N
+        bookSNLabel.setText("BookSN  :");
 
-        borrowButton.setText(bundle.getString("StudentMenuForm.borrowButton.text")); // NOI18N
+        borrowButton.setText("Borrow");
         borrowButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 borrowButtonActionPerformed(evt);
             }
         });
 
-        returnButton.setText(bundle.getString("StudentMenuForm.returnButton.text")); // NOI18N
+        returnButton.setText("Return");
         returnButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 returnButtonActionPerformed(evt);
@@ -135,15 +147,15 @@ public class StudentMenuForm extends javax.swing.JFrame {
             borrowReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(borrowReturnPanelLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
-                .addComponent(bookSNLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bookSNLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bookSNTF, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addComponent(bookSNTF, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                .addGap(62, 62, 62))
             .addGroup(borrowReturnPanelLayout.createSequentialGroup()
                 .addGap(79, 79, 79)
-                .addComponent(borrowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(borrowButton, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                .addGap(139, 139, 139)
+                .addComponent(returnButton, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
                 .addGap(85, 85, 85))
         );
         borrowReturnPanelLayout.setVerticalGroup(
@@ -164,7 +176,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
 
         searchBG.add(titleRB);
         titleRB.setSelected(true);
-        titleRB.setText(bundle.getString("StudentMenuForm.titleRB.text")); // NOI18N
+        titleRB.setText("Title:");
         titleRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 titleRBActionPerformed(evt);
@@ -172,7 +184,7 @@ public class StudentMenuForm extends javax.swing.JFrame {
         });
 
         searchBG.add(authorNameRB);
-        authorNameRB.setText(bundle.getString("StudentMenuForm.authorNameRB.text")); // NOI18N
+        authorNameRB.setText("Author");
         authorNameRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 authorNameRBActionPerformed(evt);
@@ -180,14 +192,14 @@ public class StudentMenuForm extends javax.swing.JFrame {
         });
 
         searchBG.add(publisherRB);
-        publisherRB.setText(bundle.getString("StudentMenuForm.publisherRB.text")); // NOI18N
+        publisherRB.setText("Publisher");
         publisherRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 publisherRBActionPerformed(evt);
             }
         });
 
-        searchButton.setText(bundle.getString("StudentMenuForm.searchButton.text")); // NOI18N
+        searchButton.setText("Search");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);
@@ -200,19 +212,19 @@ public class StudentMenuForm extends javax.swing.JFrame {
             searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchPanelLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(publisherRB)
-                    .addComponent(authorNameRB)
-                    .addComponent(titleRB))
-                .addGap(39, 39, 39)
-                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(searchTitleTF)
-                    .addComponent(searchAuthorTF)
-                    .addComponent(searchPublisherTF))
+                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(titleRB)
+                    .addComponent(authorNameRB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(publisherRB, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(searchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(searchTitleTF, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchPublisherTF, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchAuthorTF, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(211, 211, 211)
+                .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(196, 196, 196))
         );
         searchPanelLayout.setVerticalGroup(
@@ -235,14 +247,14 @@ public class StudentMenuForm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        viewCatalogButton.setText(bundle.getString("StudentMenuForm.viewCatalogButton.text")); // NOI18N
+        viewCatalogButton.setText("View Catalog");
         viewCatalogButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewCatalogButtonActionPerformed(evt);
             }
         });
 
-        logOutButton.setText(bundle.getString("StudentMenuForm.logOutButton.text")); // NOI18N
+        logOutButton.setText("Log Out");
         logOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logOutButtonActionPerformed(evt);
@@ -250,24 +262,24 @@ public class StudentMenuForm extends javax.swing.JFrame {
         });
 
         studentFormLabel.setFont(new java.awt.Font("Candara", 1, 36)); // NOI18N
-        studentFormLabel.setText(bundle.getString("StudentMenuForm.studentFormLabel.text")); // NOI18N
+        studentFormLabel.setText("STUDENT");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(viewCatalogButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(685, 685, 685)
+                .addComponent(viewCatalogButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addGap(159, 159, 159))
             .addGroup(layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(studentFormLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49))
+                        .addComponent(studentFormLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                        .addGap(586, 586, 586)
+                        .addComponent(logOutButton, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                        .addGap(83, 83, 83))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(borrowReturnPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -300,6 +312,39 @@ public class StudentMenuForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void changeToEnglish() {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                Locale.CANADA);
+        searchButton.setText(resourceBundle.getString("key28"));
+        bookSNLabel.setText(resourceBundle.getString("key5"));
+        authorNameRB.setText(resourceBundle.getString("key6"));
+        titleRB.setText(resourceBundle.getString("key7"));
+        logOutButton.setText(resourceBundle.getString("key25"));
+        viewCatalogButton.setText(resourceBundle.getString("key14"));
+        returnButton.setText(resourceBundle.getString("key27")); 
+        publisherRB.setText(resourceBundle.getString("key18")); 
+        studentFormLabel.setText(resourceBundle.getString("key29"));
+        borrowButton.setText(resourceBundle.getString("key26")); 
+
+    }
+    
+    private void changeToFrench() {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+                Locale.CANADA_FRENCH);
+        searchButton.setText(resourceBundle.getString("key28"));
+        bookSNLabel.setText(resourceBundle.getString("key5"));
+        authorNameRB.setText(resourceBundle.getString("key6"));
+        titleRB.setText(resourceBundle.getString("key7"));
+        logOutButton.setText(resourceBundle.getString("key25"));
+        viewCatalogButton.setText(resourceBundle.getString("key14"));
+        returnButton.setText(resourceBundle.getString("key27")); 
+        publisherRB.setText(resourceBundle.getString("key18")); 
+        studentFormLabel.setText(resourceBundle.getString("key29")); 
+        borrowButton.setText(resourceBundle.getString("key26")); 
+        
+    }
+    
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         if (titleRB.isSelected()) {
             searchAuthorTF.setText("");
@@ -360,7 +405,6 @@ public class StudentMenuForm extends javax.swing.JFrame {
     }//GEN-LAST:event_viewCatalogButtonActionPerformed
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
-        MainMenuForm mainMenuForm = new MainMenuForm();
         mainMenuForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_logOutButtonActionPerformed
@@ -415,43 +459,43 @@ public class StudentMenuForm extends javax.swing.JFrame {
         }   
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-       
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StudentMenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StudentMenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StudentMenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StudentMenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new StudentMenuForm().setVisible(true);
-            }
-        });
-    }
+////    /**
+////     * @param args the command line arguments
+////     */
+////    public static void main(String args[]) {
+////        /* Set the Nimbus look and feel */
+////       
+////        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+////        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+////         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+////         */
+////        try {
+////            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+////                if ("Nimbus".equals(info.getName())) {
+////                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+////                    break;
+////                }
+////            }
+////        } catch (ClassNotFoundException ex) {
+////            java.util.logging.Logger.getLogger(StudentMenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+////        } catch (InstantiationException ex) {
+////            java.util.logging.Logger.getLogger(StudentMenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+////        } catch (IllegalAccessException ex) {
+////            java.util.logging.Logger.getLogger(StudentMenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+////        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+////            java.util.logging.Logger.getLogger(StudentMenuForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+////        }
+////        //</editor-fold>
+////        //</editor-fold>
+////
+////        /* Create and display the form */
+////        java.awt.EventQueue.invokeLater(new Runnable() {
+////            @Override
+////            public void run() {
+////                new StudentMenuForm().setVisible(true);
+////            }
+////        });
+////    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton authorNameRB;
