@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package limitedlibrarymanagementsystem;
 
 import java.sql.Connection;
@@ -29,41 +28,21 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * Form for Student Menu 
- * As required per final project problem statement (GUI choice)
- * Final Project for Programming Patterns course - Fall 2021.
+ * Form for Student Menu As required per final project problem statement (GUI
+ * choice) Final Project for Programming Patterns course - Fall 2021.
+ *
  * @author Chilka Castro, Giuliana Bouzon
  */
 public class StudentMenuForm extends javax.swing.JFrame {
-    
+
     //properties
     private Student student;
     private DBController controller;
     private MainMenuForm mainMenuForm;
-    
-//    /**
-//     * Creates new form StudentLoginForm
-//     */
-//    
-//    public StudentMenuForm() {
-//        initComponents();
-//        this.mainMenuForm = mainMenuForm;
-//        searchTitleTF.setEnabled(Boolean.TRUE);
-//        searchPublisherTF.setEnabled(Boolean.FALSE);
-//        searchAuthorTF.setEnabled(Boolean.FALSE);
-//        try {
-//            this.student = new Student();
-//            this.controller = new DBController(this.student, new View());
-//        }
-//        catch (Exception e) {
-//            displayTA.setText("Error: " + e.getMessage());
-//        }
-//    }
-   
+
     /**
      * Creates new form StudentLoginForm
      */
-    
     public StudentMenuForm(Student student, MainMenuForm mainMenuForm) {
         initComponents();
         this.mainMenuForm = mainMenuForm;
@@ -73,18 +52,25 @@ public class StudentMenuForm extends javax.swing.JFrame {
         try {
             this.student = new Student(student);
             this.controller = new DBController(this.student, new View());
+        } catch (Exception e) {
+            if (MainMenuForm.language.equals("English")) {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                displayTA.setText(resourceBundle.getString("key24") + e.getMessage()); 
+            }
+            if (MainMenuForm.language.equals("French")) {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                displayTA.setText(resourceBundle.getString("key24") + e.getMessage()); 
+            }
         }
-        catch (Exception e) {
-            displayTA.setText("Error: " + e.getMessage());
-        }
-        
+
         if (MainMenuForm.language.equals("English")) {
             changeToEnglish();
         }
-        
+
         if (MainMenuForm.language.equals("French")) {
             changeToFrench();
         }
+
     }
 
     /**
@@ -312,9 +298,8 @@ public class StudentMenuForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     private void changeToEnglish() {
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
                 Locale.CANADA);
         searchButton.setText(resourceBundle.getString("key28"));
         bookSNLabel.setText(resourceBundle.getString("key5"));
@@ -322,15 +307,15 @@ public class StudentMenuForm extends javax.swing.JFrame {
         titleRB.setText(resourceBundle.getString("key7"));
         logOutButton.setText(resourceBundle.getString("key25"));
         viewCatalogButton.setText(resourceBundle.getString("key14"));
-        returnButton.setText(resourceBundle.getString("key27")); 
-        publisherRB.setText(resourceBundle.getString("key18")); 
+        returnButton.setText(resourceBundle.getString("key27"));
+        publisherRB.setText(resourceBundle.getString("key18"));
         studentFormLabel.setText(resourceBundle.getString("key29"));
-        borrowButton.setText(resourceBundle.getString("key26")); 
+        borrowButton.setText(resourceBundle.getString("key26"));
 
     }
-    
+
     private void changeToFrench() {
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", 
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source",
                 Locale.CANADA_FRENCH);
         searchButton.setText(resourceBundle.getString("key28"));
         bookSNLabel.setText(resourceBundle.getString("key5"));
@@ -338,47 +323,68 @@ public class StudentMenuForm extends javax.swing.JFrame {
         titleRB.setText(resourceBundle.getString("key7"));
         logOutButton.setText(resourceBundle.getString("key25"));
         viewCatalogButton.setText(resourceBundle.getString("key14"));
-        returnButton.setText(resourceBundle.getString("key27")); 
-        publisherRB.setText(resourceBundle.getString("key18")); 
-        studentFormLabel.setText(resourceBundle.getString("key29")); 
-        borrowButton.setText(resourceBundle.getString("key26")); 
-        
+        returnButton.setText(resourceBundle.getString("key27"));
+        publisherRB.setText(resourceBundle.getString("key18"));
+        studentFormLabel.setText(resourceBundle.getString("key29"));
+        borrowButton.setText(resourceBundle.getString("key26"));
+
     }
-    
+
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         if (titleRB.isSelected()) {
             searchAuthorTF.setText("");
             searchPublisherTF.setText("");
             try {
-                if (searchTitleTF.getText() != null && !searchTitleTF.getText().isEmpty())
+                if (searchTitleTF.getText() != null && !searchTitleTF.getText().isEmpty()) {
                     displayTA.setText(this.controller.updateViewBookList(this.controller.searchBookByTitle(searchTitleTF.getText())));
+                }
+            } catch (Exception e) {
+                if (MainMenuForm.language.equals("English")) {
+                    ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                    displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
+                }
+                if (MainMenuForm.language.equals("French")) {
+                    ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                    displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
+                }
             }
-            catch (Exception e) {
-                displayTA.setText("Error: " + e.getMessage());
-            } 
         }
-        
+
         if (authorNameRB.isSelected()) {
             searchTitleTF.setText("");
             searchPublisherTF.setText("");
             try {
-                if (searchAuthorTF.getText() != null && !searchAuthorTF.getText().isEmpty())
+                if (searchAuthorTF.getText() != null && !searchAuthorTF.getText().isEmpty()) {
                     displayTA.setText(this.controller.updateViewBookList(this.controller.searchBookByAuthorName(searchAuthorTF.getText())));
+                }
+            } catch (Exception e) {
+                if (MainMenuForm.language.equals("English")) {
+                    ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                    displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
+                }
+                if (MainMenuForm.language.equals("French")) {
+                    ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                    displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
+                }
             }
-            catch (Exception e) { 
-                displayTA.setText("Error: " + e.getMessage());
-            }
-        }
-        
-        if (publisherRB.isSelected()) { 
-            searchAuthorTF.setText("");
-            searchTitleTF.setText("");
-            try {
-                if (searchPublisherTF.getText() != null && !searchPublisherTF.getText().isEmpty())
-                    displayTA.setText(this.controller.updateViewBookList(this.controller.searchBookByPublisher(searchPublisherTF.getText())));
-            }
-            catch (Exception e) {
-                displayTA.setText("Error: " + e.getMessage());
+
+            if (publisherRB.isSelected()) {
+                searchAuthorTF.setText("");
+                searchTitleTF.setText("");
+                try {
+                    if (searchPublisherTF.getText() != null && !searchPublisherTF.getText().isEmpty()) {
+                        displayTA.setText(this.controller.updateViewBookList(this.controller.searchBookByPublisher(searchPublisherTF.getText())));
+                    }
+                } catch (Exception e) {
+                    if (MainMenuForm.language.equals("English")) {
+                        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA);
+                        displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
+                    }
+                    if (MainMenuForm.language.equals("French")) {
+                        ResourceBundle resourceBundle = ResourceBundle.getBundle("source/Source", Locale.CANADA_FRENCH);
+                        displayTA.setText(resourceBundle.getString("key24") + e.getMessage());
+                    }
+                }
             }
         }
     }//GEN-LAST:event_searchButtonActionPerformed
@@ -398,9 +404,8 @@ public class StudentMenuForm extends javax.swing.JFrame {
     private void viewCatalogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCatalogButtonActionPerformed
         try {
             displayTA.setText(this.controller.updateViewCatalog());
-        }
-        catch(Exception e) {
-           displayTA.setText("Error: " + e.getMessage()); 
+        } catch (Exception e) {
+            displayTA.setText("Error: " + e.getMessage());
         }
     }//GEN-LAST:event_viewCatalogButtonActionPerformed
 
@@ -414,10 +419,9 @@ public class StudentMenuForm extends javax.swing.JFrame {
         try {
             Book book = new Book(SN, new BookData()); //bookdata can be empty because borrow method only checks book SN
             this.student.borrow(book);
-            displayTA.setText("Book successfully borrowed!"); 
-        }
-        catch(Exception e){
-            displayTA.setText("Error: " + e.getMessage()); 
+            displayTA.setText("Book successfully borrowed!");
+        } catch (Exception e) {
+            displayTA.setText("Error: " + e.getMessage());
         }
     }//GEN-LAST:event_borrowButtonActionPerformed
 
@@ -426,39 +430,38 @@ public class StudentMenuForm extends javax.swing.JFrame {
         try {
             Book book = new Book(SN, new BookData()); //bookdata can be empty because borrow method only checks book SN
             this.student.toReturn(book);
-            displayTA.setText("Book successfully returned!"); 
-        }
-        catch(Exception e){
-            displayTA.setText("Error: " + e.getMessage()); 
+            displayTA.setText("Book successfully returned!");
+        } catch (Exception e) {
+            displayTA.setText("Error: " + e.getMessage());
         }
     }//GEN-LAST:event_returnButtonActionPerformed
 
     public void changeSearch() {
-         if (titleRB.isSelected()) {
-           searchAuthorTF.setText("");
-           searchPublisherTF.setText("");
-           searchTitleTF.setEnabled(Boolean.TRUE);
-           searchPublisherTF.setEnabled(Boolean.FALSE);
-           searchAuthorTF.setEnabled(Boolean.FALSE);
+        if (titleRB.isSelected()) {
+            searchAuthorTF.setText("");
+            searchPublisherTF.setText("");
+            searchTitleTF.setEnabled(Boolean.TRUE);
+            searchPublisherTF.setEnabled(Boolean.FALSE);
+            searchAuthorTF.setEnabled(Boolean.FALSE);
         }
-        
+
         if (publisherRB.isSelected()) {
-           searchAuthorTF.setText("");
-           searchTitleTF.setText("");
-           searchTitleTF.setEnabled(Boolean.FALSE);
-           searchPublisherTF.setEnabled(Boolean.TRUE);
-           searchAuthorTF.setEnabled(Boolean.FALSE);
+            searchAuthorTF.setText("");
+            searchTitleTF.setText("");
+            searchTitleTF.setEnabled(Boolean.FALSE);
+            searchPublisherTF.setEnabled(Boolean.TRUE);
+            searchAuthorTF.setEnabled(Boolean.FALSE);
         }
-        
+
         if (authorNameRB.isSelected()) {
-           searchPublisherTF.setText("");
-           searchTitleTF.setText("");
-           searchTitleTF.setEnabled(Boolean.FALSE);
-           searchPublisherTF.setEnabled(Boolean.FALSE);
-           searchAuthorTF.setEnabled(Boolean.TRUE);   
-        }   
+            searchPublisherTF.setText("");
+            searchTitleTF.setText("");
+            searchTitleTF.setEnabled(Boolean.FALSE);
+            searchPublisherTF.setEnabled(Boolean.FALSE);
+            searchAuthorTF.setEnabled(Boolean.TRUE);
+        }
     }
-    
+
 ////    /**
 ////     * @param args the command line arguments
 ////     */
